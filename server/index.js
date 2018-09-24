@@ -1,20 +1,31 @@
 const Koa = require('koa')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
+const {resolve} = require('path')
+const R = require('ramda')
+const r = (path) => {
+  return resolve(__dirname, path)
+}
 
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
+const middlewares = ['router']
 
 let config = require('../nuxt.config.js')
+config.dev = !(process.env === 'production')
 
 class Server {
   constructor () {
     this.app = new Koa()
-    config.dev = !(this.app.env === 'production')
+    this.useMiddleWares()(middlewares)
   }
 
-  useMiddleWare (app) {
-
+  useMiddleWares () {
+    return R.map(R.compose(
+      R.map(i => i(this.app)),
+      require,
+      i => `${r('./middleware')}/${i}`
+    ))
   }
 
   async start () {
