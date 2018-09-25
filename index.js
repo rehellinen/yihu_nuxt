@@ -13,4 +13,4 @@ require('@babel/polyfill')
 
 // 框架启动文件
 // require('./server/index')
-require('./server/model/BuyerModel')
+require('./server/service/AccessToken')

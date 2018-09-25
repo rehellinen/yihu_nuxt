@@ -19,5 +19,11 @@ export default {
     password: 'shun122526',
     database: 'flea_market',
     charset: 'utf8'
+  },
+
+  // 微信api
+
+  apiUrl: {
+    accessToken: `https://api.weixin.qq.com/cgi-bin/token`
   }
 }

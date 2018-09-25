@@ -3,54 +3,67 @@
  *  Create By rehellinen
  *  Create On 2018/9/25 19:23
  */
-import axios from '@nuxtjs/axios'
+import axios from 'axios'
 import config from '../../utils/config'
+import {TokenModel} from '../model/TokenModel'
 
-// 微信api
-const baseUrl = `https://api.weixin.qq.com`
-const wechat = config.wechat
-const apiUrl = {
-    accessToken: `${baseUrl}/cgi-bin/token`
-}
+const {apiUrl, wechat} = config
+const token = new TokenModel()
 
 export class AccessToken {
   constructor () {
-    this.appId = config.appId
-    this.appSecret = config.appSecret
+    this.appId = wechat.appId
+    this.appSecret = wechat.appSecret
   }
 
-  async fetchAccessToken () {
-    const data = await this.getAccessToken()
+  async get () {
+    // 从数据库获取token
+    const data = await token.getAccessToken()
 
-    if (this.isValidAccessToken(data)) {
-      return await this.updateAccessToken()
+    // 判断token是否有效
+    let isValid = this.isValid()
+    if (isValid) {
+      return data.token
+    } else {
+      const data = await this.update()
+      console.log(data)
     }
-
-    await this.saveAccessToken()
-    return data
   }
 
-  async updateAccessToken () {
-    const data = await axios.get(apiUrl.accessToken, {
-      params: {
-        grant_type: 'client_credential',
-        appid: wechat.appId,
-        secret: wechat.appSecret
-      }
-    })
-    const now = new Date().getTime()
-    data.expires_in = now + (data.expires_in - 200) * 1000
-    return data
+  async update () {
+    try {
+      const data = await axios.get(apiUrl.accessToken, {
+        params: {
+          grant_type: 'client_credential',
+          appid: this.appId,
+          secret: this.appSecret
+        }
+      })
+
+      const now = new Date().getTime()
+      data.data.expires_in = now + (data.data.expires_in - 200) * 1000
+      return data.data
+    } catch (e) {
+      console.log(e)
+    }
   }
 
-  isValidAccessToken (data) {
-    if (!data || !data.access_token || !data.expire_in) {
+  /**
+   * 判断token是否有效
+   * @param data
+   * @return {boolean}
+   */
+  isValid (data) {
+    if (!data || !data.token || !data.expires_in) {
       return false
     }
 
-    const expiresIn = data.expire_in
+    const expiresIn = data.expires_in
     const now = new Date().getTime()
 
     return now < expiresIn
   }
 }
+
+let test = new AccessToken()
+test.get()
