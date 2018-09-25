@@ -10,7 +10,7 @@ import config from '../../utils/config'
 export const route = (app) => {
   const router = new Router()
   router.get('/validation', (ctx, next) => {
-    const token = config.weixin.token
+    const token = config.wechat.token
     const {signature, timestamp, nonce, echostr} = ctx.query
 
     const str = [token, timestamp, nonce].sort().join('')
