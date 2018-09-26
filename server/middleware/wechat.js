@@ -47,9 +47,9 @@ export default function (opts, reply) {
       console.log(replyBody)
 
       const xml = `<xml> <ToUserName>< ![CDATA[${content.xml.FromUserName[0]}] ]></ToUserName> <FromUserName>< ![CDATA[${content.xml.ToUserName[0]}] ]></FromUserName> <CreateTime>${new Date().getTime()}</CreateTime> <MsgType>< ![CDATA[text] ]></MsgType> <Content>< ![CDATA[${replyBody}] ]></Content> </xml>`
-      
-      ctx.status = 200
-      return ctx.body = xml
+
+      ctx.res.setHeader('Content-Type', 'application/xml')
+      ctx.res.end(xml)
     }
   }
 }
