@@ -14,23 +14,24 @@ let x2js = new X2JS({
 export class Template {
   constructor (data) {
     this.data = data
+    if (!data.content) {
+      data.content = '暂无更多~'
+    }
+    this.info = {
+      ToUserName: `<![CDATA[${data.FromUserName}]]>`,
+      FromUserName: `<![CDATA[${data.ToUserName}]]>`,
+      CreateTime: new Date().getTime(),
+    }
   }
 
   get () {
     let type = 'text'
     let data = this.data
 
-    if (!this.data.content) {
+    this.info['Content'] = `<![CDATA[${data.content}]]>`
+    this.info['MsgType'] = `<![CDATA[${type}]]>`
 
-    }
-    let info = Object.assign({}, {
-      ToUserName: `<![CDATA[${data.FromUserName}]]>`,
-      FromUserName: `<![CDATA[${data.ToUserName}]]>`,
-      CreateTime: new Date().getTime(),
-      MsgType: `<![CDATA[${type}]]>`,
-      Content: `<![CDATA[${data.content}]]>`
-    })
-    let rawXml = x2js.js2xml(info)
+    let rawXml = x2js.js2xml(this.info)
     return `<xml>${rawXml}</xml>`
   }
 }
