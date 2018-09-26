@@ -46,11 +46,11 @@ function template (content, message) {
   }
 
   let info = Object.assign({}, {
-    ToUserName: `<![CDATA[${message.FromUserName}]]`,
-    FromUserName: `<![CDATA[${message.ToUserName}]]`,
+    ToUserName: `<![CDATA[${message.FromUserName}]]>`,
+    FromUserName: `<![CDATA[${message.ToUserName}]]>`,
     CreateTime: new Date().getTime(),
-    MsgType: `<![CDATA[${type}]]`,
-    Content: `<![CDATA[${content}]]`
+    MsgType: `<![CDATA[${type}]]>`,
+    Content: `<![CDATA[${content}]]>`
   })
   let rawXml = x2js.js2xml(info)
   return `<xml>${rawXml}</xml>`
