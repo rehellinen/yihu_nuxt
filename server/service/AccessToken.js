@@ -4,7 +4,7 @@
  *  Create On 2018/9/25 19:23
  */
 import axios from 'axios'
-import config from '../../utils/config'
+import config from '../utils/config'
 import {TokenModel} from '../model/TokenModel'
 
 const {apiUrl, wechat} = config

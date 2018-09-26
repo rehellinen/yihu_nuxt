@@ -38,22 +38,4 @@ function formatMessage (data) {
   return msg
 }
 
-function template (content, message) {
-  let type = 'text'
-
-  if (!content) {
-    content = '暂无内容~'
-  }
-
-  let info = Object.assign({}, {
-    ToUserName: `<![CDATA[${message.FromUserName}]]>`,
-    FromUserName: `<![CDATA[${message.ToUserName}]]>`,
-    CreateTime: new Date().getTime(),
-    MsgType: `<![CDATA[${type}]]>`,
-    Content: `<![CDATA[${content}]]>`
-  })
-  let rawXml = x2js.js2xml(info)
-  return `<xml>${rawXml}</xml>`
-}
-
-export {parseXML, formatMessage, template}
+export {parseXML, formatMessage}

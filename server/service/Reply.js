@@ -6,6 +6,6 @@
 const tip = '爱你哟~'
 
 export default async (ctx, next) => {
-  const message = ctx.weixin
+  ctx.weixin.content = tip
   ctx.body = tip
 }
