@@ -11,10 +11,21 @@ export class TokenModel extends BaseModel{
   }
 
   async getAccessToken () {
-    const data =  await this.model
+    let data =  await this.model
       .where('expires_in', '>', 1)
       .orderBy('id', 'DESC')
       .fetch()
-    return data.attributes
+    return data ? data.attributes : null
+  }
+
+  async saveAccessToken (data) {
+    let savedData = {
+      token: data.access_token,
+      expires_in: data.expires_in
+    }
+    let res = await this.model
+      .save(savedData, {method: 'insert'})
+
+    return !!res.id
   }
 }

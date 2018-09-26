@@ -19,33 +19,29 @@ export class AccessToken {
   async get () {
     // 从数据库获取token
     const data = await token.getAccessToken()
-
     // 判断token是否有效
-    let isValid = this.isValid()
+    let isValid = AccessToken.isValid(data)
     if (isValid) {
       return data.token
     } else {
       const data = await this.update()
-      console.log(data)
+      token.saveAccessToken(data)
+      return data.access_token
     }
   }
 
   async update () {
-    try {
-      const data = await axios.get(apiUrl.accessToken, {
-        params: {
-          grant_type: 'client_credential',
-          appid: this.appId,
-          secret: this.appSecret
-        }
-      })
+    const data = await axios.get(apiUrl.accessToken, {
+      params: {
+        grant_type: 'client_credential',
+        appid: this.appId,
+        secret: this.appSecret
+      }
+    })
 
-      const now = new Date().getTime()
-      data.data.expires_in = now + (data.data.expires_in - 200) * 1000
-      return data.data
-    } catch (e) {
-      console.log(e)
-    }
+    const now = new Date().getTime()
+    data.data.expires_in = now + (data.data.expires_in - 200) * 1000
+    return data.data
   }
 
   /**
@@ -53,7 +49,7 @@ export class AccessToken {
    * @param data
    * @return {boolean}
    */
-  isValid (data) {
+  static isValid (data) {
     if (!data || !data.token || !data.expires_in) {
       return false
     }
@@ -64,6 +60,3 @@ export class AccessToken {
     return now < expiresIn
   }
 }
-
-let test = new AccessToken()
-test.get()

@@ -11,9 +11,10 @@ export class BaseModel {
    * @param modelName 模型名称
    */
   constructor (modelName) {
-    const db = new DataBase().getInstance()
-    this.model = db.Model.extend({
+    const db = DataBase.getInstance()
+    let modelClass = db.Model.extend({
       tableName: modelName
     })
+    this.model = new modelClass()
   }
 }
