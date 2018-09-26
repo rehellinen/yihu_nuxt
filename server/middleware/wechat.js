@@ -44,12 +44,12 @@ export default function (opts, reply) {
       const replyBody = ctx.body
       const msg = ctx.weixin
       // const xml = util.tpl(replyBody, msg)
-      console.log(replyBody)
+      // console.log(replyBody)
 
-      const xml = `<xml> <ToUserName>< ![CDATA[${content.xml.FromUserName[0]}] ]></ToUserName> <FromUserName>< ![CDATA[${content.xml.ToUserName[0]}] ]></FromUserName> <CreateTime>${new Date().getTime()}</CreateTime> <MsgType>< ![CDATA[text] ]></MsgType> <Content>< ![CDATA[${replyBody}] ]></Content> </xml>`
-
-      ctx.res.setHeader('Content-Type', 'application/xml')
-      ctx.res.end(xml)
+      const xml = `<xml> <ToUserName><![CDATA[${content.xml.FromUserName[0]}]]></ToUserName> <FromUserName><![CDATA[${content.xml.ToUserName[0]}]]></FromUserName> <CreateTime>${new Date().getTime()}</CreateTime> <MsgType><![CDATA[text]]></MsgType> <Content><![CDATA[${replyBody}]]></Content> </xml>`
+      console.log(xml)
+      ctx.type = 'application/xml'
+      ctx.body = xml
     }
   }
 }
