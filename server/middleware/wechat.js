@@ -9,7 +9,7 @@ import getRawBody from 'raw-body'
 import {parseXML} from '../../utils/utils'
 
 export default function (opts, reply) {
-  return async function wecharMiddle(ctx, next) {
+  return async function wechatMiddle(ctx, next) {
     const token = config.wechat.token
     const {signature, timestamp, nonce, echostr} = ctx.query
 
@@ -27,7 +27,6 @@ export default function (opts, reply) {
         ctx.body = 'fail'
         return false
       }
-
       const data = await getRawBody(ctx.req, {
         length: ctx.length,
         limit: '1mb',
@@ -47,7 +46,13 @@ export default function (opts, reply) {
       // const xml = util.tpl(replyBody, msg)
       console.log(replyBody)
 
-      const xml = `<xml> <ToUserName>< ![CDATA[toUser] ]></ToUserName> <FromUserName>< ![CDATA[fromUser] ]></FromUserName> <CreateTime>12345678</CreateTime> <MsgType>< ![CDATA[text] ]></MsgType> <Content>< ![CDATA[你好] ]></Content> </xml>`
+      const xml = `<xml> 
+                      <ToUserName>< ![CDATA[${content.xml.FromUserName[0]}] ]></ToUserName> 
+                      <FromUserName>< ![CDATA[${content.xml.ToUserName[0]}] ]></FromUserName> 
+                      <CreateTime>12345678</CreateTime> 
+                      <MsgType>< ![CDATA[text] ]></MsgType> 
+                      <Content>< ![CDATA[${replyBody}] ]></Content> 
+                    </xml>`
 
       ctx.status = 200
       ctx.type = 'application/xml'
