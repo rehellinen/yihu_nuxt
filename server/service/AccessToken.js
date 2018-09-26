@@ -16,6 +16,10 @@ export class AccessToken {
     this.appSecret = wechat.appSecret
   }
 
+  /**
+   * 主方法：获取token
+   * @return {Promise<*>}
+   */
   async get () {
     // 从数据库获取token
     const data = await token.getAccessToken()
@@ -30,6 +34,10 @@ export class AccessToken {
     }
   }
 
+  /**
+   * 升级access_token
+   * @return {Promise<*>}
+   */
   async update () {
     const data = await axios.get(apiUrl.accessToken, {
       params: {

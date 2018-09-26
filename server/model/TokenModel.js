@@ -10,6 +10,10 @@ export class TokenModel extends BaseModel{
     super('token')
   }
 
+  /**
+   * 获取数据库中最新的access_token
+   * @return {Promise<any>}
+   */
   async getAccessToken () {
     let data =  await this.model
       .where('expires_in', '>', 1)
@@ -18,6 +22,11 @@ export class TokenModel extends BaseModel{
     return data ? data.attributes : null
   }
 
+  /**
+   * 保存access_token到数据库
+   * @param data
+   * @return {Promise<boolean>}
+   */
   async saveAccessToken (data) {
     let savedData = {
       token: data.access_token,

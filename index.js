@@ -12,5 +12,5 @@ require('@babel/register')({
 require('@babel/polyfill')
 
 // 框架启动文件
-// require('./server/index')
-require('./server/service/AccessToken')
+require('./server/index')
+// require('./server/service/AccessToken')
