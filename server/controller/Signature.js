@@ -8,7 +8,9 @@ import {Sign} from '../service/Sign'
 export class Signature {
   static getSignature () {
     return async (ctx, next) => {
-      ctx.body = (new Sign()).sign()
+      const retData = await (new Sign(ctx.query.url)).sign()
+      ctx.type = 'application/json'
+      ctx.body = JSON.stringify(retData)
     }
   }
 }

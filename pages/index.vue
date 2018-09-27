@@ -23,25 +23,21 @@ export default {
     const wx = window.wx
     const url = window.location.href
     // 获取签名
-    await this.getWechatSignature()
-    console.log(this.signature)
-    // wx.config({
-    //   debug: true,
-    //   appId: params.appId,
-    //   timestamp: params.timestamp,
-    //   nonceStr: params.noncestr,
-    //   signature: params.signature,
-    //   jsApiList: [
-    //     'chooseWXPay',
-    //     'previewImage'
-    //   ]
-    // })
-    //
-    //     wx.ready(() => {
-    //
-    //     })
-    //   }
-    // })
+    await this.getWechatSignature(url)
+
+    // 微信认证
+    let signature = this.signature
+    wx.config({
+      debug: true,
+      appId: signature.appId,
+      timestamp: signature.timestamp,
+      nonceStr: signature.nonceStr,
+      signature: signature.signature,
+      jsApiList: [
+        'chooseWXPay',
+        'previewImage'
+      ]
+    })
   },
   methods: {
     ...mapActions([

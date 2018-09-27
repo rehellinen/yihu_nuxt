@@ -6,13 +6,14 @@
 import axios from 'axios'
 import config from '../utils/config'
 import {TokenModel} from '../model/TokenModel'
+import {AccessToken} from "./AccessToken"
 
 const {apiUrl, wechat, tokenType} = config
 const token = new TokenModel()
 
 export class Ticket {
-  constructor (accessToken) {
-    this.accessToken = accessToken
+  constructor () {
+
   }
 
   /**
@@ -20,8 +21,12 @@ export class Ticket {
    * @return {Promise<*>}
    */
   async get () {
+    // 获取access_token
+    this.accessToken = await new AccessToken().get()
+
     // 从数据库获取token
     const data = await token.getToken(tokenType.TICKET)
+
     // 判断token是否有效
     let isValid = Ticket.isValid(data)
     if (isValid) {
@@ -48,10 +53,6 @@ export class Ticket {
     const now = new Date().getTime()
     data.data.expires_in = now + (data.data.expires_in - 200) * 1000
     return data.data
-  }
-
-  getUrl () {
-    return `${apiUrl.ticket}?type=jsapi&access_token=${this.accessToken}`
   }
 
   /**

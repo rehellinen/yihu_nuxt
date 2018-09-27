@@ -3,29 +3,36 @@
  *  Create By rehellinen
  *  Create On 2018/9/27 15:44
  */
-import {AccessToken} from './AccessToken'
 import {Ticket} from './Ticket'
 import {getRandChars} from '../utils/utils'
 import sha1 from 'sha1'
+import config from '../utils/config'
+
+let ticketIns = new Ticket()
 
 export class Sign {
-  constructor () {
-    let ticket = new Ticket()
-    this.accessToken = new AccessToken().get()
-    this.ticket = ticket.get()
-    this.url = ticket.getUrl()
+  constructor (url) {
+    this.url = url
   }
 
-  sign () {
+  async sign () {
+    let ticket = await ticketIns.get()
+
     let obj = {
-      jsapi_ticket: this.ticket,
+      jsapi_ticket: ticket,
       noncestr: getRandChars(),
-      timestamp: parseInt(new Date().getTime() / 1000),
+      timestamp: parseInt(new Date().getTime() / 1000).toString(),
       url: this.url
     }
 
     let rawStr = this.getRawStr(obj)
-    return sha1(rawStr)
+
+    return {
+      appId: config.wechat.appId,
+      timestamp: obj.timestamp,
+      nonceStr: obj.noncestr,
+      signature: sha1(rawStr)
+    }
   }
 
   getRawStr (obj) {
