@@ -7,13 +7,12 @@ import axios from 'axios'
 import config from '../utils/config'
 import {TokenModel} from '../model/TokenModel'
 
-const {apiUrl, wechat} = config
+const {apiUrl, wechat, tokenType} = config
 const token = new TokenModel()
 
-export class AccessToken {
-  constructor () {
-    this.appId = wechat.appId
-    this.appSecret = wechat.appSecret
+export class Ticket {
+  constructor (accessToken) {
+    this.accessToken = accessToken
   }
 
   /**
@@ -22,15 +21,15 @@ export class AccessToken {
    */
   async get () {
     // 从数据库获取token
-    const data = await token.getToken()
+    const data = await token.getToken(tokenType.TICKET)
     // 判断token是否有效
-    let isValid = AccessToken.isValid(data)
+    let isValid = Ticket.isValid(data)
     if (isValid) {
       return data.token
     } else {
       const data = await this.update()
-      token.saveToken(data)
-      return data.access_token
+      token.saveToken(data, tokenType.TICKET)
+      return data.ticket
     }
   }
 
@@ -39,17 +38,20 @@ export class AccessToken {
    * @return {Promise<*>}
    */
   async update () {
-    const data = await axios.get(apiUrl.accessToken, {
+    const data = await axios.get(apiUrl.ticket, {
       params: {
-        grant_type: 'client_credential',
-        appid: this.appId,
-        secret: this.appSecret
+        type: 'jsapi',
+        access_token: this.accessToken
       }
     })
 
     const now = new Date().getTime()
     data.data.expires_in = now + (data.data.expires_in - 200) * 1000
     return data.data
+  }
+
+  getUrl () {
+    return `${apiUrl.ticket}?type=jsapi&access_token=${this.accessToken}`
   }
 
   /**
