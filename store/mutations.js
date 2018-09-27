@@ -6,5 +6,7 @@
 import {types} from './mutation-types'
 
 export const mutations = {
-
+  [types.SAVE_SIGNATURE] (state, sign) {
+    state.signature = sign
+  }
 }

@@ -8,8 +8,9 @@ import axios from 'axios'
 import config from '../server/utils/config'
 
 const actions = {
-  getWechatSignature ({commit}) {
-    axios.get(config.restUrl + '/signature')
+  async getWechatSignature ({commit}) {
+    const data = await axios.get(config.restUrl + '/signature')
+    commit(types.SAVE_SIGNATURE, data.data)
   }
 }
 

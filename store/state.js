@@ -5,7 +5,7 @@
  */
 
 const state = {
-
+  signature: ''
 }
 
 export {state}
