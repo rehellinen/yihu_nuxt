@@ -18,11 +18,15 @@ export class TokenModel extends BaseModel{
    * @param type access_token / ticket
    */
   async getToken (type = tokenType.ACCESS_TOKEN) {
-    let data =  await this.model
-      .where({type})
-      .orderBy('id', 'DESC')
-      .fetch()
-    return data ? data.attributes : null
+    try{
+      let data =  await this.model
+        .where({type})
+        .orderBy('id', 'DESC')
+        .fetch()
+      return data ? data.attributes : null
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   /**
@@ -32,14 +36,18 @@ export class TokenModel extends BaseModel{
    * @return {Promise<boolean>}
    */
   async saveToken (data, type = tokenType.ACCESS_TOKEN) {
-    let savedData = {
-      token: data.access_token || data.ticket,
-      expires_in: data.expires_in,
-      type: type
-    }
-    let res = await this.model
-      .save(savedData, {method: 'insert'})
+    try {
+      let savedData = {
+        token: data.access_token || data.ticket,
+        expires_in: data.expires_in,
+        type: type
+      }
+      let res = await this.model
+        .save(savedData, {method: 'insert'})
 
-    return !!res.id
+      return !!res.id
+    } catch (e) {
+      console.log(e)
+    }
   }
 }
