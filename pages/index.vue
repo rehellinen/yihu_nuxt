@@ -8,31 +8,34 @@
 
 <script>
 import Logo from '~/components/Logo.vue'
-import {mapActions} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
   components: {
     Logo
   },
+  computed: {
+    ...mapGetters([
+      'signature'
+    ])
+  },
   async beforeMount () {
     const wx = window.wx
     const url = window.location.href
-    this.getWechatSignature()
-    // this.$store.dispatch('getWechatSignature', url).then(res => {
-    //   if (res.data.success) {
-    //     const params = res.data.params
-    //
-    //     wx.config({
-    //       debug: true,
-    //       appId: params.appId,
-    //       timestamp: params.timestamp,
-    //       nonceStr: params.noncestr,
-    //       signature: params.signature,
-    //       jsApiList: [
-    //         'chooseWXPay',
-    //         'previewImage'
-    //       ]
-    //     })
+    // 获取签名
+    await this.getWechatSignature()
+    console.log(this.signature)
+    // wx.config({
+    //   debug: true,
+    //   appId: params.appId,
+    //   timestamp: params.timestamp,
+    //   nonceStr: params.noncestr,
+    //   signature: params.signature,
+    //   jsApiList: [
+    //     'chooseWXPay',
+    //     'previewImage'
+    //   ]
+    // })
     //
     //     wx.ready(() => {
     //

@@ -5,7 +5,9 @@
  */
 
 const getters = {
-
+  signature (state) {
+    return state.signature
+  }
 }
 
 export {getters}
