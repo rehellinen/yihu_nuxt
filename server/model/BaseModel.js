@@ -12,9 +12,8 @@ export class BaseModel {
    */
   constructor (modelName) {
     const db = DataBase.getInstance()
-    let modelClass = db.Model.extend({
+    this.model = db.Model.extend({
       tableName: modelName
     })
-    this.model = new modelClass()
   }
 }

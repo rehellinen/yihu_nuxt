@@ -42,8 +42,9 @@ export class TokenModel extends BaseModel{
         expires_in: data.expires_in,
         type: type
       }
-      let res = await this.model
-        .save(savedData, {method: 'insert'})
+
+      let res = await new this.model(savedData)
+        .save(null, {method: 'insert'})
 
       return !!res.id
     } catch (e) {

@@ -33,7 +33,7 @@ export class Ticket {
       return data.token
     } else {
       const data = await this.update()
-      token.saveToken(data, tokenType.TICKET)
+      await token.saveToken(data, tokenType.TICKET)
       return data.ticket
     }
   }
