@@ -15,6 +15,9 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script: [
+      {src: 'http://res.wx.qq.com/open/js/jweixin-1.4.0.js'}
     ]
   },
 

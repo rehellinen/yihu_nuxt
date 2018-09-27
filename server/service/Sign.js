@@ -8,7 +8,7 @@ import {Ticket} from './Ticket'
 import {getRandChars} from '../utils/utils'
 import sha1 from 'sha1'
 
-export class Signature {
+export class Sign {
   constructor () {
     let ticket = new Ticket()
     this.accessToken = new AccessToken().get()
@@ -16,7 +16,7 @@ export class Signature {
     this.url = ticket.getUrl()
   }
 
-  signature () {
+  sign () {
     let obj = {
       jsapi_ticket: this.ticket,
       noncestr: getRandChars(),

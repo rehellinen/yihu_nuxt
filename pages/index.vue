@@ -2,32 +2,43 @@
   <section class="container">
     <div>
       <logo/>
-      <h1 class="title">
-        my
-      </h1>
-      <h2 class="subtitle">
-        My funkadelic Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey">GitHub</a>
-      </div>
     </div>
   </section>
 </template>
 
 <script>
 import Logo from '~/components/Logo.vue'
+import {mapState} from 'vuex'
 
 export default {
   components: {
     Logo
+  },
+  beforeMount () {
+    const wx = window.wx
+    const url = window.location.href
+    console.log(this.$store)
+    this.$store.dispatch('getWechatSignature', url).then(res => {
+      if (res.data.success) {
+        const params = res.data.params
+
+        wx.config({
+          debug: true,
+          appId: params.appId,
+          timestamp: params.timestamp,
+          nonceStr: params.noncestr,
+          signature: params.signature,
+          jsApiList: [
+            'chooseWXPay',
+            'previewImage'
+          ]
+        })
+
+        wx.ready(() => {
+
+        })
+      }
+    })
   }
 }
 </script>
