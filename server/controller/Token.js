@@ -3,12 +3,12 @@
  *  Create By rehellinen
  *  Create On 2018/9/28 20:19
  */
+import {Token as TokenService} from "../../client/utils/Token"
 
 export class Token {
   static getToken () {
     return async (ctx, next) => {
-      // TODO：token令牌获取全过程
-      ctx.body = '123'
+      ctx.body = await new TokenService().get()
     }
   }
 }
