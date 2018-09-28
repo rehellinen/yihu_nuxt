@@ -10,7 +10,12 @@ import getRawBody from 'raw-body'
 import {parseXML, formatMessage} from '../utils/utils'
 import {Template} from '../libs/Template'
 import reply from '../service/Reply'
+import fs from 'fs'
+import {promisify} from 'util'
+import {resolve} from 'path'
+import {types} from '../utils/mime'
 
+const readAsync = promisify(fs.readFile)
 
 export class PassiveReply {
   static wechat () {
@@ -44,9 +49,17 @@ export class PassiveReply {
 
         // res 相关
         const xml = new Template(ctx.weixin).get()
-        ctx.type = 'application/xml'
+        ctx.type = types.xml
         ctx.body = xml
       }
+    }
+  }
+
+  static file () {
+    return async (ctx, next) => {
+      const data = await readAsync(resolve(__dirname, '../files/MP_verify_bTR3G8h36rV3qShu.txt'))
+      ctx.type = types.txt
+      ctx.body = data.toString()
     }
   }
 }

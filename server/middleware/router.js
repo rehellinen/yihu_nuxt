@@ -12,6 +12,7 @@ export const route = (app) => {
   // 微信被动回复路由
   router.all('/wechat', PassiveReply.wechat())
   router.get('/signature', Signature.getSignature())
+  router.get('/MP_verify_bTR3G8h36rV3qShu.txt', PassiveReply.file())
 
   app
     .use(router.routes())
