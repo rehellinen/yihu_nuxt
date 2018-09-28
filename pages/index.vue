@@ -19,8 +19,10 @@ export default {
   },
   async beforeMount () {
     console.log(this.$router.params)
-    let url = encodeURIComponent(`${config.restUrl}/`)
-    window.location.href = `${config.apiUrl.code}?appid=${config.wechat.appId}&redirect_uri=${url}&response_type=code&scope=snsapi_userinfo#wechat_redirect`
+    if (!this.$router.params) {
+      let url = encodeURIComponent(`${config.restUrl}/`)
+      window.location.href = `${config.apiUrl.code}?appid=${config.wechat.appId}&redirect_uri=${url}&response_type=code&scope=snsapi_userinfo#wechat_redirect`
+    }
   },
   methods: {
     async getWxApi () {
