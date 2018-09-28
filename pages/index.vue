@@ -20,7 +20,7 @@ export default {
   async beforeMount () {
     console.log(this.$router.params)
     if (!this.$router.params) {
-      let url = encodeURIComponent(`${config.restUrl}/`)
+      let url = encodeURIComponent(`${config.restUrl}/bind`)
       window.location.href = `${config.apiUrl.code}?appid=${config.wechat.appId}&redirect_uri=${url}&response_type=code&scope=snsapi_userinfo#wechat_redirect`
     }
   },
