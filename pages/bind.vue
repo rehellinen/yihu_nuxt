@@ -7,11 +7,13 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
 export default {
-  components: {
-    Logo
+  mounted () {
+    if (!this.$router.history.current.query.code) {
+      let url = encodeURIComponent(`${config.restUrl}/bind`)
+      window.location.href = `${config.apiUrl.code}?appid=${config.wechat.appId}&redirect_uri=${url}&response_type=code&scope=snsapi_base#wechat_redirect`
+    }
+    console.log(this.$router.history.current.query.code)
   }
 }
 </script>
