@@ -15,6 +15,15 @@ const actions = {
       }
     })
     commit(types.SAVE_SIGNATURE, data.data)
+  },
+
+  async getUserInfo ({commit}) {
+    const data = await axios.get(`${config.restUrl}/signature`, {
+      params: {
+        url
+      }
+    })
+    commit(types.SAVE_SIGNATURE, data.data)
   }
 }
 

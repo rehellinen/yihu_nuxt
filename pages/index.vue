@@ -1,45 +1,48 @@
 <template>
   <section class="container">
     <div>
-      <logo/>
+      <p>123</p>
     </div>
   </section>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import axios from 'axios'
 import {mapActions, mapGetters} from 'vuex'
+import config from '../server/utils/config'
 
 export default {
-  components: {
-    Logo
-  },
   computed: {
     ...mapGetters([
       'signature'
     ])
   },
   async beforeMount () {
-    const wx = window.wx
-    const url = window.location.href
-    // 获取签名
-    await this.getWechatSignature(url)
-
-    // 微信认证
-    let signature = this.signature
-    wx.config({
-      debug: true,
-      appId: signature.appId,
-      timestamp: signature.timestamp,
-      nonceStr: signature.nonceStr,
-      signature: signature.signature,
-      jsApiList: [
-        'chooseWXPay',
-        'previewImage'
-      ]
-    })
+    console.log(this.$router.params)
+    let url = encodeURIComponent(`${config.restUrl}/`)
+    window.location.href = `${config.apiUrl.code}?appid=${config.wechat.appId}&redirect_uri=${url}&response_type=code&scope=snsapi_userinfo#wechat_redirect`
   },
   methods: {
+    async getWxApi () {
+      const wx = window.wx
+      const url = window.location.href
+      // 获取签名
+      await this.getWechatSignature(url)
+
+      // 微信认证
+      let signature = this.signature
+      wx.config({
+        debug: true,
+        appId: signature.appId,
+        timestamp: signature.timestamp,
+        nonceStr: signature.nonceStr,
+        signature: signature.signature,
+        jsApiList: [
+          'chooseWXPay',
+          'previewImage'
+        ]
+      })
+    },
     ...mapActions([
       'getWechatSignature'
     ])
