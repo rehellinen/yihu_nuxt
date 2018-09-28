@@ -7,13 +7,24 @@
 </template>
 
 <script>
+import config from '../utils/config'
+import axios from 'axios'
+
 export default {
-  mounted () {
-    if (!this.$router.history.current.query.code) {
+  async mounted () {
+    let code = this.$router.history.current.query.code
+    if (!code) {
       let url = encodeURIComponent(`${config.restUrl}/bind`)
       window.location.href = `${config.apiUrl.code}?appid=${config.wechat.appId}&redirect_uri=${url}&response_type=code&scope=snsapi_base#wechat_redirect`
     }
-    console.log(this.$router.history.current.query.code)
+
+    const token = await axios.get(`${config.restUrl}/token`, {
+      params: {
+        code
+      }
+    })
+
+    console.log(token)
   }
 }
 </script>

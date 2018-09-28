@@ -4,7 +4,7 @@
  *  Create On 2018/9/25 23:12
  */
 import {BaseModel} from './BaseModel'
-import config from '../utils/config'
+import config from '../../utils/config'
 
 let {tokenType} = config
 

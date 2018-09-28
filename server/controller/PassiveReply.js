@@ -5,15 +5,15 @@
  *  Create On 2018/9/27 16:59
  */
 import sha1 from 'sha1'
-import config from '../utils/config'
+import config from '../../utils/config'
 import getRawBody from 'raw-body'
-import {parseXML, formatMessage} from '../utils/utils'
+import {parseXML, formatMessage} from '../../utils/utils'
 import {Template} from '../libs/Template'
 import reply from '../service/Reply'
 import fs from 'fs'
 import {promisify} from 'util'
 import {resolve} from 'path'
-import {types} from '../utils/mime'
+import {types} from '../../utils/mime'
 
 const readAsync = promisify(fs.readFile)
 

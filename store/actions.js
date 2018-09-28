@@ -5,7 +5,7 @@
  */
 import {types} from './mutation-types'
 import axios from 'axios'
-import config from '../server/utils/config'
+import config from '../utils/config'
 
 const actions = {
   async getWechatSignature ({commit}, url) {

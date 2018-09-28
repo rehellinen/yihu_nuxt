@@ -5,7 +5,7 @@
  */
 import Knex from 'knex'
 import Bookshelf from 'bookshelf'
-import config from '../utils/config'
+import config from '../../utils/config'
 
 export class DataBase {
   static getInstance () {

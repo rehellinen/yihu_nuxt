@@ -6,7 +6,7 @@
  */
 
 import {AccessToken} from './AccessToken'
-import config from '../utils/config'
+import config from '../../utils/config'
 import axios from 'axios'
 
 const {apiUrl} = config

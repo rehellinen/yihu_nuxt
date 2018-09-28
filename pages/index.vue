@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import config from '../server/utils/config'
+import config from '../utils/config'
 
 export default {
   created () {
