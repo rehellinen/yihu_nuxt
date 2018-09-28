@@ -49,6 +49,7 @@ export class AccessToken {
 
     const now = new Date().getTime()
     data.data.expires_in = now + (data.data.expires_in - 200) * 1000
+    console.log(data.data)
     return data.data
   }
 
