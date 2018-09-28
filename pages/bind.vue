@@ -8,7 +8,9 @@
 
 <script>
 import config from '../utils/config'
-import axios from 'axios'
+import {Token} from '../client/utils/Token'
+
+let token = new Token()
 
 export default {
   async mounted () {
@@ -17,14 +19,8 @@ export default {
       let url = encodeURIComponent(`${config.restUrl}/bind`)
       window.location.href = `${config.apiUrl.code}?appid=${config.wechat.appId}&redirect_uri=${url}&response_type=code&scope=snsapi_base#wechat_redirect`
     }
-
-    const token = await axios.get(`${config.restUrl}/token`, {
-      params: {
-        code
-      }
-    })
-
-    console.log(token)
+    // 获取token
+    await token.get(code)
   }
 }
 </script>

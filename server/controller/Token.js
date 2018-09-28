@@ -7,6 +7,7 @@
 export class Token {
   static getToken () {
     return async (ctx, next) => {
+      // TODO：token令牌获取全过程
       ctx.body = '123'
     }
   }

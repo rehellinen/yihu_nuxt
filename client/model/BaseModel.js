@@ -3,7 +3,7 @@
  *  Create By rehellinen
  *  Create On 2018/9/28 22:13
  */
-import config from '../utils/config'
+import config from '../../utils/config'
 import axios from 'axios'
 import store from 'store'
 
@@ -45,19 +45,6 @@ export class BaseModel {
       return res.data
     }
 
-    // 处理Token无效的情况
-    if (code === '401') {
-      if (reFetch) {
-        this._reFetch(params)
-      }
-    }
-
     return 'error'
-  }
-
-  // 重新发送请求
-  async _reFetch(params) {
-    // TODO: 获取token
-    this.request(params, false)
   }
 }
