@@ -18,6 +18,11 @@ export class AccountModel extends BaseModel {
       status: config.status.NORMAL
     }
 
+    const user = await this.model
+      .where(savedData)
+      .fetch()
+    console.log(user)
+
     let res = await new this.model(savedData)
       .save(null, {method: 'insert'})
 
