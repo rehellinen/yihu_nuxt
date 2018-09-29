@@ -11,5 +11,8 @@ export const mutations = {
   },
   [types.SAVE_USER_INFO] (state, data) {
     state.userInfo = data
+  },
+  [types.SAVE_TOKEN] (state, token) {
+    state.token = token
   }
 }

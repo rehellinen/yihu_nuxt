@@ -37,14 +37,17 @@ export default {
     ])
   },
   async mounted () {
+    let code = this.$router.history.current.query.code
+
     // 获取token
-    this.code = this.$router.history.current.query.code
-    await token.verify(this.code)
+    await this.getToken(code)
+    // 获取用户信息
     this.getUserInfo()
   },
   methods: {
     ...mapActions([
-      'getUserInfo'
+      'getUserInfo',
+      'getToken'
     ])
   },
 }

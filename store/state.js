@@ -6,7 +6,8 @@
 
 const state = {
   signature: '',
-  userInfo: {}
+  userInfo: {},
+  token: ''
 }
 
 export {state}

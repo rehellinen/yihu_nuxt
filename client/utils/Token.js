@@ -17,13 +17,13 @@ class Token {
     }
     // 没有token但是有code，到服务器获取Token
     if (!token && code) {
-      await this.getTokenFromServer(code)
+      return await this.getTokenFromServer(code)
     }
     // 有token且有code
     if (token && code) {
       let isValid = await this._verifyFromServer(token)
       if (!isValid) {
-        await this.getTokenFromServer(code)
+        return await this.getTokenFromServer(code)
       }
     }
     // 有token但是无code
@@ -33,6 +33,8 @@ class Token {
         this.redirect()
       }
     }
+
+    return token
   }
 
   redirect () {
@@ -64,6 +66,8 @@ class Token {
     if (startChar === '2') {
       store.set('token', data.data)
     }
+
+    return data.data
   }
 
   /**
