@@ -8,16 +8,16 @@ class Token {
     this.verifyUrl = config.restUrl + '/token/check'
   }
 
-  verify (code) {
+  async verify (code) {
     let token = store.get('token')
     if (!token) {
-      this.getTokenFromServer(code)
+      await this.getTokenFromServer(code)
     } else {
-      this._verifyFromServer(token)
+      await this._verifyFromServer(token, code)
     }
   }
 
-  async _verifyFromServer (token) {
+  async _verifyFromServer (token, code) {
     const {data} = await axios.get(this.verifyUrl, {
       headers: {
         token
@@ -25,7 +25,7 @@ class Token {
     })
 
     if (!data) {
-      this.getTokenFromServer()
+      this.getTokenFromServer(code)
     }
   }
 
