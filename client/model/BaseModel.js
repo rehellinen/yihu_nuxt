@@ -5,7 +5,7 @@
  */
 import config from '../../utils/config'
 import axios from 'axios'
-import store from 'store'
+import {Token} from '../utils/Token'
 
 export class BaseModel {
   constructor() {
@@ -33,7 +33,7 @@ export class BaseModel {
       method: params.method,
       header: {
         'content-type': 'application/json',
-        'token': store.get('token')
+        'token': new Token().getTokenFromCache()
       }
     })
 

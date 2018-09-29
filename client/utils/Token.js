@@ -6,10 +6,11 @@ class Token {
   constructor () {
     this.tokenUrl = config.restUrl + '/token'
     this.verifyUrl = config.restUrl + '/token/check'
+    this.key = 'token'
   }
 
   async verify (code) {
-    let token = store.get('token')
+    let token = this.getTokenFromCache()
     if (!token) {
       await this.getTokenFromServer(code)
     } else {
@@ -44,6 +45,14 @@ class Token {
     if (startChar === '2') {
       store.set('token', data.data)
     }
+  }
+
+  /**
+   * 获取缓存中的Token
+   * @return {*}
+   */
+  getTokenFromCache () {
+    return store.get(this.key)
   }
 }
 

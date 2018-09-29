@@ -8,5 +8,8 @@ import {types} from './mutation-types'
 export const mutations = {
   [types.SAVE_SIGNATURE] (state, sign) {
     state.signature = sign
+  },
+  [types.SAVE_USER_INFO] (state, data) {
+    state.userInfo = data
   }
 }

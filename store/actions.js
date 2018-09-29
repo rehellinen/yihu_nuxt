@@ -6,24 +6,12 @@
 import {types} from './mutation-types'
 import axios from 'axios'
 import config from '../utils/config'
+import {AccountModel} from '../client/model/AccountModel'
 
 const actions = {
-  async getWechatSignature ({commit}, url) {
-    const data = await axios.get(`${config.restUrl}/signature`, {
-      params: {
-        url
-      }
-    })
-    commit(types.SAVE_SIGNATURE, data.data)
-  },
-
   async getUserInfo ({commit}) {
-    const data = await axios.get(`${config.restUrl}/signature`, {
-      params: {
-        url
-      }
-    })
-    commit(types.SAVE_SIGNATURE, data.data)
+    const data = await (new AccountModel()).getUserInfo()
+    commit(types.SAVE_USER_INFO, data)
   }
 }
 

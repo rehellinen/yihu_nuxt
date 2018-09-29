@@ -7,6 +7,9 @@
 const getters = {
   signature (state) {
     return state.signature
+  },
+  userInfo (state) {
+    return state.userInfo
   }
 }
 

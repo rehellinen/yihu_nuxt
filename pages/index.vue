@@ -21,6 +21,7 @@ export default {
 </script>
 
 <style lang="sass">
+@import "~static/sass/base"
 
 .container
   min-height: 100vh
@@ -29,7 +30,7 @@ export default {
   justify-content: center
   align-items: center
   text-align: center
-  color: #6d6d6d
+  color: $base-font-color
   letter-spacing: 3px
   font-size: 16px
 
@@ -42,7 +43,7 @@ export default {
     font-size: 10px
 
     > div
-      background-color: #6d6d6d
+      background-color: $base-font-color
       height: 100%
       width: 5px
       margin: 1px
