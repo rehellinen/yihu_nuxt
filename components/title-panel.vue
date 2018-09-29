@@ -6,18 +6,18 @@
 </template>
 
 <script>
-export default {
-  props: {
-    title: {
-      type: String,
-      default: ''
-    },
-    image: {
-      type: String,
-      default: '/image/icon/bind.png'
+  export default {
+    props: {
+      title: {
+        type: String,
+        default: ''
+      },
+      image: {
+        type: String,
+        default: '/image/icon/bind.png'
+      }
     }
   }
-}
 </script>
 
 <style scoped lang="sass" rel="stylesheet/sass">
@@ -35,9 +35,10 @@ export default {
       margin-left: 25px
     div
       flex: 1
-      text-align: center
+      text-align: right
     p
       color: $deep-font-color
-      font-size: $bigger-font-size
-      letter-spacing: 2px
+      font-size: $biggest-font-size
+      letter-spacing: 4px
+      margin-right: 17%
 </style>

@@ -1,6 +1,6 @@
 <template lang="pug">
   .container
-    .loading(v-if="!token")
+    .loading(v-if="token")
       loading
     .loaded(v-else)
       // 标题
