@@ -36,8 +36,8 @@ class Token {
   }
 
   redirect () {
-    let url = encodeURIComponent(`${config.restUrl}/bind`)
-    window.location.href = `${config.apiUrl.code}?appid=${config.wechat.appId}&redirect_uri=${url}&response_type=code&scope=snsapi_base#wechat_redirect`
+    let url = encodeURIComponent(`${config.restUrl}/`)
+    window.location.href = `${config.apiUrl.code}?appid=${config.wechat.appId}&redirect_uri=${url}&response_type=code&scope=snsapi_userinfo#wechat_redirect`
   }
 
   async _verifyFromServer (token) {

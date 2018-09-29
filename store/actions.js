@@ -11,7 +11,6 @@ import {AccountModel} from '../client/model/AccountModel'
 const actions = {
   async getUserInfo ({commit}) {
     let data = await (new AccountModel()).getUserInfo()
-    console.log(data)
     commit(types.SAVE_USER_INFO, data)
   }
 }

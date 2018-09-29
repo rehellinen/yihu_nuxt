@@ -48,8 +48,11 @@ export class BaseModel {
       }
 
       if (code === '401') {
-        if(requestTimes > 4) {
-          return
+        if (requestTimes > 5) {
+          (new Token()).verify()
+        }
+        if (requestTimes > 6) {
+          (new Token()).verify()
         }
         requestTimes++
         return await this.reFetch(params, requestTimes)
