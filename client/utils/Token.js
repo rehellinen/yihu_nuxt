@@ -22,6 +22,7 @@ class Token {
     if (startChar === '2') {
       store.set('token', data.data)
     }
+    console.log(store.get('token'))
   }
 }
 

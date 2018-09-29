@@ -6,6 +6,8 @@
 import config from '../../utils/config'
 import axios from 'axios'
 import {AccountModel} from '../model/AccountModel'
+import {getRandChars} from '../../utils/utils'
+import cache from 'memory-cache'
 
 export class TokenService {
   constructor (code) {
@@ -20,7 +22,22 @@ export class TokenService {
     const data = await this.getFromWechat()
     // 存入数据库并返回用户ID
     const userId = await (new AccountModel()).saveOpenId(data)
-    console.log(userId)
+    // 生成Token以及相关数据
+    return this.saveToCache(userId)
+  }
+
+  saveToCache (userId) {
+    const cachedKey = getRandChars()
+    const cachedValue = {
+      userId,
+      scope: config.scope.ACCOUNT
+    }
+
+    cache.put(cachedKey, JSON.stringify(cachedValue), 6000, () => {
+      cache.del(cachedKey)
+    })
+
+    return cachedKey
   }
 
   async getFromWechat () {
