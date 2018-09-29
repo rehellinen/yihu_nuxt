@@ -51,6 +51,7 @@ export class TokenService {
     })
 
     if (!data.data.openid) {
+      console.log(data.data)
       throw new Error('can\'t get openID from wechat' )
     }
 
