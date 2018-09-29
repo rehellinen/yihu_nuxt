@@ -32,7 +32,6 @@ export class BaseModel {
     let data =  await this.model
       .where(condition)
       .fetch()
-    console.log(data)
     if (data) {
       return data.attributes
     } else {

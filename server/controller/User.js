@@ -11,10 +11,12 @@ export class User {
   static getUserInfo () {
     return async (ctx, next) => {
       const userId = TokenService.getSpecifiedValue(ctx)
-      const data = await (new AccountModel()).getById(userId)
+      if (userId) {
+        const data = await (new AccountModel()).getOneById(userId)
 
-      ctx.type = types.json
-      ctx.body = JSON.stringify(data)
+        ctx.type = types.json
+        ctx.body = JSON.stringify(data)
+      }
     }
   }
 }

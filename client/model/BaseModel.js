@@ -45,6 +45,16 @@ export class BaseModel {
       return res.data
     }
 
+    if (code === '401') {
+      if (reFetch) {
+        this._reFetch(params)
+      }
+    }
+
     return 'error'
+  }
+
+  _reFetch () {
+    this.request(params, false)
   }
 }

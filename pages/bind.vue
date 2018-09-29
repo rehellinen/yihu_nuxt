@@ -36,12 +36,10 @@ export default {
       'userInfo'
     ])
   },
-  beforeCreate () {
+  async mounted () {
     // 获取token
     this.code = this.$router.history.current.query.code
-    token.verify(this.code)
-  },
-  mounted () {
+    await token.verify(this.code)
     this.getUserInfo()
   },
   methods: {

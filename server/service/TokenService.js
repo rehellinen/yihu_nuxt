@@ -23,14 +23,14 @@ export class TokenService {
     // 存入数据库并返回用户ID
     const userId = await (new AccountModel()).saveOpenId(data)
     // 生成Token以及相关数据
-    console.log('get')
     return this.saveToCache(userId)
   }
 
   static getSpecifiedValue (ctx, key = 'userId') {
     const token = cache.get(ctx.header.token)
     if (!token) {
-      throw new Error('can\'t get info by token')
+      ctx.status = 401
+      return
     }
     const info =  JSON.parse(token)
     return info[key]
@@ -42,12 +42,9 @@ export class TokenService {
       userId,
       scope: config.scope.ACCOUNT
     }
-    console.log('save')
     cache.put(cachedKey, JSON.stringify(cachedValue), config.tokenExpiresIn, () => {
       cache.del(cachedKey)
-      console.log('delete')
     })
-    console.log(cache.get(cachedKey))
     return cachedKey
   }
 
