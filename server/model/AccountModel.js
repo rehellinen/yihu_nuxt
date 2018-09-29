@@ -26,7 +26,7 @@ export class AccountModel extends BaseModel {
     if (!user) {
       let res = await new this.model(savedData)
         .save(null, {method: 'insert'})
-      userId = user.id
+      userId = res.id
     } else {
       userId = user.attributes.id
     }
