@@ -5,6 +5,7 @@
  */
 import config from '../../utils/config'
 import axios from 'axios'
+import {AccountModel} from '../model/AccountModel'
 
 export class TokenService {
   constructor (code) {
@@ -18,7 +19,8 @@ export class TokenService {
     // 从微信服务器拿到openId
     const data = await this.getFromWechat()
     // 存入数据库并返回用户ID
-    const userId = this.saveToDb(data)
+    const userId = await (new AccountModel()).saveOpenId(data)
+    console.log(userId)
   }
 
   async getFromWechat () {
@@ -36,9 +38,5 @@ export class TokenService {
     }
 
     return data.data
-  }
-
-  async saveToDb (data) {
-
   }
 }
