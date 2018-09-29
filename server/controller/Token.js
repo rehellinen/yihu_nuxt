@@ -8,8 +8,7 @@ import {TokenService} from "../service/TokenService"
 export class Token {
   static getToken () {
     return async (ctx, next) => {
-      console.log(ctx.query)
-      ctx.body = await new TokenService().get()
+      ctx.body = await new TokenService(ctx.query.code).get()
     }
   }
 }
