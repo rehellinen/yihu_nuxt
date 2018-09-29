@@ -6,12 +6,12 @@
 import axios from 'axios'
 import config from '../../utils/config'
 import {TokenModel} from '../model/TokenModel'
-import {AccessToken} from "./AccessToken"
+import {AccessTokenService} from "./AccessTokenService"
 
 const {apiUrl, wechat, tokenType} = config
 const token = new TokenModel()
 
-export class Ticket {
+export class TicketService {
   constructor () {
 
   }
@@ -22,13 +22,13 @@ export class Ticket {
    */
   async get () {
     // 获取access_token
-    this.accessToken = await new AccessToken().get()
+    this.accessToken = await new AccessTokenService().get()
 
     // 从数据库获取token
     const data = await token.getToken(tokenType.TICKET)
 
     // 判断token是否有效
-    let isValid = Ticket.isValid(data)
+    let isValid = TicketService.isValid(data)
     if (isValid) {
       return data.token
     } else {

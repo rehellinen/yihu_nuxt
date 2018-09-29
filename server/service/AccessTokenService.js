@@ -10,7 +10,7 @@ import {TokenModel} from '../model/TokenModel'
 const {apiUrl, wechat} = config
 const token = new TokenModel()
 
-export class AccessToken {
+export class AccessTokenService {
   constructor () {
     this.appId = wechat.appId
     this.appSecret = wechat.appSecret
@@ -24,7 +24,7 @@ export class AccessToken {
     // 从数据库获取token
     const data = await token.getToken()
     // 判断token是否有效
-    let isValid = AccessToken.isValid(data)
+    let isValid = AccessTokenService.isValid(data)
     if (isValid) {
       return data.token
     } else {

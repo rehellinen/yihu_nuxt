@@ -17,9 +17,8 @@ export class TokenService {
   async get () {
     // 从微信服务器拿到openId
     const data = await this.getFromWechat()
-    console.log(data)
     // 存入数据库并返回用户ID
-    this.saveToDb(data)
+    const userId = this.saveToDb(data)
   }
 
   async getFromWechat () {
@@ -39,7 +38,7 @@ export class TokenService {
     return data.data
   }
 
-  saveToDb (data) {
+  async saveToDb (data) {
 
   }
 }

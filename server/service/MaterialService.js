@@ -5,15 +5,15 @@
  *  Create On 2018/9/27 11:02
  */
 
-import {AccessToken} from './AccessToken'
+import {AccessTokenService} from './AccessToken'
 import config from '../../utils/config'
 import axios from 'axios'
 
 const {apiUrl} = config
 
-export class Material {
+export class MaterialService {
   constructor () {
-    this.token = new AccessToken().get()
+    this.token = new AccessTokenService().get()
   }
 
   /**

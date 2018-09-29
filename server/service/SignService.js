@@ -3,14 +3,14 @@
  *  Create By rehellinen
  *  Create On 2018/9/27 15:44
  */
-import {Ticket} from './Ticket'
+import {TicketService} from './TicketService'
 import {getRandChars} from '../../utils/utils'
 import sha1 from 'sha1'
 import config from '../../utils/config'
 
-let ticketIns = new Ticket()
+let ticketIns = new TicketService()
 
-export class Sign {
+export class SignService {
   constructor (url) {
     this.url = url
   }
