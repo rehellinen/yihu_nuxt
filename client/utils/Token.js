@@ -11,7 +11,6 @@ class Token {
 
   async verify (code) {
     let token = this.getTokenFromCache()
-    console.log(token)
     // 没有token和code，直接跳转
     if (!token && !code) {
       this.redirect()

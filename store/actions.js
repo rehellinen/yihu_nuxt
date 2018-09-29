@@ -10,9 +10,15 @@ import {AccountModel} from '../client/model/AccountModel'
 
 const actions = {
   async getUserInfo ({commit}) {
-    const data = await (new AccountModel()).getUserInfo()
-    console.log(data)
-    commit(types.SAVE_USER_INFO, data)
+    let data = await (new AccountModel()).getUserInfo()
+    if (data === 401) {
+      setTimeout(async () => {
+        let data = await (new AccountModel()).getUserInfo()
+        commit(types.SAVE_USER_INFO, data)
+      }, 2000)
+    } else {
+      commit(types.SAVE_USER_INFO, data)
+    }
   }
 }
 

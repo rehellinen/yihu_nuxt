@@ -19,42 +19,39 @@ export class BaseModel {
    *  1. url [api地址]
    *  2. method [http请求方式]
    *  3. data [请求时携带的参数]
-   * @param reFetch 是否重新发送请求
+   * @param requestTimes 发送请求的次数
    */
-  async request(params, reFetch = true) {
+  async request(params, requestTimes) {
     let url = this.baseUrl + params.url
     if (!params.method) {
       params.method = 'GET'
     }
 
-    const res = await axios({
-      url: url,
-      data: params.data,
-      method: params.method,
-      headers: {
-        'content-type': 'application/json',
-        'token': new Token().getTokenFromCache()
+    try {
+      const res = await axios({
+        url: url,
+        data: params.data,
+        method: params.method,
+        headers: {
+          'content-type': 'application/json',
+          'token': new Token().getTokenFromCache()
+        },
+        validateStatus (status) {
+          return status < 500
+        }
+      })
+
+      let code = res.status.toString()
+
+      if (code.charAt(0) === '2') {
+        return res.data
       }
-    })
 
-    let code = res.status.toString()
-    let startChar = code.charAt(0)
-
-    // 处理成功时的情况
-    if (startChar === '2') {
-      return res.data
-    }
-
-    if (code === '401') {
-      if (reFetch) {
-        this._reFetch(params)
+      if (code === '401') {
+        return 401
       }
+    } catch (e) {
+      console.log(e)
     }
-
-    return 'error'
-  }
-
-  _reFetch () {
-    this.request(params, false)
   }
 }
