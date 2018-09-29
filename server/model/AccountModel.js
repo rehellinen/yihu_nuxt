@@ -22,9 +22,8 @@ export class AccountModel extends BaseModel {
     const user = await this.model
       .where(savedData)
       .fetch()
-    console.log(user)
 
-    if (!user.attributes.id) {
+    if (!user) {
       let res = await new this.model(savedData)
         .save(null, {method: 'insert'})
       userId = user.id
