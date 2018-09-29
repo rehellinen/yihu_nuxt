@@ -31,7 +31,7 @@ export class BaseModel {
       url: url,
       data: params.data,
       method: params.method,
-      header: {
+      headers: {
         'content-type': 'application/json',
         'token': new Token().getTokenFromCache()
       }
