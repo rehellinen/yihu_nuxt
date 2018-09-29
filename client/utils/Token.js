@@ -11,23 +11,43 @@ class Token {
 
   async verify (code) {
     let token = this.getTokenFromCache()
-    if (!token) {
+
+    // 没有token和code，直接跳转
+    if (!token && !code) {
+      this.redirect()
+    }
+    // 没有token但是有code，到服务器获取Token
+    if (!token && code) {
       await this.getTokenFromServer(code)
-    } else {
-      await this._verifyFromServer(token, code)
+    }
+    // 有token且有code
+    if (token && code) {
+      let isValid = await this._verifyFromServer(token)
+      if (!isValid) {
+        await this.getTokenFromServer(code)
+      }
+    }
+    // 有token但是无code
+    if (token && !code) {
+      let isValid = await this._verifyFromServer(token)
+      if (!isValid) {
+        this.redirect()
+      }
     }
   }
 
-  async _verifyFromServer (token, code) {
+  redirect () {
+    let url = encodeURIComponent(`${config.restUrl}/bind`)
+    window.location.href = `${config.apiUrl.code}?appid=${config.wechat.appId}&redirect_uri=${url}&response_type=code&scope=snsapi_base#wechat_redirect`
+  }
+
+  async _verifyFromServer (token) {
     const {data} = await axios.get(this.verifyUrl, {
       headers: {
         token
       }
     })
-
-    if (!data) {
-      this.getTokenFromServer(code)
-    }
+    return data
   }
 
   // 从服务器获取Token

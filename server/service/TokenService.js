@@ -28,6 +28,9 @@ export class TokenService {
 
   static getSpecifiedValue (ctx, key = 'userId') {
     const token = cache.get(ctx.header.token)
+    if (!token) {
+      console.log('can\'t get info by token')
+    }
     const info =  JSON.parse(token)
     return info[key]
   }
