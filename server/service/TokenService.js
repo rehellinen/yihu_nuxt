@@ -39,7 +39,7 @@ export class TokenService {
       scope: config.scope.ACCOUNT
     }
 
-    cache.put(cachedKey, JSON.stringify(cachedValue), 6000, () => {
+    cache.put(cachedKey, JSON.stringify(cachedValue), config.tokenExpiresIn, () => {
       cache.del(cachedKey)
     })
 
@@ -58,7 +58,6 @@ export class TokenService {
 
     if (!data.data.openid) {
       console.log(data.data)
-      throw new Error('can\'t get openID from wechat' )
     }
 
     return data.data
