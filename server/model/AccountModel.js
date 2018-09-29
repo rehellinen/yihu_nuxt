@@ -11,7 +11,6 @@ export class AccountModel extends BaseModel {
     super('account')
   }
 
-
   async saveOpenId (data) {
     let userId
     const savedData = {

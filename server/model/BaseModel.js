@@ -4,6 +4,7 @@
  *  Create On 2018/9/25 22:46
  */
 import {DataBase} from './DataBase'
+import config from '../../utils/config'
 
 export class BaseModel {
   /**
@@ -15,5 +16,27 @@ export class BaseModel {
     this.model = db.Model.extend({
       tableName: modelName
     })
+  }
+
+  /**
+   * 根据id获取数据
+   * @param id
+   * @return {Promise<void>}
+   */
+  async getOneById (id) {
+    const condition = {
+      id,
+      status: config.status.NORMAL
+    }
+
+    let data =  await this.model
+      .where(condition)
+      .fetch()
+    console.log(data)
+    if (data) {
+      return data.attributes
+    } else {
+      throw new Error('can\'t find user')
+    }
   }
 }

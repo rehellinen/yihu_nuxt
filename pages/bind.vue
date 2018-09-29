@@ -38,8 +38,8 @@ export default {
   },
   beforeCreate () {
     // 获取token
-    // this.code = this.$router.history.current.query.code
-    // token.verify(this.code)
+    this.code = this.$router.history.current.query.code
+    token.verify(this.code)
   },
   mounted () {
     this._redirect()
@@ -48,10 +48,10 @@ export default {
   methods: {
     _redirect () {
       // 没有code时重新跳转
-      // if (!this.code) {
-      //   let url = encodeURIComponent(`${config.restUrl}/bind`)
-      //   window.location.href = `${config.apiUrl.code}?appid=${config.wechat.appId}&redirect_uri=${url}&response_type=code&scope=snsapi_base#wechat_redirect`
-      // }
+      if (!this.code) {
+        let url = encodeURIComponent(`${config.restUrl}/bind`)
+        window.location.href = `${config.apiUrl.code}?appid=${config.wechat.appId}&redirect_uri=${url}&response_type=code&scope=snsapi_base#wechat_redirect`
+      }
     },
     ...mapActions([
       'getUserInfo'

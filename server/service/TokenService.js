@@ -26,6 +26,12 @@ export class TokenService {
     return this.saveToCache(userId)
   }
 
+  static getSpecifiedValue (ctx, key = 'userId') {
+    const token = cache.get(ctx.header.token)
+    const info =  JSON.parse(token)
+    return info[key]
+  }
+
   saveToCache (userId) {
     const cachedKey = getRandChars(32)
     const cachedValue = {
