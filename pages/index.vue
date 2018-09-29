@@ -1,39 +1,45 @@
 <template lang="pug">
   .container
-    // 标题
-    title-panel(title="功能开通")
-    .status.card
-      div
-        p.function 商家推送功能
-        p.status-text 未开通
-    // 表单
-    .form-container.card
-      form()
-        .section
-          p 学号：
-          input(name="name" class="form_input")
-        .section
-          p 手机号：
-          input(name="telephone" class="form_input")
-        .button
-          p 确定
+    .loading(v-if="!token")
+      loading
+    .loaded(v-else)
+      // 标题
+      title-panel(title="功能开通")
+      .status.card
+        div
+          p.function 商家推送功能
+          p.status-text 未开通
+      // 表单
+      .form-container.card
+        form()
+          .section
+            p 学号：
+            input(name="name" class="form_input")
+          .section
+            p 手机号：
+            input(name="telephone" class="form_input")
+          .button
+            p 确定
 </template>
 
 <script>
 import config from '../utils/config'
 import {Token} from '../client/utils/Token'
 import TitlePanel from '../components/title-panel'
+import Loading from '../components/loading'
 import {mapActions, mapGetters} from 'vuex'
 
 let token = new Token()
 
 export default {
   components: {
-    TitlePanel
+    TitlePanel,
+    Loading
   },
   computed: {
     ...mapGetters([
-      'userInfo'
+      'userInfo',
+      'token'
     ])
   },
   async mounted () {
