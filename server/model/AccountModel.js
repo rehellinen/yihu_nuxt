@@ -13,6 +13,7 @@ export class AccountModel extends BaseModel {
 
 
   async saveOpenId (data) {
+    let userId
     const savedData = {
       open_id: data.openid,
       status: config.status.NORMAL
@@ -23,9 +24,14 @@ export class AccountModel extends BaseModel {
       .fetch()
     console.log(user)
 
-    let res = await new this.model(savedData)
-      .save(null, {method: 'insert'})
+    if (!user.attributes.id) {
+      let res = await new this.model(savedData)
+        .save(null, {method: 'insert'})
+      userId = user.id
+    } else {
+      userId = user.attributes.id
+    }
 
-    return res.id
+    return userId
   }
 }
