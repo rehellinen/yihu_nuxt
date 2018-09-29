@@ -44,8 +44,9 @@ export class TokenService {
 
     cache.put(cachedKey, JSON.stringify(cachedValue), config.tokenExpiresIn, () => {
       cache.del(cachedKey)
+      console.log('delete')
     })
-
+    console.log(cache.get(cachedKey))
     return cachedKey
   }
 
@@ -60,7 +61,7 @@ export class TokenService {
     })
 
     if (!data.data.openid) {
-      console.log(data.data)
+      throw new Error(data.data.errmsg)
     }
 
     return data.data
