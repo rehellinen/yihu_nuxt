@@ -21,7 +21,7 @@ export default {
       window.location.href = `${config.apiUrl.code}?appid=${config.wechat.appId}&redirect_uri=${url}&response_type=code&scope=snsapi_base#wechat_redirect`
     }
     // 获取token
-    await token.get(code)
+    await token.verify(code)
   }
 }
 </script>

@@ -15,6 +15,7 @@ export const route = (app) => {
   router.get('/signature', Signature.getSignature())
   router.get('/MP_verify_bTR3G8h36rV3qShu.txt', PassiveReply.file())
   router.get('/token', Token.getToken())
+  router.get('/token/check', Token.checkToken())
 
   app
     .use(router.routes())

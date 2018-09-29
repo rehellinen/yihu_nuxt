@@ -27,7 +27,7 @@ export class TokenService {
   }
 
   saveToCache (userId) {
-    const cachedKey = getRandChars()
+    const cachedKey = getRandChars(32)
     const cachedValue = {
       userId,
       scope: config.scope.ACCOUNT
