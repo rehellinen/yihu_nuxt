@@ -21,7 +21,7 @@ export class BaseModel {
    *  3. data [请求时携带的参数]
    * @param requestTimes 发送请求的次数
    */
-  async request(params, requestTimes) {
+  async request(params, requestTimes = 0) {
     let url = this.baseUrl + params.url
     if (!params.method) {
       params.method = 'GET'
@@ -48,10 +48,23 @@ export class BaseModel {
       }
 
       if (code === '401') {
-        return 401
+        if(requestTimes > 4) {
+          return
+        }
+        requestTimes++
+        return await this.reFetch(params, requestTimes)
       }
     } catch (e) {
       console.log(e)
     }
+  }
+
+  reFetch (params, requestTimes) {
+    return new Promise(async resolve => {
+      setTimeout(async () => {
+        const data = await this.request(params, requestTimes)
+        resolve(data)
+      }, 1000)
+    })
   }
 }
