@@ -15,15 +15,15 @@
         form()
           .section
             p 学号：
-            input(name='name' class='form_input' v-model='userInfo.number')
+            input(name='name' class='form_input' v-model='number')
           .section
             p 手机：
-            input(name='telephone' class='form_input' v-model='userInfo.telephone')
+            input(name='telephone' class='form_input' v-model='telephone')
           .section
             p 类型：
             div
-              p.active 自营商家
-              p 二手卖家
+              p(@click="selectType(sellerType.SHOP)" :class="{active: type === sellerType.SHOP}") 自营商家
+              p(@click="selectType(sellerType.SELLER)" :class="{active: type === sellerType.SELLER}") 二手卖家
           .button(@click='submit')
             p 确定
 </template>
@@ -33,6 +33,7 @@ import {Token} from '../client/utils/Token'
 import TitlePanel from '../components/title-panel'
 import Loading from '../components/loading'
 import {mapActions, mapGetters} from 'vuex'
+import config from '../utils/config'
 
 let token = new Token()
 
@@ -40,6 +41,14 @@ export default {
   components: {
     TitlePanel,
     Loading
+  },
+  data () {
+    return {
+      number: '',
+      telephone: '',
+      type: config.sellerType.SHOP,
+      sellerType: config.sellerType
+    }
   },
   computed: {
     ...mapGetters([
@@ -56,9 +65,21 @@ export default {
     // this.getUserInfo()
   },
   methods: {
+    selectType (type) {
+      this.type = type
+    },
+    submit () {
+      let data = {
+        telephone: this.telephone,
+        number: this.number,
+        type: this.type
+      }
+      this.openPush(data)
+    },
     ...mapActions([
       'getUserInfo',
-      'getToken'
+      'getToken',
+      'openPush'
     ])
   },
 }
