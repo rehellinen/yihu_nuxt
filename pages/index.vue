@@ -34,6 +34,9 @@ import TitlePanel from '../components/title-panel'
 import Loading from '../components/loading'
 import {mapActions, mapGetters} from 'vuex'
 import config from '../utils/config'
+import {AccountModel} from "../client/model/AccountModel"
+
+let account = new AccountModel()
 
 let token = new Token()
 
@@ -68,13 +71,14 @@ export default {
     selectType (type) {
       this.type = type
     },
-    submit () {
+    async submit () {
       let data = {
         telephone: this.telephone,
         number: this.number,
         type: this.type
       }
-      this.openPush(data)
+      const res = await account.openPush(data)
+      console.log(res)
     },
     ...mapActions([
       'getUserInfo',

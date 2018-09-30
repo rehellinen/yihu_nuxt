@@ -11,4 +11,12 @@ export class AccountModel extends BaseModel{
       url: '/user'
     })
   }
+
+  async openPush (data) {
+    return await this.request({
+      url: '/openPush',
+      method: 'POST',
+      data
+    })
+  }
 }
