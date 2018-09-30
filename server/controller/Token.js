@@ -3,7 +3,7 @@
  *  Create By rehellinen
  *  Create On 2018/9/28 20:19
  */
-import {TokenService} from "../service/TokenService"
+import {TokenService} from '../service/TokenService'
 import cache from 'memory-cache'
 
 export class Token {

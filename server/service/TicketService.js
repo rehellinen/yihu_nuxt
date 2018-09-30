@@ -6,7 +6,7 @@
 import axios from 'axios'
 import config from '../../utils/config'
 import {TokenModel} from '../model/TokenModel'
-import {AccessTokenService} from "./AccessTokenService"
+import {AccessTokenService} from './AccessTokenService'
 
 const {apiUrl, wechat, tokenType} = config
 const token = new TokenModel()

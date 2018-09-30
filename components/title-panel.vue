@@ -1,8 +1,7 @@
 <template lang="pug">
   div.panel-container
     img(:src="image")
-    div
-      p {{title}}
+    p {{title}}
 </template>
 
 <script>
@@ -28,17 +27,13 @@
     height: 75px
     display: flex
     align-items: center
-    justify-content: space-between
+    justify-content: center
     img
-      width: 35px
-      height: 35px
-      margin-left: 25px
-    div
-      flex: 1
-      text-align: right
+      width: 25px
+      height: 25px
+      margin-right: 25px
     p
       color: $deep-font-color
       font-size: $biggest-font-size
       letter-spacing: 4px
-      margin-right: 17%
 </style>

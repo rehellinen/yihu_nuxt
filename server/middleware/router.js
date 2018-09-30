@@ -7,9 +7,8 @@ import Router from 'koa-router'
 import {PassiveReply} from '../controller/PassiveReply'
 import {Signature} from '../controller/Signature'
 import {Token} from '../controller/Token'
-import {User} from "../controller/User"
-import {TokenService} from "../service/TokenService"
-import {AccountModel} from "../model/AccountModel"
+import {User} from '../controller/User'
+import {Push} from '../controller/Push'
 
 export const route = (app) => {
   const router = new Router()
@@ -22,11 +21,8 @@ export const route = (app) => {
   router.get('/token/check', Token.checkToken())
   // 用户相关
   router.get('/user', User.getUserInfo())
-  router.get('/test', async (ctx, next) => {
-    // const userId = TokenService.getSpecifiedValue(ctx)
-    const data = await (new AccountModel()).getOneById(3)
-    console.log(data)
-  })
+  // 商家开通推送功能
+  router.put('/push', Push.openPush())
 
   app
     .use(router.routes())
