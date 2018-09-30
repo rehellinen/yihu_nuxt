@@ -9,6 +9,7 @@
         div
           p.function 商家推送功能
           p.status-text 未开通
+        p.detail 由于微信限制，商家需要在此页面绑定相关信息才能收到推送（用户下单等）。其中学号和手机号需与注册易乎商家版时的信息保持一致。
       // 表单
       .form-container.card
         form()
@@ -73,10 +74,16 @@ export default {
       display: flex
       justify-content: space-between
       align-items: center
+      border-bottom: 1px solid $light-font-color
+      padding-bottom: 10px
+      margin-bottom: 10px
       .function
         font-size: $big-font-size
       .status-text
         font-size: $small-font-size
+    .detail
+      font-size: $small-font-size
+
 
   .form-container
     margin-top: 10px
@@ -88,7 +95,7 @@ export default {
       align-items: center
       height: 40px
       p
-        flex-basis: 25%
+        flex-basis: 23%
       input
         flex-basis: 75%
         box-sizing: border-box
@@ -111,6 +118,7 @@ export default {
         flex-basis: 75%
         p
           font-size: $small-font-size
+          white-space: nowrap
         .active
           color: #ff4500
           font-weight: bold
@@ -120,5 +128,5 @@ export default {
       text-align: center
       padding: 5px 0
       border-radius: 5px
-      margin: 25px 20px 0 20px
+      margin: 15px 20px 0 20px
 </style>
