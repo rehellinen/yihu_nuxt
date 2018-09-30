@@ -24,7 +24,7 @@ export class BaseModel {
   async request(params, requestTimes = 0) {
     let url = this.baseUrl + params.url
     if (!params.method) {
-      params.method = 'GET'
+      params.method = 'get'
     }
 
     try {

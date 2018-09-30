@@ -14,8 +14,8 @@ export class AccountModel extends BaseModel{
 
   async openPush (data) {
     return await this.request({
-      url: '/openPush',
-      method: 'POST',
+      url: '/push',
+      method: 'post',
       data
     })
   }

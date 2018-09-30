@@ -22,7 +22,7 @@ export const route = (app) => {
   // 用户相关
   router.get('/user', User.getUserInfo())
   // 商家开通推送功能
-  router.put('/push', Push.openPush())
+  router.post('/push', Push.openPush())
 
   app
     .use(router.routes())

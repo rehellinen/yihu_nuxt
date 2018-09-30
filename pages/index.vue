@@ -1,6 +1,6 @@
 <template lang='pug'>
   .container
-    .loading(v-if='token')
+    .loading(v-if='!token')
       loading
     .loaded(v-else)
       // 标题
@@ -63,9 +63,9 @@ export default {
     let code = this.$router.history.current.query.code
 
     // 获取token
-    // await this.getToken(code)
+    await this.getToken(code)
     // 获取用户信息
-    // this.getUserInfo()
+    this.getUserInfo()
   },
   methods: {
     selectType (type) {
