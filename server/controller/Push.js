@@ -26,7 +26,6 @@ export class Push {
       if (userId) {
         if (type === config.sellerType.SHOP) {
           const shop = await (new ShopModel()).getShopByInfo(reqData)
-          console.log(shop)
           if (!shop) {
             ctx.body = 'fail'
             ctx.status = 404
@@ -36,7 +35,6 @@ export class Push {
           }
         } else {
           const seller = await (new SellerModel()).getSellerByInfo(reqData)
-          console.log(seller)
           if (!seller) {
             ctx.body = 'fail'
             ctx.status = 404
