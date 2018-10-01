@@ -6,6 +6,7 @@
 import axios from 'axios'
 import config from '../../utils/config'
 import {TokenModel} from '../model/TokenModel'
+import {WechatException} from "../libs/exception/WechatException"
 
 const {apiUrl, wechat} = config
 const token = new TokenModel()
@@ -39,7 +40,7 @@ export class AccessTokenService {
    * @return {Promise<*>}
    */
   async update () {
-    const data = await axios.get(apiUrl.accessToken, {
+    const {data} = await axios.get(apiUrl.accessToken, {
       params: {
         grant_type: 'client_credential',
         appid: this.appId,
@@ -47,9 +48,15 @@ export class AccessTokenService {
       }
     })
 
+    if (!data.access_token) {
+      throw new WechatException({
+        message: data.errmsg
+      })
+    }
+
     const now = new Date().getTime()
-    data.data.expires_in = now + (data.data.expires_in - 200) * 1000
-    return data.data
+    data.expires_in = now + (data.expires_in - 200) * 1000
+    return data
   }
 
   /**

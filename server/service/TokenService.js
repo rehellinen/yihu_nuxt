@@ -8,6 +8,7 @@ import axios from 'axios'
 import {AccountModel} from '../model/AccountModel'
 import {getRandChars} from '../../utils/utils'
 import cache from 'memory-cache'
+import {WechatException} from "../libs/exception/WechatException"
 
 export class TokenService {
   constructor (code) {
@@ -49,7 +50,7 @@ export class TokenService {
   }
 
   async getFromWechat () {
-    const data = await axios.get(this.url, {
+    const {data} = await axios.get(this.url, {
       params: {
         appid: this.appId,
         secret: this.appSecret,
@@ -58,10 +59,12 @@ export class TokenService {
       }
     })
 
-    if (!data.data.openid) {
-      throw new Error(data.data.errmsg)
+    if (!data.openid) {
+      throw new WechatException({
+        message: data.errmsg
+      })
     }
 
-    return data.data
+    return data
   }
 }

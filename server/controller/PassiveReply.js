@@ -44,11 +44,11 @@ export class PassiveReply {
           encoding: ctx.charset
         })
         const content = parseXML(reqDataXml)
-        ctx.weixin = formatMessage(content.xml)
-        await reply.apply(ctx, [ctx, next])
+        ctx.wechat = formatMessage(content.xml)
+        reply(ctx)
 
         // res 相关
-        const xml = new Template(ctx.weixin).get()
+        const xml = new Template(ctx.wechat).get()
         ctx.type = types.xml
         ctx.body = xml
       }
