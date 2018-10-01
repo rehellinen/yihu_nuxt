@@ -1,6 +1,7 @@
 <template lang='pug'>
   .container
-    .loading(v-if='!token')
+    modal(ref="modal")
+    .loading(v-if='token')
       loading
     .loaded(v-else)
       // 标题
@@ -32,6 +33,7 @@
 import {Token} from '../client/utils/Token'
 import TitlePanel from '../components/title-panel'
 import Loading from '../components/loading'
+import Modal from '../components/modal'
 import {mapActions, mapGetters} from 'vuex'
 import config from '../utils/config'
 import {AccountModel} from "../client/model/AccountModel"
@@ -43,7 +45,8 @@ let token = new Token()
 export default {
   components: {
     TitlePanel,
-    Loading
+    Loading,
+    Modal
   },
   data () {
     return {
@@ -63,9 +66,9 @@ export default {
     let code = this.$router.history.current.query.code
 
     // 获取token
-    await this.getToken(code)
+    // await this.getToken(code)
     // 获取用户信息
-    this.getUserInfo()
+    // this.getUserInfo()
   },
   methods: {
     selectType (type) {
@@ -78,7 +81,19 @@ export default {
         type: this.type
       }
       const res = await account.openPush(data)
-      console.log(res)
+      if (!res) {
+        this.$refs.modal.change({
+          isShow: true,
+          title: '提示',
+          content: '开通失败'
+        })
+      } else {
+        this.$refs.modal.change({
+          isShow: true,
+          title: '提示',
+          content: '开通成功'
+        })
+      }
     },
     ...mapActions([
       'getUserInfo',

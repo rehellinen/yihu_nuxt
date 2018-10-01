@@ -44,7 +44,7 @@ export class BaseModel {
       let code = res.status.toString()
 
       if (code.charAt(0) === '2') {
-        return res.data.data
+        return res.data
       }
 
       if (code === '401') {
@@ -57,6 +57,8 @@ export class BaseModel {
         requestTimes++
         return await this.reFetch(params, requestTimes)
       }
+
+      return res.data
     } catch (e) {
       console.log(e)
     }
