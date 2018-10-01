@@ -5,6 +5,7 @@
  */
 import {TokenService} from '../service/TokenService'
 import cache from 'memory-cache'
+import {TokenException} from "../libs/exception/TokenException"
 
 export class Token {
   static getToken () {
@@ -15,7 +16,11 @@ export class Token {
 
   static checkToken () {
     return async (ctx, next) => {
-      cache.get(ctx.header.token) ? ctx.body = true: ctx.body = false
+      if (!cache.get(ctx.header.token)){
+        throw new TokenException()
+      } else {
+        ctx.body = true
+      }
     }
   }
 }

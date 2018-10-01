@@ -10,7 +10,7 @@ import {Token} from '../controller/Token'
 import {User} from '../controller/User'
 import {Push} from '../controller/Push'
 
-export const route = (app) => {
+export const route = async (app) => {
   const router = new Router()
   // 微信相关
   router.all('/wechat', PassiveReply.wechat())
