@@ -32,4 +32,16 @@ export class AccountModel extends BaseModel {
 
     return userId
   }
+
+  async saveInfo (userId, data) {
+    let savedData = {
+      number: data.number,
+      telephone: data.telephone,
+      type: data.type,
+      is_push: 1
+    }
+
+    return await new this.model(savedData)
+      .where({id: userId}).save(null, {method: 'update'})
+  }
 }

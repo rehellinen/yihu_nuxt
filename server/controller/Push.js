@@ -1,7 +1,10 @@
 import {types} from '../../utils/mime'
+import config from '../../utils/config'
 import {AccountModel} from '../model/AccountModel'
 import {TokenService} from '../service/TokenService'
 import getRawBody from 'raw-body'
+import {ShopModel} from "../model/ShopModel"
+import {SellerModel} from "../model/SellerModel"
 
 export class Push {
   static openPush () {
@@ -16,11 +19,32 @@ export class Push {
       })
 
       const reqData = JSON.parse(reqDataRaw.toString())
-      console.log(reqData)
+      const number = reqData.number
+      const telephone = reqData.telephone
+      const type = reqData.type
+
       if (userId) {
-        // const account = await (new AccountModel()).getOneById(userId)
-        // ctx.type = types.json
-        ctx.body = 'test'
+        if (type === config.sellerType.SHOP) {
+          const shop = await (new ShopModel()).getShopByInfo(reqData)
+          console.log(shop)
+          if (!shop) {
+            ctx.body = 'fail'
+            ctx.status = 404
+          } else {
+            await (new AccountModel()).saveInfo(userId, reqData)
+            ctx.body = 'success'
+          }
+        } else {
+          const seller = await (new SellerModel()).getSellerByInfo(reqData)
+          console.log(seller)
+          if (!seller) {
+            ctx.body = 'fail'
+            ctx.status = 404
+          } else {
+            await (new AccountModel()).saveInfo(userId, reqData)
+            ctx.body = 'success'
+          }
+        }
       }
     }
   }
