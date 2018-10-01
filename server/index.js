@@ -1,3 +1,9 @@
+require('@babel/register')({
+  'presets': [
+    '@babel/preset-env'
+  ]
+})
+require('@babel/polyfill')
 const Koa = require('koa')
 const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')

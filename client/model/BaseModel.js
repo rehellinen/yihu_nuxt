@@ -48,10 +48,7 @@ export class BaseModel {
       }
 
       if (code === '401') {
-        if (requestTimes > 5) {
-          (new Token()).verify()
-        }
-        if (requestTimes > 6) {
+        if (requestTimes > 3) {
           (new Token()).verify()
         }
         requestTimes++
@@ -69,7 +66,7 @@ export class BaseModel {
       setTimeout(async () => {
         const data = await this.request(params, requestTimes)
         resolve(data)
-      }, 1000)
+      }, 2000)
     })
   }
 }

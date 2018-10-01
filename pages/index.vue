@@ -1,7 +1,7 @@
 <template lang='pug'>
   .container
     modal(ref="modal")
-    .loading(v-if='token')
+    .loading(v-if='!token')
       loading
     .loaded(v-else)
       // 标题
@@ -9,10 +9,10 @@
       .status.card
         div
           p.function 商家推送功能
-          p.status-text 未开通
+          p.status-text {{userInfo.is_push === 1 ? '已开通' : '未开通'}}
         p.detail 由于微信限制，商家需要在此页面绑定相关信息才能收到推送（用户下单等）。其中学号和手机号需与注册易乎商家版时的信息保持一致。
       // 表单
-      .form-container.card
+      .form-container.card(v-if="!userInfo.is_push")
         form()
           .section
             p 学号：
@@ -66,9 +66,9 @@ export default {
     let code = this.$router.history.current.query.code
 
     // 获取token
-    // await this.getToken(code)
+    await this.getToken(code)
     // 获取用户信息
-    // this.getUserInfo()
+    this.getUserInfo()
   },
   methods: {
     selectType (type) {
@@ -81,7 +81,7 @@ export default {
         type: this.type
       }
       const res = await account.openPush(data)
-      if (!res) {
+      if (res.status !== 1) {
         this.$refs.modal.change({
           isShow: true,
           title: '提示',
@@ -93,6 +93,7 @@ export default {
           title: '提示',
           content: '开通成功'
         })
+        this.getUserInfo()
       }
     },
     ...mapActions([
