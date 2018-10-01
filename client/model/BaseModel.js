@@ -44,7 +44,7 @@ export class BaseModel {
       let code = res.status.toString()
 
       if (code.charAt(0) === '2') {
-        return res.data
+        return res.data.data
       }
 
       if (code === '401') {

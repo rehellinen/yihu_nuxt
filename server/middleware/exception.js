@@ -4,8 +4,8 @@ export const exception = (app) => {
   const exceptionHandler = async (ctx, next) => {
     try {
       await next()
-      console.log(ctx.status)
     } catch (e) {
+      ctx.status = e.httpCode
       ctx.type = types.json
       ctx.body = e.getErrorMessage()
     }

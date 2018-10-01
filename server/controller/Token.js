@@ -11,7 +11,10 @@ import {SuccessMessage} from "../libs/exception/SuccessMessage"
 export class Token {
   static getToken () {
     return async (ctx, next) => {
-      ctx.body = await new TokenService(ctx.query.code).get()
+      let token =  await new TokenService(ctx.query.code).get()
+      throw new SuccessMessage({
+        data: token
+      })
     }
   }
 
