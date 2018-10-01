@@ -5,6 +5,7 @@
  */
 import {DataBase} from './DataBase'
 import config from '../../utils/config'
+import {DatabaseException} from "../libs/exception/DatabaseException"
 
 export class BaseModel {
   /**
@@ -32,10 +33,10 @@ export class BaseModel {
     let data =  await this.model
       .where(condition)
       .fetch()
-    if (data) {
-      return data.attributes
-    } else {
-      throw new Error('can\'t find user')
+    if (!data) {
+      throw new DatabaseException()
+
     }
+    return data.attributes
   }
 }

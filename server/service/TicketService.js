@@ -30,7 +30,7 @@ export class TicketService {
       return data.token
     } else {
       const data = await this.update()
-      await token.saveToken(data, tokenType.TICKET)
+      token.saveToken(data, tokenType.TICKET)
       return data.ticket
     }
   }

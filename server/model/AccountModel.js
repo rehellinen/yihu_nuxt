@@ -5,6 +5,7 @@
  */
 import {BaseModel} from './BaseModel'
 import config from '../../utils/config'
+import {DatabaseException} from "../libs/exception/DatabaseException"
 
 export class AccountModel extends BaseModel {
   constructor() {
@@ -25,6 +26,12 @@ export class AccountModel extends BaseModel {
     if (!user) {
       let res = await new this.model(savedData)
         .save(null, {method: 'insert'})
+      if (!res) {
+        throw new DatabaseException({
+          message: '写入数据失败',
+          status: 40001
+        })
+      }
       userId = res.id
     } else {
       userId = user.attributes.id
@@ -41,7 +48,14 @@ export class AccountModel extends BaseModel {
       is_push: 1
     }
 
-    return await new this.model(savedData)
+    const res =  await new this.model(savedData)
       .where({id: userId}).save(null, {method: 'update'})
+
+    if (!res) {
+      throw new DatabaseException({
+        message: '写入数据失败',
+        status: 40001
+      })
+    }
   }
 }

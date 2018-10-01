@@ -5,6 +5,7 @@
  */
 import {BaseModel} from './BaseModel'
 import config from '../../utils/config'
+import {DatabaseException} from "../libs/exception/DatabaseException"
 
 let {tokenType} = config
 
@@ -18,15 +19,15 @@ export class TokenModel extends BaseModel{
    * @param type access_token / ticket
    */
   async getToken (type = tokenType.ACCESS_TOKEN) {
-    try{
-      let data =  await this.model
-        .where({type})
-        .orderBy('id', 'DESC')
-        .fetch()
-      return data ? data.attributes : null
-    } catch (e) {
-      console.log(e)
+    let data =  await this.model
+      .where({type})
+      .orderBy('id', 'DESC')
+      .fetch()
+    if (!data) {
+      throw new DatabaseException()
     }
+
+    return data.attributes
   }
 
   /**
@@ -36,19 +37,19 @@ export class TokenModel extends BaseModel{
    * @return {Promise<boolean>}
    */
   async saveToken (data, type = tokenType.ACCESS_TOKEN) {
-    try {
-      let savedData = {
-        token: data.access_token || data.ticket,
-        expires_in: data.expires_in,
-        type: type
-      }
+    let savedData = {
+      token: data.access_token || data.ticket,
+      expires_in: data.expires_in,
+      type: type
+    }
 
-      let res = await new this.model(savedData)
-        .save(null, {method: 'insert'})
-
-      return !!res.id
-    } catch (e) {
-      console.log(e)
+    let res = await new this.model(savedData)
+      .save(null, {method: 'insert'})
+    if (!res) {
+      throw new DatabaseException({
+        status: 40001,
+        message: '插入Token数据失败'
+      })
     }
   }
 }

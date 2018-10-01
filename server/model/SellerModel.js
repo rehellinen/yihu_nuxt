@@ -5,6 +5,7 @@
  */
 import {BaseModel} from './BaseModel'
 import config from '../../utils/config'
+import {DatabaseException} from "../libs/exception/DatabaseException"
 
 export class SellerModel extends BaseModel {
   constructor() {
@@ -23,7 +24,7 @@ export class SellerModel extends BaseModel {
       .fetch()
 
     if (!user) {
-      return null
+      throw new DatabaseException()
     } else {
       return user.attributes
     }
