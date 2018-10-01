@@ -6,6 +6,7 @@
 import {TokenService} from '../service/TokenService'
 import cache from 'memory-cache'
 import {TokenException} from "../libs/exception/TokenException"
+import {SuccessMessage} from "../libs/exception/SuccessMessage"
 
 export class Token {
   static getToken () {
@@ -19,7 +20,7 @@ export class Token {
       if (!cache.get(ctx.header.token)){
         throw new TokenException()
       } else {
-        ctx.body = true
+        throw new SuccessMessage()
       }
     }
   }

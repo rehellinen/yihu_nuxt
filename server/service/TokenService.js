@@ -9,6 +9,7 @@ import {AccountModel} from '../model/AccountModel'
 import {getRandChars} from '../../utils/utils'
 import cache from 'memory-cache'
 import {WechatException} from "../libs/exception/WechatException"
+import {TokenException} from "../libs/exception/TokenException"
 
 export class TokenService {
   constructor (code) {
@@ -30,8 +31,7 @@ export class TokenService {
   static getSpecifiedValue (ctx, key = 'userId') {
     const token = cache.get(ctx.header.token)
     if (!token) {
-      ctx.status = 401
-      return
+      throw new TokenException()
     }
     const info =  JSON.parse(token)
     return info[key]

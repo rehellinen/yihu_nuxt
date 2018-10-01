@@ -5,6 +5,7 @@ import {TokenService} from '../service/TokenService'
 import getRawBody from 'raw-body'
 import {ShopModel} from "../model/ShopModel"
 import {SellerModel} from "../model/SellerModel"
+import {SuccessMessage} from "../libs/exception/SuccessMessage"
 
 export class Push {
   static openPush () {
@@ -23,27 +24,16 @@ export class Push {
       const telephone = reqData.telephone
       const type = reqData.type
 
-      if (userId) {
-        if (type === config.sellerType.SHOP) {
-          const shop = await (new ShopModel()).getShopByInfo(reqData)
-          if (!shop) {
-            ctx.body = 'fail'
-            ctx.status = 404
-          } else {
-            await (new AccountModel()).saveInfo(userId, reqData)
-            ctx.body = 'success'
-          }
-        } else {
-          const seller = await (new SellerModel()).getSellerByInfo(reqData)
-          if (!seller) {
-            ctx.body = 'fail'
-            ctx.status = 404
-          } else {
-            await (new AccountModel()).saveInfo(userId, reqData)
-            ctx.body = 'success'
-          }
-        }
+      if (type === config.sellerType.SHOP) {
+        await (new ShopModel()).getShopByInfo(reqData)
+      } else {
+        await (new SellerModel()).getSellerByInfo(reqData)
       }
+
+      await (new AccountModel()).saveInfo(userId, reqData)
+      throw new SuccessMessage({
+        message: '开通消息推送服务成功'
+      })
     }
   }
 }

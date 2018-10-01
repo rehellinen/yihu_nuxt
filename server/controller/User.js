@@ -6,17 +6,16 @@
 import {types} from '../../utils/mime'
 import {AccountModel} from '../model/AccountModel'
 import {TokenService} from '../service/TokenService'
+import {SuccessMessage} from "../libs/exception/SuccessMessage"
 
 export class User {
   static getUserInfo () {
     return async (ctx, next) => {
       const userId = TokenService.getSpecifiedValue(ctx)
-      if (userId) {
-        const data = await (new AccountModel()).getOneById(userId)
-
-        ctx.type = types.json
-        ctx.body = JSON.stringify(data)
-      }
+      const data = await (new AccountModel()).getOneById(userId)
+      throw new SuccessMessage({
+        data
+      })
     }
   }
 }
