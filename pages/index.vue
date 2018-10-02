@@ -43,6 +43,11 @@ let account = new AccountModel()
 let token = new Token()
 
 export default {
+  head () {
+    return {
+      title: '校园易乎'
+    }
+  },
   components: {
     TitlePanel,
     Loading,
