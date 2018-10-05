@@ -10,7 +10,7 @@
         div
           p.function 商家推送功能
           p.status-text {{userInfo.is_push === 1 ? '已开通' : '未开通'}}
-        p.detail 由于微信限制，商家需要在此页面绑定相关信息才能收到推送（用户下单等）。其中学号和手机号需与注册易乎商家版时的信息保持一致。
+        p.detail 由于微信限制，商家需要在此页面 绑定相关信息才能收到推送（用户下单等）。其中学号和手机号需与注册易乎商家版时的信息保持一致。
       // 表单
       .form-container.card(v-if="!userInfo.is_push")
         form()

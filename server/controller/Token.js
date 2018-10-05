@@ -7,24 +7,24 @@ import {TokenService} from '../service/TokenService'
 import cache from 'memory-cache'
 import {TokenException} from "../libs/exception/TokenException"
 import {SuccessMessage} from "../libs/exception/SuccessMessage"
+import {controller, get} from "../libs/decorator/Router"
 
+@controller('token')
 export class Token {
-  static getToken () {
-    return async (ctx, next) => {
-      let token =  await new TokenService(ctx.query.code).get()
-      throw new SuccessMessage({
-        data: token
-      })
-    }
+  @get('')
+  async getToken(ctx) {
+    let token = await new TokenService(ctx.query.code).get()
+    throw new SuccessMessage({
+      data: token
+    })
   }
 
-  static checkToken () {
-    return async (ctx, next) => {
-      if (!cache.get(ctx.header.token)){
-        throw new TokenException()
-      } else {
-        throw new SuccessMessage()
-      }
+  @get('check')
+  async checkToken(ctx) {
+    if (!cache.get(ctx.header.token)) {
+      throw new TokenException()
+    } else {
+      throw new SuccessMessage()
     }
   }
 }
