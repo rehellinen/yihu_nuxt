@@ -9,7 +9,6 @@ export const router = (app) => {
 
   glob.sync(resolve(__dirname, '../controller', './*.js'))
     .forEach(require)
-
   for (let [conf, controller] of routerMap) {
     const routerPath = conf.target.routerPrefix + conf.path
     router[conf.method](routerPath, controller)

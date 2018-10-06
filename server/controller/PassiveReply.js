@@ -14,52 +14,55 @@ import fs from 'fs'
 import {promisify} from 'util'
 import {resolve} from 'path'
 import {types} from '../../utils/mime'
+import {controller, get, post} from "../libs/decorator/Router"
 
 const readAsync = promisify(fs.readFile)
 
+@controller('wechat')
 export class PassiveReply {
-  static wechat () {
-    return async (ctx, next) => {
-      const token = config.wechat.token
-      const {signature, timestamp, nonce, echostr} = ctx.query
-      const str = [token, timestamp, nonce].sort().join('')
-      const shaRes = sha1(str)
+  @get('')
+  async validation (ctx) {
+    const token = config.wechat.token
+    const {signature, timestamp, nonce, echostr} = ctx.query
+    const str = [token, timestamp, nonce].sort().join('')
+    const shaRes = sha1(str)
 
-      // 处理微信url验证
-      if (ctx.method === 'GET') {
-        shaRes === signature ? ctx.body = echostr : ctx.body = 'fail'
-      }
-
-      // 处理公众号自动回复等功能
-      if (ctx.method === 'POST') {
-        if (shaRes !== signature) {
-          ctx.body = 'fail'
-          return
-        }
-
-        // req 相关
-        const reqDataXml = await getRawBody(ctx.req, {
-          length: ctx.length,
-          limit: '1mb',
-          encoding: ctx.charset
-        })
-        const content = parseXML(reqDataXml)
-        ctx.wechat = formatMessage(content.xml)
-        reply(ctx)
-
-        // res 相关
-        const xml = new Template(ctx.wechat).get()
-        ctx.type = types.xml
-        ctx.body = xml
-      }
-    }
+    shaRes === signature ? ctx.body = echostr : ctx.body = 'fail'
   }
 
-  static file () {
-    return async (ctx, next) => {
-      const data = await readAsync(resolve(__dirname, '../files/MP_verify_bTR3G8h36rV3qShu.txt'))
-      ctx.type = types.txt
-      ctx.body = data.toString()
+
+  @post('')
+  async passiveReply (ctx) {
+    const token = config.wechat.token
+    const {signature, timestamp, nonce, echostr} = ctx.query
+    const str = [token, timestamp, nonce].sort().join('')
+    const shaRes = sha1(str)
+
+    if (shaRes !== signature) {
+      ctx.body = 'fail'
+      return
     }
+
+    // req 相关
+    const reqDataXml = await getRawBody(ctx.req, {
+      length: ctx.length,
+      limit: '1mb',
+      encoding: ctx.charset
+    })
+    const content = parseXML(reqDataXml)
+    ctx.wechat = formatMessage(content.xml)
+    reply(ctx)
+
+    // res 相关
+    const xml = new Template(ctx.wechat).get()
+    ctx.type = types.xml
+    ctx.body = xml
+  }
+
+  @get('MP_verify_bTR3G8h36rV3qShu.txt')
+  async file (ctx) {
+    const data = await readAsync(resolve(__dirname, '../files/MP_verify_bTR3G8h36rV3qShu.txt'))
+    ctx.type = types.txt
+    ctx.body = data.toString()
   }
 }

@@ -1,7 +1,6 @@
 export const routerMap = new Map()
 
 const normalizePath = (path) => {
-  if (!path) return
   return path.startsWith('/') ? path : `/${path}`
 }
 

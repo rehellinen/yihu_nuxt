@@ -5,14 +5,15 @@
  */
 import {SignService} from '../service/SignService'
 import {SuccessMessage} from "../libs/exception/SuccessMessage"
+import {controller, get} from "../libs/decorator/Router"
 
+@controller('signature')
 export class Signature {
-  static getSignature () {
-    return async (ctx, next) => {
-      const retData = await (new SignService(ctx.query.url)).sign()
-      throw new SuccessMessage({
-        data: retData
+  @get('')
+  async getSignature (ctx) {
+    const retData = await (new SignService(ctx.query.url)).sign()
+    throw new SuccessMessage({
+      data: retData
     })
-    }
   }
 }
