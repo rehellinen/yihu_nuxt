@@ -50,4 +50,22 @@ function getRandChars (length = 16) {
   return str
 }
 
-export {parseXML, formatMessage, getRandChars}
+function parseParams(params) {
+  params = params.toString()
+  let paramsObj = {}
+
+  if (!params.startsWith('<')) {
+    // 处理非xml情况
+    let paramsArr = params.split('&')
+    for (let item of paramsArr) {
+      let param = item.split('=')
+      paramsObj[param[0]] = param[1]
+    }
+  } else {
+    // 处理xml情况
+    paramsObj = x2js.xml2js(params)
+  }
+  return paramsObj
+}
+
+export {parseXML, formatMessage, getRandChars, parseParams}
