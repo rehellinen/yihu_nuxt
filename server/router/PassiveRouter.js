@@ -1,4 +1,4 @@
-import {controller, get, post} from "../libs/decorator/Router"
+import {controller, get, post} from "../libs/decorator/router"
 import {PassiveReply} from "../controller/PassiveReply"
 
 /**

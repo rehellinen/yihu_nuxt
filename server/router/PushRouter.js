@@ -1,4 +1,5 @@
-import {controller, get} from "../libs/decorator/Router"
+import {controller, get} from "../libs/decorator/router"
+import {validate} from "../libs/decorator/validate"
 import {Push} from "../controller/Push"
 
 /**
@@ -7,6 +8,7 @@ import {Push} from "../controller/Push"
 @controller('push')
 export class PushRouter {
   @get('')
+  @validate('User', 'push')
   async openPush (ctx) {
     await Push.openPush(ctx)
   }

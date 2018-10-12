@@ -1,5 +1,5 @@
 import Router from 'koa-router'
-import {routerMap} from "../libs/decorator/Router"
+import {routerMap} from "../libs/decorator/router"
 import {resolve} from "path"
 import glob from 'glob'
 

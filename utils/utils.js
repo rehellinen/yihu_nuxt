@@ -53,17 +53,19 @@ function getRandChars (length = 16) {
 function parseParams(params) {
   params = params.toString()
   let paramsObj = {}
-
-  if (!params.startsWith('<')) {
-    // 处理非xml情况
+  if (params.startsWith('<')) {
+    // 处理xml
+    paramsObj = x2js.xml2js(params)
+  } else if (params.startsWith('{')) {
+    // 处理json
+    paramsObj = JSON.parse(params)
+  } else {
+    // 处理表单
     let paramsArr = params.split('&')
     for (let item of paramsArr) {
       let param = item.split('=')
       paramsObj[param[0]] = param[1]
     }
-  } else {
-    // 处理xml情况
-    paramsObj = x2js.xml2js(params)
   }
   return paramsObj
 }

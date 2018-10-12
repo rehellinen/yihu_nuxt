@@ -1,4 +1,4 @@
-import {controller, get} from "../libs/decorator/Router"
+import {controller, get} from "../libs/decorator/router"
 import {User} from "../controller/User"
 
 /**

@@ -5,7 +5,7 @@
   "author": "rehellinen",
   "private": true,
   "scripts": {
-    "dev": "nodemon -w ./index.js -w ./server --exec node index",
+    "dev": "nodemon -w ./index.js -w ./server -w ./utils --exec node index",
     "build": "nuxt build",
     "start": "cross-env NODE_ENV=production node server/index.js",
     "generate": "nuxt generate",
