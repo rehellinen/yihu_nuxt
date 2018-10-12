@@ -6,16 +6,13 @@
 import axios from 'axios'
 import config from '../../utils/config'
 import {TokenModel} from '../model/TokenModel'
-import {AccessTokenService} from "./AccessTokenService"
+import {AccessTokenService} from './AccessTokenService'
+import {WechatException} from "../libs/exception/WechatException"
 
-const {apiUrl, wechat, tokenType} = config
+const {apiUrl, tokenType} = config
 const token = new TokenModel()
 
 export class TicketService {
-  constructor () {
-
-  }
-
   /**
    * 主方法：获取token
    * @return {Promise<*>}
@@ -33,7 +30,7 @@ export class TicketService {
       return data.token
     } else {
       const data = await this.update()
-      await token.saveToken(data, tokenType.TICKET)
+      token.saveToken(data, tokenType.TICKET)
       return data.ticket
     }
   }
@@ -43,16 +40,21 @@ export class TicketService {
    * @return {Promise<*>}
    */
   async update () {
-    const data = await axios.get(apiUrl.ticket, {
+    const {data} = await axios.get(apiUrl.ticket, {
       params: {
         type: 'jsapi',
         access_token: this.accessToken
       }
     })
+    if (!data.ticket) {
+      throw new WechatException({
+        message: data.errmsg
+      })
+    }
 
     const now = new Date().getTime()
-    data.data.expires_in = now + (data.data.expires_in - 200) * 1000
-    return data.data
+    data.expires_in = now + (data.expires_in - 200) * 1000
+    return data
   }
 
   /**

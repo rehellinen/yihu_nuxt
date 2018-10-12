@@ -31,7 +31,8 @@
     img
       width: 25px
       height: 25px
-      margin-right: 30px
+      margin-right: 25px
+
     p
       color: $deep-font-color
       font-size: $biggest-font-size

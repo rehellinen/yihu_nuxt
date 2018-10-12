@@ -43,12 +43,16 @@ class Token {
   }
 
   async _verifyFromServer (token) {
-    const {data} = await axios.get(this.verifyUrl, {
+    const {data, status} = await axios.get(this.verifyUrl, {
       headers: {
         token
+      },
+      validateStatus (status) {
+        return status < 500
       }
     })
-    return data
+
+    return status !== 401;
   }
 
   // 从服务器获取Token
@@ -64,10 +68,10 @@ class Token {
 
     // 处理成功时的情况
     if (startChar === '2') {
-      store.set('token', data.data)
+      store.set('token', data.data.data)
     }
 
-    return data.data
+    return data.data.data
   }
 
   /**

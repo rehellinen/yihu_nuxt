@@ -1,4 +1,4 @@
-<template lang="pug">
+<template lang='pug'>
   .loading-container
     .spinner
       .rect1
@@ -14,8 +14,8 @@ export default {
 }
 </script>
 
-<style lang="sass">
-@import "~static/sass/base"
+<style lang='sass'>
+@import '~static/sass/base'
 
 .loading-container
   min-height: 100vh

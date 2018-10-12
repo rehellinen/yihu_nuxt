@@ -24,7 +24,7 @@ export class BaseModel {
   async request(params, requestTimes = 0) {
     let url = this.baseUrl + params.url
     if (!params.method) {
-      params.method = 'GET'
+      params.method = 'get'
     }
 
     try {
@@ -48,15 +48,14 @@ export class BaseModel {
       }
 
       if (code === '401') {
-        if (requestTimes > 5) {
-          (new Token()).verify()
-        }
-        if (requestTimes > 6) {
+        if (requestTimes > 3) {
           (new Token()).verify()
         }
         requestTimes++
         return await this.reFetch(params, requestTimes)
       }
+
+      return res.data
     } catch (e) {
       console.log(e)
     }
@@ -67,7 +66,7 @@ export class BaseModel {
       setTimeout(async () => {
         const data = await this.request(params, requestTimes)
         resolve(data)
-      }, 1000)
+      }, 2000)
     })
   }
 }

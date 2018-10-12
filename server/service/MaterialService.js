@@ -5,7 +5,7 @@
  *  Create On 2018/9/27 11:02
  */
 
-import {AccessTokenService} from './AccessToken'
+import {AccessTokenService} from './AccessTokenService'
 import config from '../../utils/config'
 import axios from 'axios'
 

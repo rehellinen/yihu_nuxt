@@ -7,18 +7,18 @@ import config from '../../utils/config'
 let {msgType, eventType} = config
 const tip = '爱你哟~'
 
-export default async (ctx, next) => {
-  ctx.weixin.content = tip
-  let weixin = ctx.weixin
+export default (ctx) => {
+  ctx.wechat.content = tip
+  let wechat = ctx.wechat
 
-  if (weixin.MsgType === msgType.TEXT) {
+  if (wechat.MsgType === msgType.TEXT) {
     // 文本消息
-    weixin.content = tip
-  } else if (weixin.MsgType === msgType.EVENT) {
+    wechat.content = tip
+  } else if (wechat.MsgType === msgType.EVENT) {
     // 事件
-    if (weixin.Event === eventType.SUBSCRIBE) {
-      weixin.content = '欢迎关注我们~'
-    } else if (weixin.Event === eventType.UNSUBSCRIBE) {
+    if (wechat.Event === eventType.SUBSCRIBE) {
+      wechat.content = '欢迎关注我们~'
+    } else if (wechat.Event === eventType.UNSUBSCRIBE) {
       // TODO: 用户取消关注
     }
   }
