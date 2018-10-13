@@ -6,6 +6,7 @@ const normalizePath = (path) => {
 
 const baseMethod = (conf) => {
   return (target, key) => {
+    target[key].prototype.method = conf.method
     conf.path = normalizePath(conf.path)
     conf.target = target
     routerMap.set(conf, target[key])

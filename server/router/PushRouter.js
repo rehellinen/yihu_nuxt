@@ -8,7 +8,7 @@ import {Push} from "../controller/Push"
 @controller('push')
 export class PushRouter {
   @get('')
-  @validate('User', 'push')
+  @validate({name: 'User', scene: 'push'})
   async openPush (ctx) {
     await Push.openPush(ctx)
   }

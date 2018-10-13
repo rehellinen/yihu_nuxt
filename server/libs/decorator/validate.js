@@ -5,17 +5,15 @@
  */
 export const validateMap = new Map()
 
-export const validate = (validateName, scene) => {
+export const validate = ({name, scene}) => {
   // TODO: 验证name首字母是否大写
-  const Validate = require(`../validate/${validateName}Validate`)[`${validateName}Validate`]
+  const Validate = require(`../validate/${name}Validate`)[`${name}Validate`]
 
   let conf = {
-    name: validateName,
+    name,
     scene
   }
   return (target, key) => {
-    target[key].prototype.url = '123'
-    console.log(target[key].prototype)
     validateMap.set(conf, new Validate())
   }
 }
