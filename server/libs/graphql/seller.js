@@ -8,14 +8,17 @@ import {SellerModel} from "../../model/SellerModel"
 
 export const sellerScheme = `
   type Seller {
+    id: ID,
     name: String,
-    number: String
+    number: Int,
+    telephone: Float,
+    email: String,
+    weixin: String
+    zhifubao: String,
+    dormitory: Int,
   }
 `
 
-export const sellerData = async () => {
-  return await (new SellerModel()).getSellerByInfo({
-    number: 2016052462,
-    telephone: 13229438008
-  })
+export const sellerData = async (parent, args, context, info) => {
+  return await (new SellerModel()).getSellerByInfo(args)
 }

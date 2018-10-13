@@ -8,15 +8,15 @@ import {SellerModel} from "../../model/SellerModel"
 
 export const resolvers = {
   Query: {
-    async seller () {
-      return sellerData()
+    async seller (parent, args, context, info) {
+      return sellerData(parent, args, context, info)
     }
   }
 }
 
 export const schema = `
   type Query {
-    seller: Seller
+    seller(number: Int, telephone: Float): Seller,
   }
   ${sellerScheme}
   `
