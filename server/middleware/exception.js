@@ -1,13 +1,19 @@
 import {types} from "../../utils/mime"
+import {BaseException} from "../libs/exception/BaseException"
 
 export const exception = (app) => {
   const exceptionHandler = async (ctx, next) => {
     try {
       await next()
     } catch (e) {
-      ctx.status = e.httpCode
-      ctx.type = types.json
-      ctx.body = e.getErrorMessage()
+      if (e instanceof BaseException) {
+        ctx.status = e.httpCode
+        ctx.type = types.json
+        ctx.body = e.getError()
+      } else {
+        console.log(e.toString())
+        ctx.body = e.toString()
+      }
     }
   }
 

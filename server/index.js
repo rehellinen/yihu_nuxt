@@ -18,7 +18,7 @@ const r = (path) => {
 
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
-const middlewares = ['exception', 'validate', 'router']
+const middlewares = ['graphql', 'exception', 'validate', 'router']
 
 let config = require('../nuxt.config.js')
 
