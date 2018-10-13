@@ -2,7 +2,7 @@ import {controller, get, post} from "../libs/decorator/router"
 import {PassiveReply} from "../controller/PassiveReply"
 
 /**
- * 负责微信公众号相关
+ * 微信公众号相关
  */
 @controller('wechat')
 export class PassiveRouter {

@@ -12,7 +12,8 @@ export class BaseValidate extends Methods{
     this.scene = scene
   }
 
-  check (scene, params) {
+  check (ctx, scene, params) {
+    let wantedParams = {}
     const paramsFields = this.scene[scene]['params']
 
     for (let field of paramsFields) {
@@ -21,6 +22,10 @@ export class BaseValidate extends Methods{
       const fieldCN = rule[1]
 
       BaseValidate[validateFunc](params, field, fieldCN)
+
+      wantedParams[field] = params[field]
     }
+
+    ctx.wantedParams = wantedParams
   }
 }

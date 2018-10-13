@@ -2,7 +2,7 @@ import {controller, get} from "../libs/decorator/router"
 import {Signature} from "../controller/Signature"
 
 /**
- * 负责微信公众号相关
+ * 签名相关
  */
 @controller('signature')
 export class SignatureRouter {

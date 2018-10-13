@@ -22,7 +22,7 @@ export const validate = (app) => {
     for (let [conf, validate] of validateMap) {
       let scene = validate.scene[conf.scene]
       if (scene.router === router && scene.method === method) {
-        validate.check(conf.scene, params)
+        validate.check(ctx, conf.scene, params)
       }
     }
 
