@@ -19,6 +19,6 @@ export const sellerScheme = `
   }
 `
 
-export const sellerData = async (parent, args, context, info) => {
+export const sellerData = async (parent, args) => {
   return await (new SellerModel()).getSellerByInfo(args)
 }
