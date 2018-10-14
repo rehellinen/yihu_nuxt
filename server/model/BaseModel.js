@@ -6,7 +6,6 @@
 import {DataBase} from './DataBase'
 import config from '../../utils/config'
 import {DatabaseException} from "../libs/exception/DatabaseException"
-import {isEmptyObj} from "../../utils/utils"
 
 export class BaseModel {
   /**
@@ -14,6 +13,7 @@ export class BaseModel {
    */
   constructor (conf = {}) {
     this.db = DataBase.getInstance()
+
     if (conf.image) {
       this.image = this.db.Model.extend({
         tableName: 'image'
@@ -25,19 +25,19 @@ export class BaseModel {
    * 根据id获取数据
    * @param id int 数据的ID
    * @param status Array 要查询的数据的status
-   * @param relation Object 放置关联的相关信息
+   * @param relationName String 关联的模型名称
    * @return {Promise<void>}
    */
-  async getOneById (id, status = [config.status.NORMAL], relation = {}) {
+  async getOneById (id, status = [config.status.NORMAL], relationName = '') {
     let data
     const model = this.model
       .where('id', id)
       .where('status', 'in', status)
 
-    if (isEmptyObj(relation)) {
-      data = model.fetch()
+    if (relationName) {
+      data = await model.fetch({withRelated: [relationName]})
     } else {
-      data = model.hasOne(relation.model, relation.foreignKey, relation.foreignKeyTarget)
+      data = await model.fetch()
     }
 
     if (!data) {
