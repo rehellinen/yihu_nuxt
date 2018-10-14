@@ -5,14 +5,15 @@
  */
 import {sellerScheme, getSeller} from "./seller"
 import {bannerScheme, getBanner} from "./banner"
+import {imageScheme, getImage} from "./image"
 
 export const resolvers = {
   Query: {
-    async seller (parent, args) {
+    async seller (parent, args, context, info) {
       return getSeller(parent, args)
     },
-    async banner (parent, args) {
-      return getBanner(parent, args)
+    async banner () {
+      return getBanner()
     }
   }
 }
@@ -23,5 +24,6 @@ export const schema = `
     banner: [Banner]
   }
   ${sellerScheme},
-  ${bannerScheme}
+  ${bannerScheme},
+  ${imageScheme}
   `

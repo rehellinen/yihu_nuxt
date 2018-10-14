@@ -9,12 +9,12 @@ import {BannerModel} from "../../model/BannerModel"
 export const bannerScheme = `
   type Banner {
     id: ID,
-    image_id: Int,
+    image_id: Image,
     listorder: Int,
     name: String
   }
 `
 
-export const getBanner = async (parent, args) => {
+export const getBanner = async () => {
   return await (new BannerModel()).getAll()
 }

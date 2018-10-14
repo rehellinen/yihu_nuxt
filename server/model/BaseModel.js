@@ -21,18 +21,15 @@ export class BaseModel {
 
   /**
    * 根据id获取数据
-   * @param id
-   * @param status
+   * @param id int 数据的ID
+   * @param status Array 要查询的数据的status
+   * @param relation Object 放置关联的相关信息
    * @return {Promise<void>}
    */
-  async getOneById (id, status = [config.status.NORMAL]) {
-    const condition = {
-      id,
-      status
-    }
-
+  async getOneById (id, status = [config.status.NORMAL], relation = {}) {
     let data =  await this.model
-      .where(condition)
+      .where('id', id)
+      .where('status', 'in', status)
       .fetch()
     if (!data) {
       throw new DatabaseException()
@@ -41,7 +38,7 @@ export class BaseModel {
   }
 
   /**
-   * 获取所有信息
+   * 获取所有数据
    * @param status Array 要查询的数据的status
    * @return {Promise<*>}
    */
