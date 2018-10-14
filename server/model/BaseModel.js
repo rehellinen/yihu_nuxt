@@ -26,14 +26,21 @@ export class BaseModel {
    * @param id int 数据的ID
    * @param status Array 要查询的数据的status
    * @param relationName String 关联的模型名称
+   * @param order Array 设置排序的字段
    * @return {Promise<void>}
    */
-  async getOneById (id, status = [config.status.NORMAL], relationName = '') {
+  async getOneById (id, status = [config.status.NORMAL], relationName = '', order = ['id']) {
     let data
-    const model = this.model
+    let model = this.model
       .where('id', id)
       .where('status', 'in', status)
 
+    // 排序相关代码
+    for (let item of order) {
+      model = model.orderBy(item, 'DESC')
+    }
+
+    // 关联相关代码
     if (relationName) {
       data = await model.fetch({withRelated: [relationName]})
     } else {
@@ -50,13 +57,20 @@ export class BaseModel {
    * 获取所有数据
    * @param status Array 要查询的数据的status
    * @param relationName String 关联的模型名称
+   * @param order Array 设置排序的字段
    * @return {Promise<*>}
    */
-  async getAll (status = [config.status.NORMAL], relationName) {
+  async getAll (status = [config.status.NORMAL], relationName, order = ['id']) {
     let data
-    const model = this.model
+    let model = this.model
       .where('status', 'in', status)
 
+    // 排序相关代码
+    for (let item of order) {
+      model = model.orderBy(item, 'DESC')
+    }
+
+    // 关联相关代码
     if (relationName) {
       data = await model.fetchAll({withRelated: [relationName]})
     } else {

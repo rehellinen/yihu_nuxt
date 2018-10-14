@@ -1,4 +1,3 @@
-import {SellerModel} from "../../model/SellerModel"
 import {BannerModel} from "../../model/BannerModel"
 
 /**

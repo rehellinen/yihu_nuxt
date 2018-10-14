@@ -5,7 +5,7 @@
  */
 import {sellerScheme, getSeller} from "./seller"
 import {bannerScheme, getBanner} from "./banner"
-import {imageScheme, getImage} from "./image"
+import {imageScheme} from "./image"
 
 export const resolvers = {
   Query: {
