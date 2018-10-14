@@ -3,12 +3,16 @@
  *  Create By rehellinen
  *  Create On 2018/10/13 19:09
  */
-import {sellerScheme, sellerData} from "./seller"
+import {sellerScheme, getSeller} from "./seller"
+import {bannerScheme, getBanner} from "./banner"
 
 export const resolvers = {
   Query: {
     async seller (parent, args) {
-      return sellerData(parent, args)
+      return getSeller(parent, args)
+    },
+    async banner (parent, args) {
+      return getBanner(parent, args)
     }
   }
 }
@@ -16,6 +20,8 @@ export const resolvers = {
 export const schema = `
   type Query {
     seller(number: Int, telephone: Float): Seller,
+    banner: [Banner]
   }
-  ${sellerScheme}
+  ${sellerScheme},
+  ${bannerScheme}
   `

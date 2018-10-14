@@ -22,12 +22,13 @@ export class BaseModel {
   /**
    * 根据id获取数据
    * @param id
+   * @param status
    * @return {Promise<void>}
    */
-  async getOneById (id) {
+  async getOneById (id, status = [config.status.NORMAL]) {
     const condition = {
       id,
-      status: config.status.NORMAL
+      status
     }
 
     let data =  await this.model
@@ -35,8 +36,23 @@ export class BaseModel {
       .fetch()
     if (!data) {
       throw new DatabaseException()
-
     }
     return data.attributes
+  }
+
+  /**
+   * 获取所有信息
+   * @param status Array 要查询的数据的status
+   * @return {Promise<*>}
+   */
+  async getAll (status = [config.status.NORMAL]) {
+    let data =  await this.model
+      .where('status', 'in', status)
+      .fetchAll()
+
+    if (!data) {
+      throw new DatabaseException()
+    }
+    return data.serialize()
   }
 }
