@@ -6,17 +6,19 @@
 import {DataBase} from './DataBase'
 import config from '../../utils/config'
 import {DatabaseException} from "../libs/exception/DatabaseException"
+import {isEmptyObj} from "../../utils/utils"
 
 export class BaseModel {
   /**
    * 初始化模型
-   * @param modelName 模型名称
    */
-  constructor (modelName) {
-    const db = DataBase.getInstance()
-    this.model = db.Model.extend({
-      tableName: modelName
-    })
+  constructor (conf = {}) {
+    this.db = DataBase.getInstance()
+    if (conf.image) {
+      this.image = this.db.Model.extend({
+        tableName: 'image'
+      })
+    }
   }
 
   /**
@@ -27,10 +29,17 @@ export class BaseModel {
    * @return {Promise<void>}
    */
   async getOneById (id, status = [config.status.NORMAL], relation = {}) {
-    let data =  await this.model
+    let data
+    const model = this.model
       .where('id', id)
       .where('status', 'in', status)
-      .fetch()
+
+    if (isEmptyObj(relation)) {
+      data = model.fetch()
+    } else {
+      data = model.hasOne(relation.model, relation.foreignKey, relation.foreignKeyTarget)
+    }
+
     if (!data) {
       throw new DatabaseException()
     }
@@ -40,12 +49,19 @@ export class BaseModel {
   /**
    * 获取所有数据
    * @param status Array 要查询的数据的status
+   * @param relationName String 关联的模型名称
    * @return {Promise<*>}
    */
-  async getAll (status = [config.status.NORMAL]) {
-    let data =  await this.model
+  async getAll (status = [config.status.NORMAL], relationName) {
+    let data
+    const model = this.model
       .where('status', 'in', status)
-      .fetchAll()
+
+    if (relationName) {
+      data = await model.fetchAll({withRelated: [relationName]})
+    } else {
+      data = await model.fetchAll()
+    }
 
     if (!data) {
       throw new DatabaseException()

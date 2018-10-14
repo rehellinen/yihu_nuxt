@@ -50,7 +50,7 @@ function getRandChars (length = 16) {
   return str
 }
 
-function parseParams(params) {
+function parseParams (params) {
   params = params.toString()
   let paramsObj = {}
   if (params.startsWith('<')) {
@@ -70,4 +70,9 @@ function parseParams(params) {
   return paramsObj
 }
 
-export {parseXML, formatMessage, getRandChars, parseParams}
+function isEmptyObj (obj) {
+  let keys = Object.keys(obj)
+  return keys.length === 0;
+}
+
+export {parseXML, formatMessage, getRandChars, parseParams, isEmptyObj}

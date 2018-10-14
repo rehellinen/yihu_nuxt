@@ -4,22 +4,22 @@
  *  Create On 2018/10/14 15:43
  */
 import {BaseModel} from './BaseModel'
-import config from "../../utils/config"
-import {DatabaseException} from "../libs/exception/DatabaseException"
+import {ImageModel} from "./ImageModel"
+import config from '../../utils/config'
 
 export class BannerModel extends BaseModel {
-  constructor() {
-    super('banner')
+  constructor () {
+    super({ image: true })
+
+    this.model = this.db.Model.extend({
+      tableName: 'banner',
+      image: function () {
+        return this.hasOne(this.image, 'id', 'image_id')
+      }
+    })
   }
 
-  async getAll (status = [config.status.NORMAL]) {
-    let data =  await this.model
-      .where('status', 'in', status)
-      .fetchAll()
-
-    if (!data) {
-      throw new DatabaseException()
-    }
-    return data.serialize()
+  async getBanner () {
+    return await this.getAll(config.status.NORMAL, 'image')
   }
 }
