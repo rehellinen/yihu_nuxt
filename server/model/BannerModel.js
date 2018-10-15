@@ -8,14 +8,16 @@ import config from '../../utils/config'
 
 export class BannerModel extends BaseModel {
   constructor () {
-    super({ image: true })
+    super({
+      relation: ['image']
+    })
 
-    let image = this.image
+    let that = this
 
     this.model = this.db.Model.extend({
       tableName: 'banner',
       image: function () {
-        return this.hasOne(image, 'id', 'image_id')
+        return this.hasOne(that.image, 'id', 'image_id')
       }
     })
   }
