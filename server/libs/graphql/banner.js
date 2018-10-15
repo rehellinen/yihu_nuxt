@@ -10,7 +10,8 @@ export const bannerScheme = `
     id: ID,
     image: Image,
     listorder: Int,
-    name: String
+    name: String,
+    status: Int
   }
 `
 

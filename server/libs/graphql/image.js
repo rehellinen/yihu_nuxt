@@ -9,6 +9,7 @@ import {ImageModel} from "../../model/ImageModel"
 export const imageScheme = `
   type Image {
     id: ID,
-    image_url: String
+    image_url: String,
+    status: Int
   }
 `
