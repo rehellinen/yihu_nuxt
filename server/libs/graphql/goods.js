@@ -29,24 +29,5 @@ export const getOneGoods = async (parent, args) => {
 }
 
 export const getGoods = async (parent, args) => {
-  if (args.type) {
-    return [
-      {
-        id: 1,
-        name: 'etst'
-      },
-
-
-      {
-        id: 2,
-        name: 'etst2222'
-      }]
-  } else {
-    return {
-      id: 1,
-      name: 'etst'
-    }
-  }
-
-  // return await (new BannerModel()).getBanner()
+  return await (new GoodsModel()).getGoods(args.type)
 }

@@ -32,13 +32,24 @@ export class GoodsModel extends BaseModel{
   }
 
   async getOneGoods (id, type) {
+    let relation = this._getRelation(type)
+
+    return await this.getOneById(id, {type}, relation)
+  }
+
+  async getGoods (type) {
+    let relation = this._getRelation(type)
+
+    return await this.getAll({type}, relation, ['listorder', 'id'])
+  }
+
+  _getRelation (type) {
     let relation = ['image', 'category']
     if (type === config.sellerType.SELLER) {
       relation.push('seller')
     } else {
       relation.push('shop')
     }
-
-    return await this.getOneById(id, {type}, relation)
+    return relation
   }
 }
