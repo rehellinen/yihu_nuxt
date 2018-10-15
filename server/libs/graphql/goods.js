@@ -1,5 +1,5 @@
-import {BannerModel} from "../../model/BannerModel"
 import {GoodsModel} from "../../model/GoodsModel"
+import {ParamsException} from "../exception/ParamsException"
 
 /**
  *  goods.js
@@ -29,13 +29,5 @@ export const getOneGoods = async (parent, args) => {
 }
 
 export const getGoods = async (parent, args) => {
-  // 根据type获取商品
-  let condition = {}
-  if (args.type) {
-    condition['type'] = args.type
-  }
-  if (args.category) {
-    condition['category_id'] = args.category
-  }
-  return await (new GoodsModel()).getGoods(condition)
+  return await (new GoodsModel()).getGoods(args)
 }

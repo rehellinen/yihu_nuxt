@@ -38,6 +38,13 @@ export class GoodsModel extends BaseModel{
   }
 
   async getGoods (condition) {
+    // 处理根据shop_id获取商品的情况
+    if (condition.shop_id) {
+      condition.foreign_id = condition.shop_id
+      condition.type = config.sellerType.SHOP
+      delete(condition.shop_id)
+    }
+
     let relation = this._getRelation(condition.type)
 
     return await this.getAll(condition, relation, ['listorder', 'id'])
@@ -47,7 +54,7 @@ export class GoodsModel extends BaseModel{
     let relation = ['image', 'category']
     if (type === config.sellerType.SELLER) {
       relation.push('seller')
-    } else {
+    } else if (type === config.sellerType.SHOP) {
       relation.push('shop')
     }
     return relation
