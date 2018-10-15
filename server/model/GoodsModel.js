@@ -37,10 +37,10 @@ export class GoodsModel extends BaseModel{
     return await this.getOneById(id, {type}, relation)
   }
 
-  async getGoods (type) {
-    let relation = this._getRelation(type)
+  async getGoods (condition) {
+    let relation = this._getRelation(condition.type)
 
-    return await this.getAll({type}, relation, ['listorder', 'id'])
+    return await this.getAll(condition, relation, ['listorder', 'id'])
   }
 
   _getRelation (type) {

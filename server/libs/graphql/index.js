@@ -31,7 +31,7 @@ export const resolvers = {
 export const schema = `
   type Query {
     banner: [Banner],
-    goods(type: Int): [Goods],
+    goods(type: Int, category: Int): [Goods],
     oneGoods(id: Int, type: Int): Goods,
     seller(number: Int, telephone: Float): Seller
   }
