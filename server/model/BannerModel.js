@@ -24,6 +24,6 @@ export class BannerModel extends BaseModel {
 
   async getBanner () {
     let order = ['listorder', 'id']
-    return await this.getAll(config.status.NORMAL, 'image', order)
+    return await this.getAll({}, 'image', order)
   }
 }

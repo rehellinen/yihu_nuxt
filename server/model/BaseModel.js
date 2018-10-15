@@ -39,15 +39,8 @@ export class BaseModel {
    */
   async getOneById (id, condition = {}, relation = []) {
     let data
-    let model = this.model.where('id', id)
-
-    // 条件相关代码
-    if (!condition.hasOwnProperty('status')){
-      condition['status'] = config.status.NORMAL
-    }
-    for (let key in condition) {
-      model = model.where(key, 'in', condition[key])
-    }
+    let model = this.model.forge().where('id', id)
+    this._processCondition(model, condition)
 
     data = await model.fetch({withRelated: relation})
 
@@ -59,31 +52,38 @@ export class BaseModel {
 
   /**
    * 获取所有数据
-   * @param status Array 要查询的数据的status
-   * @param relationName String 关联的模型名称
+   * @param condition Array 查询条件
+   * @param relation String 关联的模型名称
    * @param order Array 设置排序的字段
    * @return {Promise<*>}
    */
-  async getAll (status = [config.status.NORMAL], relationName, order = ['id']) {
+  async getAll (condition = {}, relation = [], order = ['id']) {
     let data
-    let model = this.model
-      .where('status', 'in', status)
+    let model = this.model.forge()
 
-    // 排序相关代码
-    for (let item of order) {
-      model = model.orderBy(item, 'DESC')
-    }
+    this._processCondition(model, condition)
+    this._processOrder(model, order)
 
-    // 关联相关代码
-    if (relationName) {
-      data = await model.fetchAll({withRelated: [relationName]})
-    } else {
-      data = await model.fetchAll()
-    }
+    data = await model.fetchAll({withRelated: relation})
 
     if (!data) {
       throw new DatabaseException()
     }
     return data.serialize()
+  }
+
+  _processCondition (model, condition) {
+    if (!condition.hasOwnProperty('status')){
+      condition['status'] = config.status.NORMAL
+    }
+    for (let key in condition) {
+      model = model.where(key, 'in', condition[key])
+    }
+  }
+
+  _processOrder (model, order) {
+    for (let item of order) {
+      model = model.orderBy(item, 'DESC')
+    }
   }
 }
