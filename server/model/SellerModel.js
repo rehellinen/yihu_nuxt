@@ -9,7 +9,11 @@ import {DatabaseException} from "../libs/exception/DatabaseException"
 
 export class SellerModel extends BaseModel {
   constructor() {
-    super('seller')
+    super()
+
+    this.model = this.db.Model.extend({
+      tableName: 'shop'
+    })
   }
 
   async getSellerByInfo (data) {

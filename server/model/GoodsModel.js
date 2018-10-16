@@ -5,6 +5,8 @@
  */
 import {BaseModel} from "./BaseModel"
 import config from '../../utils/config'
+import {ShopModel} from "./ShopModel"
+import {SellerModel} from "./SellerModel"
 
 export class GoodsModel extends BaseModel{
   constructor () {
@@ -38,16 +40,51 @@ export class GoodsModel extends BaseModel{
   }
 
   async getGoods (condition) {
-    // 处理根据shop_id获取商品的情况
-    if (condition.shop_id) {
-      condition.foreign_id = condition.shop_id
-      condition.type = config.sellerType.SHOP
-      delete(condition.shop_id)
+    let relation = this._getRelation(condition.type)
+    return await this.getAll(condition, relation, ['listorder', 'id'])
+  }
+
+  async getIndexGoods () {
+    // TODO:首页商品优化
+    const {sellersId, shopsId} = await this._getSellerAndShop()
+
+    let newGoods = await this.model
+      .forge()
+      .where('type', config.sellerType.SHOP)
+      .where('foreign_id', 'IN', shopsId)
+      .fetchAll({withRelated: ['image']})
+
+    let oldGoods = await this.model
+      .forge()
+      .where('type', config.sellerType.SELLER)
+      .where('foreign_id', 'IN', sellersId)
+      .fetchAll({withRelated: ['image']})
+
+    return {
+      newGoods: newGoods.serialize().slice(0, 6),
+      oldGoods: oldGoods.serialize().slice(0, 6)
+    }
+  }
+
+  async _getSellerAndShop () {
+    // 获取通过审核的商家
+    const sellers = await (new SellerModel()).getAll()
+    const shops = await (new ShopModel()).getAll()
+
+    let sellersId = []
+    let shopsId = []
+
+    for (let item of sellers) {
+      sellersId.push(item.id)
+    }
+    for (let item of shops) {
+      shopsId.push(item.id)
     }
 
-    let relation = this._getRelation(condition.type)
-
-    return await this.getAll(condition, relation, ['listorder', 'id'])
+    return {
+      sellersId,
+      shopsId
+    }
   }
 
   _getRelation (type) {

@@ -6,7 +6,7 @@
 import {sellerScheme, getSeller} from "./seller"
 import {bannerScheme, getBanner} from "./banner"
 import {imageScheme} from "./image"
-import {goodsScheme, getGoods, getOneGoods} from "./goods"
+import {goodsScheme, getGoods, getOneGoods, getIndexGoods, indexGoodsScheme, getRecentGoods} from "./goods"
 import {shopScheme, getShop} from "./shop"
 import {categoryScheme, getCategory} from "./category"
 import {themeScheme, getTheme} from "./theme"
@@ -24,6 +24,12 @@ export const resolvers = {
     },
     async goods (parent, args) {
       return getGoods(parent, args)
+    },
+    async indexGoods () {
+      return getIndexGoods()
+    },
+    async recentGoods () {
+      return getRecentGoods()
     }
   }
 }
@@ -31,14 +37,17 @@ export const resolvers = {
 export const schema = `
   type Query {
     banner: [Banner],
-    goods(type: Int, category_id: Int, shop_id: Int): [Goods],
+    goods(type: Int, category_id: Int, foreign_id: Int): [Goods],
     oneGoods(id: Int, type: Int): Goods,
+    indexGoods: indexGoods,
+    recentGoods: [Goods]
     seller(number: Int, telephone: Float): Seller
   }
   ${sellerScheme},
   ${bannerScheme},
   ${imageScheme},
   ${goodsScheme},
+  ${indexGoodsScheme},
   ${shopScheme},
   ${categoryScheme},
   ${themeScheme}

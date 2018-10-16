@@ -6,6 +6,13 @@ import {ParamsException} from "../exception/ParamsException"
  *  Create By rehellinen
  *  Create On 2018/10/15 19:28
  */
+export const indexGoodsScheme = `
+  type indexGoods {
+    newGoods: [Goods],
+    oldGoods: [Goods]
+  }
+`
+
 export const goodsScheme = `
   type Goods {
     id: ID,
@@ -29,5 +36,16 @@ export const getOneGoods = async (parent, args) => {
 }
 
 export const getGoods = async (parent, args) => {
+  if (args.foreign_id) {
+    if (!args.type) {
+      throw new ParamsException({
+        message: '必须指定type'
+      })
+    }
+  }
   return await (new GoodsModel()).getGoods(args)
+}
+
+export const getIndexGoods = async () => {
+  return await (new GoodsModel()).getIndexGoods()
 }

@@ -44,7 +44,7 @@ export class BaseModel {
 
     data = await model.fetch({withRelated: relation})
 
-    if (!data) {
+    if (data.isEmpty()) {
       throw new DatabaseException()
     }
     return data.serialize()
@@ -66,7 +66,7 @@ export class BaseModel {
 
     data = await model.fetchAll({withRelated: relation})
 
-    if (!data) {
+    if (data.isEmpty()) {
       throw new DatabaseException()
     }
     return data.serialize()

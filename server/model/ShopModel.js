@@ -6,10 +6,25 @@
 import {BaseModel} from './BaseModel'
 import config from '../../utils/config'
 import {DatabaseException} from "../libs/exception/DatabaseException"
+import {SellerModel} from "./SellerModel"
 
 export class ShopModel extends BaseModel {
-  constructor() {
-    super('shop')
+  constructor () {
+    super({
+      relation: ['avatar_image', 'top_image']
+    })
+
+    let that = this
+
+    this.model = this.db.Model.extend({
+      tableName: 'shop',
+      avatar_image: function () {
+        return this.hasOne(that.avatar_image, 'id', 'avatar_image_id')
+      },
+      top_image: function () {
+        return this.hasOne(that.top_image, 'id', 'top_image_id')
+      }
+    })
   }
 
   async getShopByInfo (data) {
