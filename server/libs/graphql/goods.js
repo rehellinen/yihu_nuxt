@@ -49,3 +49,7 @@ export const getGoods = async (parent, args) => {
 export const getIndexGoods = async () => {
   return await (new GoodsModel()).getIndexGoods()
 }
+
+export const getRecentGoods = async (parent, args) => {
+  return await (new GoodsModel()).getRecentGoods(args.shop_id)
+}

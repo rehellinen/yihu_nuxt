@@ -28,8 +28,8 @@ export const resolvers = {
     async indexGoods () {
       return getIndexGoods()
     },
-    async recentGoods () {
-      return getRecentGoods()
+    async recentGoods (parent, args) {
+      return getRecentGoods(parent, args)
     }
   }
 }
@@ -40,7 +40,7 @@ export const schema = `
     goods(type: Int, category_id: Int, foreign_id: Int): [Goods],
     oneGoods(id: Int, type: Int): Goods,
     indexGoods: indexGoods,
-    recentGoods: [Goods]
+    recentGoods(shop_id: Int): [Goods]
     seller(number: Int, telephone: Float): Seller
   }
   ${sellerScheme},

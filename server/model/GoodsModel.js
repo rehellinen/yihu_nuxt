@@ -50,20 +50,36 @@ export class GoodsModel extends BaseModel{
 
     let newGoods = await this.model
       .forge()
+      .where('status', config.status.NORMAL)
       .where('type', config.sellerType.SHOP)
       .where('foreign_id', 'IN', shopsId)
-      .fetchAll({withRelated: ['image']})
+      .fetchPage({
+        pageSize: 6,
+        withRelated: ['image']
+      })
 
     let oldGoods = await this.model
       .forge()
+      .where('status', config.status.NORMAL)
       .where('type', config.sellerType.SELLER)
       .where('foreign_id', 'IN', sellersId)
-      .fetchAll({withRelated: ['image']})
+      .fetchPage({
+        pageSize: 6,
+        withRelated: ['image']
+      })
 
     return {
-      newGoods: newGoods.serialize().slice(0, 6),
-      oldGoods: oldGoods.serialize().slice(0, 6)
+      newGoods: newGoods.serialize(),
+      oldGoods: oldGoods.serialize()
     }
+  }
+
+  async getRecentGoods (shopId) {
+    return await this.pagination(
+      { pageSize: 12 },
+      { foreign_id: shopId },
+      ['image']
+    )
   }
 
   async _getSellerAndShop () {

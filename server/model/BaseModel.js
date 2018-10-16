@@ -72,6 +72,33 @@ export class BaseModel {
     return data.serialize()
   }
 
+  /**
+   * 分页方法
+   * @param pageConf Object 分页配置
+   * @param condition Array 查询条件
+   * @param relation String 关联的模型名称
+   * @param order Array 设置排序的字段
+   * @return {Promise<*>}
+   */
+  async pagination (pageConf = {}, condition = {}, relation = [], order = ['id']) {
+    let data
+    let model = this.model.forge()
+
+    this._processCondition(model, condition)
+    this._processOrder(model, order)
+
+    data = await model.fetchPage({
+      pageSize: pageConf.pageSize,
+      page: pageConf.page,
+      withRelated: relation
+    })
+
+    if (data.isEmpty()) {
+      throw new DatabaseException()
+    }
+    return data.serialize()
+  }
+
   _processCondition (model, condition) {
     if (!condition.hasOwnProperty('status')){
       condition['status'] = config.status.NORMAL

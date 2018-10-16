@@ -22,5 +22,6 @@ export class DataBase {
     })
 
     this.db = Bookshelf(knex)
+    this.db.plugin('pagination')
   }
 }
