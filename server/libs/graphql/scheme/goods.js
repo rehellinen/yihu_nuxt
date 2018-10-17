@@ -5,25 +5,25 @@
  */
 export const goodsScheme = `
   type Goods {
-    index: indexGoods,
-    category(id: Int): [oneGoods],
-    seller(id: Int): [oneGoods],
-    shop(id: Int): [oneGoods],
-    one(id: Int, type: Int): oneGoods,
-    recent(id: Int): [oneGoods],
-    type(type: Int): [oneGoods]
+    index: IndexGoods,
+    category(id: Int): [OneGoods],
+    seller(id: Int): [OneGoods],
+    shop(id: Int): [OneGoods],
+    one(id: Int, type: Int): OneGoods,
+    recent(id: Int): [OneGoods],
+    type(type: Int): [OneGoods]
   }
 `
 
-export const indexGoodsScheme = `
-  type indexGoods {
-    newGoods: [oneGoods],
-    oldGoods: [oneGoods]
+export const IndexGoodsScheme = `
+  type IndexGoods {
+    newGoods: [OneGoods],
+    oldGoods: [OneGoods]
   }
 `
 
-export const oneGoodsScheme = `
-  type oneGoods {
+export const OneGoodsScheme = `
+  type OneGoods {
     id: ID,
     name: String,
     price: Float,

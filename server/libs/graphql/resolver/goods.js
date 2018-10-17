@@ -8,34 +8,22 @@ import config from '../../../../utils/config'
  */
 export const goodsResolver = {
   Goods: {
-    async index () {
-      return await getIndexGoods()
-    },
-    async category (parent, args) {
-      return await getGoods({
-        category_id: args.id
-      })
-    },
-    async seller (parent, args) {
+    index: async () => await getIndexGoods(),
+    one: async (parent, args) => await getOneGoods(args),
+    type: async (parent, args) => await await getGoods(args),
+    recent: async (parent, args) => await await getRecentGoods(args),
+    category: async (parent, args) => await getGoods({category_id: args.id}),
+    seller: async (parent, args) => {
       return await getGoods({
         foreign_id: args.id,
         type: config.sellerType.SELLER
       })
     },
-    async shop (parent, args) {
+    shop: async (parent, args) => {
       return await getGoods({
         foreign_id: args.id,
         type: config.sellerType.SHOP
       })
-    },
-    async type (parent, args) {
-      return await getGoods(args)
-    },
-    async one (parent, args) {
-      return await getOneGoods(args)
-    },
-    async recent (parent, args) {
-      return await getRecentGoods(args)
     }
   }
 }

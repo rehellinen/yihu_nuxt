@@ -6,8 +6,8 @@
 import {sellerScheme} from "./scheme/seller"
 import {bannerScheme} from "./scheme/banner"
 import {imageScheme} from "./scheme/image"
-import {goodsScheme, indexGoodsScheme, oneGoodsScheme} from "./scheme/goods"
-import {shopScheme} from "./scheme/shop"
+import {goodsScheme, IndexGoodsScheme, OneGoodsScheme} from "./scheme/goods"
+import {shopScheme, oneShopScheme} from "./scheme/shop"
 import {categoryScheme} from "./scheme/category"
 import {themeScheme} from "./scheme/theme"
 
@@ -35,7 +35,8 @@ const query = {
     banner: async () => getBanner(),
     goods: async () => {},
     theme: async () => getTheme(),
-    category: async (parent, args) => getCategory(parent, args)
+    category: async (parent, args) => getCategory(parent, args),
+    shop: async () => {}
   }
 }
 
@@ -47,9 +48,10 @@ export const schema = `
   ${bannerScheme},
   ${imageScheme},
   ${goodsScheme},
-  ${oneGoodsScheme},
-  ${indexGoodsScheme},
+  ${OneGoodsScheme},
+  ${IndexGoodsScheme},
   ${shopScheme},
+  ${oneShopScheme},
   ${categoryScheme},
   ${themeScheme}
 `

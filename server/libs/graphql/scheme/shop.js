@@ -5,6 +5,12 @@
  */
 export const shopScheme = `
   type Shop {
+    normal: [OneShop]
+  }  
+`
+
+export const oneShopScheme = `
+  type OneShop {
     id: ID,
     name: String,
     number: Int,
