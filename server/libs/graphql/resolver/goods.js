@@ -18,15 +18,18 @@ export const goodsResolver = {
     },
     async seller (parent, args) {
       return await getGoods({
-        seller_id: args.id,
+        foreign_id: args.id,
         type: config.sellerType.SELLER
       })
     },
     async shop (parent, args) {
       return await getGoods({
-        shop_id: args.id,
+        foreign_id: args.id,
         type: config.sellerType.SHOP
       })
+    },
+    async type (parent, args) {
+      return await getGoods(args)
     },
     async one (parent, args) {
       return await getOneGoods(args)

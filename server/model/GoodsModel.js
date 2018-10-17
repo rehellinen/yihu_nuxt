@@ -67,7 +67,6 @@ export class GoodsModel extends BaseModel{
         pageSize: 6,
         withRelated: ['image']
       })
-
     return {
       newGoods: newGoods.serialize(),
       oldGoods: oldGoods.serialize()

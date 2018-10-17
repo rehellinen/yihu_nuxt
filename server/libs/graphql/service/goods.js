@@ -1,6 +1,4 @@
 import {GoodsModel} from "../../../model/GoodsModel"
-import {ParamsException} from "../../exception/ParamsException"
-
 /**
  *  goods.js
  *  Create By rehellinen

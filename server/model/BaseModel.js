@@ -43,8 +43,8 @@ export class BaseModel {
     this._processCondition(model, condition)
 
     data = await model.fetch({withRelated: relation})
-
-    if (data.isEmpty()) {
+    console.log(data.attributes)
+    if (!data) {
       throw new DatabaseException()
     }
     return data.serialize()

@@ -23,6 +23,9 @@ const query = {
     },
     async banner () {
       return getBanner()
+    },
+    async goods () {
+      return {}
     }
   }
 }
