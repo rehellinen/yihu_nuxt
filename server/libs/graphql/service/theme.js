@@ -1,4 +1,4 @@
-import {SellerModel} from "../../../model/SellerModel"
+import {ThemeModel} from "../../../model/ThemeModel"
 
 /**
  *  theme.js
@@ -6,6 +6,6 @@ import {SellerModel} from "../../../model/SellerModel"
  *  Create On 2018/10/15 19:42
  */
 
-export const getTheme = async (parent, args) => {
-  return await (new SellerModel()).getSellerByInfo(args)
+export const getTheme = async () => {
+  return await (new ThemeModel()).getTheme()
 }

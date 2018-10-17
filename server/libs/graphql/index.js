@@ -13,8 +13,18 @@ import {themeScheme} from "./scheme/theme"
 
 import {getBanner} from "./service/banner"
 import {getSeller} from "./service/seller"
+import {getTheme} from "./service/theme"
 
 import {goodsResolver} from "./resolver/goods"
+
+const indexScheme = `
+  type Query {
+    banner: [Banner],
+    theme: [Theme],
+    goods: Goods,    
+    seller(number: Int, telephone: Float): Seller    
+  }
+`
 
 const query = {
   Query: {
@@ -26,6 +36,9 @@ const query = {
     },
     async goods () {
       return {}
+    },
+    async theme () {
+      return getTheme()
     }
   }
 }
@@ -33,11 +46,7 @@ const query = {
 export const resolvers = Object.assign(query, goodsResolver)
 
 export const schema = `
-  type Query {
-    banner: [Banner],
-    goods: Goods,
-    seller(number: Int, telephone: Float): Seller
-  },
+  ${indexScheme},
   ${sellerScheme},
   ${bannerScheme},
   ${imageScheme},

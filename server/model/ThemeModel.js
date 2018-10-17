@@ -1,11 +1,11 @@
 /**
- *  BannerModel.js
+ *  ThemeModel.js
  *  Create By rehellinen
- *  Create On 2018/10/14 15:43
+ *  Create On 2018/10/17 15:54
  */
 import {BaseModel} from './BaseModel'
 
-export class BannerModel extends BaseModel {
+export class ThemeModel extends BaseModel {
   constructor () {
     super({
       relation: ['image']
@@ -14,14 +14,14 @@ export class BannerModel extends BaseModel {
     let that = this
 
     this.model = this.db.Model.extend({
-      tableName: 'banner',
+      tableName: 'theme',
       image: function () {
         return this.hasOne(that.image, 'id', 'image_id')
       }
     })
   }
 
-  async getBanner () {
+  async getTheme () {
     let order = ['listorder', 'id']
     return await this.getAll({}, 'image', order)
   }
