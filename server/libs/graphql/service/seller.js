@@ -6,21 +6,6 @@ import {SellerModel} from "../../../model/SellerModel"
  *  Create On 2018/10/13 20:05
  */
 
-export const sellerScheme = `
-  type Seller {
-    id: ID,
-    name: String,
-    number: Int,
-    telephone: Float,
-    email: String,
-    weixin: String
-    zhifubao: String,
-    dormitory: Int,
-    listorder: Int,
-    status: Int
-  }
-`
-
 export const getSeller = async (parent, args) => {
   return await (new SellerModel()).getSellerByInfo(args)
 }

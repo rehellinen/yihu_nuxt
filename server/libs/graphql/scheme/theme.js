@@ -1,5 +1,3 @@
-import {SellerModel} from "../../../model/SellerModel"
-
 /**
  *  theme.js
  *  Create By rehellinen
@@ -14,7 +12,3 @@ export const themeScheme = `
     status: Int
   }
 `
-
-export const getTheme = async (parent, args) => {
-  return await (new SellerModel()).getSellerByInfo(args)
-}

@@ -1,5 +1,3 @@
-import {SellerModel} from "../../../model/SellerModel"
-
 /**
  *  user.js
  *  Create By rehellinen
@@ -20,7 +18,3 @@ export const sellerScheme = `
     status: Int
   }
 `
-
-export const getSeller = async (parent, args) => {
-  return await (new SellerModel()).getSellerByInfo(args)
-}

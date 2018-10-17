@@ -1,5 +1,3 @@
-import {ImageModel} from "../../../model/ImageModel"
-
 /**
  *  image.js
  *  Create By rehellinen
