@@ -26,6 +26,9 @@ export class SellerModel extends BaseModel {
     return await this.pagination(pageConf, {}, [], order)
   }
 
+  async getSellerById (id) {
+    return await this.getOneById(id, {})
+  }
   async getSellerByInfo (data) {
     const condition = {
       number: data.number,
