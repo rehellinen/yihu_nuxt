@@ -43,7 +43,7 @@ export class BaseModel {
     this._processCondition(model, condition)
 
     data = await model.fetch({withRelated: relation})
-    console.log(data.attributes)
+
     if (!data) {
       throw new DatabaseException()
     }

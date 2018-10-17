@@ -12,8 +12,18 @@ export class SellerModel extends BaseModel {
     super()
 
     this.model = this.db.Model.extend({
-      tableName: 'shop'
+      tableName: 'seller'
     })
+  }
+
+  async getNormalSeller () {
+    const pageConf = {
+      pageSize: 12,
+      page: 1
+    }
+    const order = ['listorder', 'id']
+
+    return await this.pagination(pageConf, {}, [], order)
   }
 
   async getSellerByInfo (data) {

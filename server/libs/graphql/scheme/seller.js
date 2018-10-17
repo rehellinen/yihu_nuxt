@@ -6,6 +6,13 @@
 
 export const sellerScheme = `
   type Seller {
+    normal: [OneSeller],
+    one(id: Int): OneSeller
+  }  
+`
+
+export const oneSellerScheme = `
+  type OneSeller {
     id: ID,
     name: String,
     number: Int,
