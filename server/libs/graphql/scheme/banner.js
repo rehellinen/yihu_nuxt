@@ -1,5 +1,3 @@
-import {BannerModel} from "../../model/BannerModel"
-
 /**
  *  banner.js
  *  Create By rehellinen
@@ -14,7 +12,3 @@ export const bannerScheme = `
     status: Int
   }
 `
-
-export const getBanner = async () => {
-  return await (new BannerModel()).getBanner()
-}

@@ -1,5 +1,3 @@
-import {SellerModel} from "../../model/SellerModel"
-
 /**
  *  category.js
  *  Create By rehellinen
@@ -15,7 +13,3 @@ export const categoryScheme = `
     status: Int
   }
 `
-
-export const getCategory = async (parent, args) => {
-  return await (new SellerModel()).getSellerByInfo(args)
-}

@@ -1,12 +1,13 @@
-/**
- *  shop.js
- *  Create By rehellinen
- *  Create On 2018/10/15 19:33
- */
-import {SellerModel} from "../../model/SellerModel"
+import {SellerModel} from "../../../model/SellerModel"
 
-export const shopScheme = `
-  type Shop {
+/**
+ *  user.js
+ *  Create By rehellinen
+ *  Create On 2018/10/13 20:05
+ */
+
+export const sellerScheme = `
+  type Seller {
     id: ID,
     name: String,
     number: Int,
@@ -14,15 +15,12 @@ export const shopScheme = `
     email: String,
     weixin: String
     zhifubao: String,
-    major: String,
-    top_image: Image,
-    avatar_image: Image,
     dormitory: Int,
     listorder: Int,
     status: Int
   }
 `
 
-export const getShop = async (parent, args) => {
+export const getSeller = async (parent, args) => {
   return await (new SellerModel()).getSellerByInfo(args)
 }

@@ -1,4 +1,4 @@
-import {SellerModel} from "../../model/SellerModel"
+import {SellerModel} from "../../../model/SellerModel"
 
 /**
  *  user.js

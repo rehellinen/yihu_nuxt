@@ -1,4 +1,4 @@
-import {ImageModel} from "../../model/ImageModel"
+import {ImageModel} from "../../../model/ImageModel"
 
 /**
  *  image.js
