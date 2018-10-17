@@ -6,12 +6,11 @@
 import {BaseModel} from './BaseModel'
 import config from '../../utils/config'
 import {DatabaseException} from "../libs/exception/DatabaseException"
-import {SellerModel} from "./SellerModel"
 
 export class ShopModel extends BaseModel {
   constructor () {
     super({
-      relation: ['avatar_image', 'top_image']
+      relation: ['image']
     })
 
     let that = this
@@ -19,12 +18,23 @@ export class ShopModel extends BaseModel {
     this.model = this.db.Model.extend({
       tableName: 'shop',
       avatar_image: function () {
-        return this.hasOne(that.avatar_image, 'id', 'avatar_image_id')
+        return this.hasOne(that.image, 'id', 'avatar_image_id')
       },
       top_image: function () {
-        return this.hasOne(that.top_image, 'id', 'top_image_id')
+        return this.hasOne(that.image, 'id', 'top_image_id')
       }
     })
+  }
+
+  async getNormalShop () {
+    const pageConf = {
+      pageSize: 12,
+      page: 1
+    }
+    const relation = ['avatar_image', 'top_image']
+    const order = ['listorder', 'id']
+
+    return await this.pagination(pageConf, {}, relation, order)
   }
 
   async getShopByInfo (data) {

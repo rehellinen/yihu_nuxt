@@ -17,6 +17,7 @@ import {getTheme} from "./service/theme"
 
 import {goodsResolver} from "./resolver/goods"
 import {getCategory} from "./service/category"
+import {shopResolver} from "./resolver/shop"
 
 const indexScheme = `
   type Query {
@@ -33,14 +34,14 @@ const query = {
   Query: {
     seller: async (parent, args) => getSeller(parent, args),
     banner: async () => getBanner(),
-    goods: async () => {},
+    goods: async () => ({}),
     theme: async () => getTheme(),
     category: async (parent, args) => getCategory(parent, args),
-    shop: async () => {}
+    shop: async () => ({})
   }
 }
 
-export const resolvers = Object.assign(query, goodsResolver)
+export const resolvers = Object.assign(query, goodsResolver, shopResolver)
 
 export const schema = `
   ${indexScheme},

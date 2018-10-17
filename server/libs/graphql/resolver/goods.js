@@ -13,17 +13,7 @@ export const goodsResolver = {
     type: async (parent, args) => await await getGoods(args),
     recent: async (parent, args) => await await getRecentGoods(args),
     category: async (parent, args) => await getGoods({category_id: args.id}),
-    seller: async (parent, args) => {
-      return await getGoods({
-        foreign_id: args.id,
-        type: config.sellerType.SELLER
-      })
-    },
-    shop: async (parent, args) => {
-      return await getGoods({
-        foreign_id: args.id,
-        type: config.sellerType.SHOP
-      })
-    }
+    seller: async (parent, args) => await getGoods({ foreign_id: args.id, type: config.sellerType.SELLER}),
+    shop: async (parent, args) => await getGoods({ foreign_id: args.id, type: config.sellerType.SHOP})
   }
 }
