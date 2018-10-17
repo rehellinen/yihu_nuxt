@@ -12,11 +12,10 @@ import {categoryScheme} from "./scheme/category"
 import {themeScheme} from "./scheme/theme"
 
 import {getBanner} from "./service/banner"
-import {getSeller} from "./service/seller"
 import {getTheme} from "./service/theme"
+import {getCategory} from "./service/category"
 
 import {goodsResolver} from "./resolver/goods"
-import {getCategory} from "./service/category"
 import {shopResolver} from "./resolver/shop"
 import {sellerResolver} from "./resolver/seller"
 
@@ -34,11 +33,12 @@ const indexScheme = `
 const query = {
   Query: {
     seller: async () => ({}),
-    banner: async () => getBanner(),
+    shop: async () => ({}),
     goods: async () => ({}),
+    banner: async () => getBanner(),
     theme: async () => getTheme(),
     category: async (parent, args) => getCategory(parent, args),
-    shop: async () => ({})
+
   }
 }
 
