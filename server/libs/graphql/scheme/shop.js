@@ -5,7 +5,8 @@
  */
 export const shopScheme = `
   type Shop {
-    normal: [OneShop]
+    normal: [OneShop],
+    one(id: Int): OneShop
   }  
 `
 

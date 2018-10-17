@@ -37,6 +37,11 @@ export class ShopModel extends BaseModel {
     return await this.pagination(pageConf, {}, relation, order)
   }
 
+  async getShopById (id) {
+    const relation = ['avatar_image', 'top_image']
+    return await this.getOneById(id, {}, relation)
+  }
+
   async getShopByInfo (data) {
     const condition = {
       number: data.number,

@@ -8,3 +8,7 @@ import {ShopModel} from "../../../model/ShopModel"
 export const getShop = async () => {
   return await (new ShopModel()).getNormalShop()
 }
+
+export const getShopById = async (args) => {
+  return await (new ShopModel()).getShopById(args.id)
+}
