@@ -16,30 +16,26 @@ import {getSeller} from "./service/seller"
 import {getTheme} from "./service/theme"
 
 import {goodsResolver} from "./resolver/goods"
+import {getCategory} from "./service/category"
 
 const indexScheme = `
   type Query {
     banner: [Banner],
     theme: [Theme],
-    goods: Goods,    
-    seller(number: Int, telephone: Float): Seller    
+    goods: Goods,  
+    category(id: Int): [Category],
+    seller(number: Int, telephone: Float): Seller,
+    shop: Shop    
   }
 `
-
+// 四个参数：parent, args, context, info
 const query = {
   Query: {
-    async seller (parent, args, context, info) {
-      return getSeller(parent, args)
-    },
-    async banner () {
-      return getBanner()
-    },
-    async goods () {
-      return {}
-    },
-    async theme () {
-      return getTheme()
-    }
+    seller: async (parent, args) => getSeller(parent, args),
+    banner: async () => getBanner(),
+    goods: async () => {},
+    theme: async () => getTheme(),
+    category: async (parent, args) => getCategory(parent, args)
   }
 }
 
