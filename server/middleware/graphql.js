@@ -10,6 +10,11 @@ export const graphql = (app) => {
   const typeDefs = gql(schema)
   const context = ({ctx}) => ctx
 
-  const server = new ApolloServer({ typeDefs, resolvers, context})
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context,
+    debug: false
+  })
   server.applyMiddleware({ app })
 }

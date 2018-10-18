@@ -29,6 +29,7 @@ export const oneShopScheme = `
 export const shopHideScheme = `
   type ShopHide {
     number: Int,
-    dormitory: Int
+    dormitory: Int,
+    openID: String
   }
 `

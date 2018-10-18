@@ -33,8 +33,8 @@ export const OneGoodsScheme = `
     subtitle: String,
     type: Int,
     listorder: Int,
-    seller: Seller,
-    shop: Shop,
+    seller: OneSeller,
+    shop: OneShop,
     image: Image,
     category: Category  
   }

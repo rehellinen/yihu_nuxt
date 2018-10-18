@@ -28,6 +28,7 @@ export const oneSellerScheme = `
 export const sellerHideScheme = `
   type SellerHide {
     number: Int,
-    dormitory: Int
+    dormitory: Int,
+    openID: String
   }
 `
