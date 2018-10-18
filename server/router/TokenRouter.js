@@ -6,11 +6,6 @@ import {Token} from "../controller/Token"
  */
 @controller('token')
 export class TokenRouter {
-  @get('')
-  async getToken (ctx) {
-    await Token.getToken(ctx)
-  }
-
   @get('buyer')
   async getBuyerToken (ctx) {
     await Token.getBuyerToken(ctx)
