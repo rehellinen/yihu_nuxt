@@ -7,7 +7,7 @@ import {oneSellerScheme, sellerScheme, sellerHideScheme} from "./scheme/seller"
 import {bannerScheme} from "./scheme/banner"
 import {imageScheme} from "./scheme/image"
 import {goodsScheme, IndexGoodsScheme, OneGoodsScheme} from "./scheme/goods"
-import {shopScheme, oneShopScheme} from "./scheme/shop"
+import {shopScheme, oneShopScheme, shopHideScheme} from "./scheme/shop"
 import {categoryScheme} from "./scheme/category"
 import {themeScheme} from "./scheme/theme"
 
@@ -16,7 +16,7 @@ import {getTheme} from "./service/theme"
 import {getCategory} from "./service/category"
 
 import {goodsResolver} from "./resolver/goods"
-import {shopResolver} from "./resolver/shop"
+import {shopResolver, oneShopResolver} from "./resolver/shop"
 import {sellerResolver, oneSellerResolver} from "./resolver/seller"
 
 const indexScheme = `
@@ -46,6 +46,7 @@ export const resolvers = Object.assign(
   query,
   goodsResolver,
   shopResolver,
+  oneShopResolver,
   sellerResolver,
   oneSellerResolver
 )
@@ -62,6 +63,7 @@ export const schema = `
   ${IndexGoodsScheme},
   ${shopScheme},
   ${oneShopScheme},
+  ${shopHideScheme},
   ${categoryScheme},
   ${themeScheme}
 `

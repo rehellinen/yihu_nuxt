@@ -14,7 +14,6 @@ export const oneShopScheme = `
   type OneShop {
     id: ID,
     name: String,
-    number: Int,
     telephone: Float,
     email: String,
     weixin: String
@@ -22,8 +21,14 @@ export const oneShopScheme = `
     major: String,
     top_image: Image,
     avatar_image: Image,
-    dormitory: Int,
     listorder: Int,
-    status: Int
+    status: Int,
+    hide: ShopHide
+  }
+`
+export const shopHideScheme = `
+  type ShopHide {
+    number: Int,
+    dormitory: Int
   }
 `
