@@ -8,9 +8,7 @@ import {schema, resolvers} from "../libs/graphql"
 
 export const graphql = (app) => {
   const typeDefs = gql(schema)
-  const context = ({ctx}) => ({
-    token: ctx.request.header.token
-  })
+  const context = ({ctx}) => ctx
 
   const server = new ApolloServer({ typeDefs, resolvers, context})
   server.applyMiddleware({ app })

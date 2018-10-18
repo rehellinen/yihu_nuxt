@@ -3,7 +3,7 @@
  *  Create By rehellinen
  *  Create On 2018/10/13 19:09
  */
-import {oneSellerScheme, sellerScheme} from "./scheme/seller"
+import {oneSellerScheme, sellerScheme, sellerHideScheme} from "./scheme/seller"
 import {bannerScheme} from "./scheme/banner"
 import {imageScheme} from "./scheme/image"
 import {goodsScheme, IndexGoodsScheme, OneGoodsScheme} from "./scheme/goods"
@@ -17,7 +17,7 @@ import {getCategory} from "./service/category"
 
 import {goodsResolver} from "./resolver/goods"
 import {shopResolver} from "./resolver/shop"
-import {sellerResolver} from "./resolver/seller"
+import {sellerResolver, oneSellerResolver} from "./resolver/seller"
 
 const indexScheme = `
   type Query {
@@ -46,13 +46,15 @@ export const resolvers = Object.assign(
   query,
   goodsResolver,
   shopResolver,
-  sellerResolver
+  sellerResolver,
+  oneSellerResolver
 )
 
 export const schema = `
   ${indexScheme},
   ${sellerScheme},
   ${oneSellerScheme},
+  ${sellerHideScheme},
   ${bannerScheme},
   ${imageScheme},
   ${goodsScheme},

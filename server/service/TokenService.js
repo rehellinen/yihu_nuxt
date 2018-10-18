@@ -37,6 +37,13 @@ export class TokenService {
     return info[key]
   }
 
+  static checkToken (ctx) {
+    const token = cache.get(ctx.header.token)
+    if (!token) {
+      throw new TokenException()
+    }
+  }
+
   saveToCache (userId) {
     const cachedKey = getRandChars(32)
     const cachedValue = {

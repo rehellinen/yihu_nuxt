@@ -15,13 +15,19 @@ export const oneSellerScheme = `
   type OneSeller {
     id: ID,
     name: String,
-    number: Int,
     telephone: Float,
     email: String,
     weixin: String
     zhifubao: String,
-    dormitory: Int,
     listorder: Int,
-    status: Int
+    status: Int,
+    hide: SellerHide
+  }
+`
+
+export const sellerHideScheme = `
+  type SellerHide {
+    number: Int,
+    dormitory: Int
   }
 `
