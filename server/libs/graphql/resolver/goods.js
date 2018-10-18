@@ -1,4 +1,4 @@
-import {getGoods, getIndexGoods, getOneGoods, getRecentGoods} from "../service/goods"
+import {getGoods, getIndexGoods, getOneGoods, getRecentGoods, checkGoods} from "../service/goods"
 
 /**
  *  banner.js
@@ -9,10 +9,11 @@ export const goodsResolver = {
   Goods: {
     index: async () => await getIndexGoods(),
     one: async (parent, args) => await getOneGoods(args),
+    check: async (parent, args) => await checkGoods(args),
     type: async (parent, args) => await await getGoods(args, args.page),
     recent: async (parent, args) => await await getRecentGoods(args),
     category: async (parent, args) => await getGoods({category: args.id}, args.page),
     seller: async (parent, args) => await getGoods({seller: args.id}, args.page),
-    shop: async (parent, args) => await getGoods({shop: args.id}, args.page),
+    shop: async (parent, args) => await getGoods({shop: args.id}, args.page)
   }
 }

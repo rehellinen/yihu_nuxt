@@ -9,6 +9,12 @@ export const getOneGoods = async (args) => {
   return await (new GoodsModel()).getOneGoods(args.id, args.type)
 }
 
+export const checkGoods = async (args) => {
+  let str = args.id
+  let ids = str.split('|')
+  return await (new GoodsModel()).checkGoods(ids)
+}
+
 export const getGoods = async (args, page) => {
   let condition = {}
 

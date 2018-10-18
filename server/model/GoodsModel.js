@@ -7,6 +7,7 @@ import {BaseModel} from "./BaseModel"
 import config from '../../utils/config'
 import {ShopModel} from "./ShopModel"
 import {SellerModel} from "./SellerModel"
+import {DatabaseException} from "../libs/exception/DatabaseException"
 
 export class GoodsModel extends BaseModel{
   constructor () {
@@ -37,6 +38,20 @@ export class GoodsModel extends BaseModel{
     let relation = this._getRelation(type)
 
     return await this.getOneById(id, {type}, relation)
+  }
+
+  async checkGoods (ids) {
+    const data = await this.model
+      .forge()
+      .where('id', 'IN', ids)
+      .where('status', config.STATUS.NORMAL)
+      .fetchAll()
+
+    if (data.isEmpty()){
+      throw new DatabaseException()
+    }
+
+    return data.serialize()
   }
 
   async getGoods (condition, page) {

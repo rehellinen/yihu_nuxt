@@ -12,6 +12,7 @@ export const goodsScheme = `
     one(id: Int, type: Int): OneGoods,
     recent(id: Int): [OneGoods],
     type(type: Int, page: Int): [OneGoods]
+    check(id: String): [OneGoods]
   }
 `
 
