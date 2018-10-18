@@ -3,20 +3,11 @@
  *  Create By rehellinen
  *  Create On 2018/9/28 20:19
  */
-import {Token as TokenLibs} from '../libs/token/Token'
-import cache from 'memory-cache'
-import {TokenException} from "../libs/exception/TokenException"
+import {Token as BaseToken} from '../libs/token/Token'
 import {SuccessMessage} from "../libs/exception/SuccessMessage"
 import {BuyerToken} from "../libs/token/BuyerToken"
 
 export class Token {
-  static async getToken(ctx) {
-    let token = await new TokenLibs(ctx.query.code).get()
-    throw new SuccessMessage({
-      data: token
-    })
-  }
-
   static async getBuyerToken(ctx) {
     const token = await (new BuyerToken()).get(ctx.query.code)
     throw new SuccessMessage({
@@ -25,10 +16,14 @@ export class Token {
   }
 
   static async checkToken(ctx) {
-    if (!cache.get(ctx.header.token)) {
-      throw new TokenException()
-    } else {
-      throw new SuccessMessage()
-    }
+    BaseToken.checkToken(ctx)
+    throw new SuccessMessage()
+  }
+
+  static async getToken(ctx) {
+    let token = await new BaseToken(ctx.query.code).get()
+    throw new SuccessMessage({
+      data: token
+    })
   }
 }
