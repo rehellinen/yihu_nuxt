@@ -39,9 +39,13 @@ export class GoodsModel extends BaseModel{
     return await this.getOneById(id, {type}, relation)
   }
 
-  async getGoods (condition) {
+  async getGoods (condition, page) {
     let relation = this._getRelation(condition.type)
-    return await this.getAll(condition, relation, ['listorder', 'id'])
+    let pageConf = {
+      pageSize: 12,
+      page
+    }
+    return await this.pagination(pageConf, condition, relation, ['listorder', 'id'])
   }
 
   async getIndexGoods () {

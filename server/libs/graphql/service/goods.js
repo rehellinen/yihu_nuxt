@@ -1,4 +1,5 @@
 import {GoodsModel} from "../../../model/GoodsModel"
+import config from '../../../../utils/config'
 /**
  *  goods.js
  *  Create By rehellinen
@@ -8,8 +9,25 @@ export const getOneGoods = async (args) => {
   return await (new GoodsModel()).getOneGoods(args.id, args.type)
 }
 
-export const getGoods = async (args) => {
-  return await (new GoodsModel()).getGoods(args)
+export const getGoods = async (args, page) => {
+  let condition = {}
+
+  if (args.hasOwnProperty('type')) {
+    condition.type = args.type
+  }
+  if (args.hasOwnProperty('category')) {
+    condition.category_id = args.category
+  }
+  if (args.hasOwnProperty('seller')) {
+    condition.foreign_id = args.seller
+    condition.type = config.GOODS_TYPE.OLD
+  }
+  if (args.hasOwnProperty('shop')) {
+    condition.foreign_id = args.shop
+    condition.type = config.GOODS_TYPE.NEW
+  }
+
+  return await (new GoodsModel()).getGoods(condition, page)
 }
 
 export const getIndexGoods = async () => {

@@ -6,12 +6,12 @@
 export const goodsScheme = `
   type Goods {
     index: IndexGoods,
-    category(id: Int): [OneGoods],
-    seller(id: Int): [OneGoods],
-    shop(id: Int): [OneGoods],
+    category(id: Int, page: Int): [OneGoods],
+    seller(id: Int, page: Int): [OneGoods],
+    shop(id: Int, page: Int): [OneGoods],
     one(id: Int, type: Int): OneGoods,
     recent(id: Int): [OneGoods],
-    type(type: Int): [OneGoods]
+    type(type: Int, page: Int): [OneGoods]
   }
 `
 
