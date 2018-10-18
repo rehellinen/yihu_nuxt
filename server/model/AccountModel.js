@@ -16,7 +16,7 @@ export class AccountModel extends BaseModel {
     let userId
     const savedData = {
       open_id: data.openid,
-      status: config.status.NORMAL
+      status: config.STATUS.NORMAL
     }
 
     const user = await this.model

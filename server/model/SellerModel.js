@@ -33,7 +33,7 @@ export class SellerModel extends BaseModel {
     const condition = {
       number: data.number,
       telephone: data.telephone,
-      status: config.status.NORMAL
+      status: config.STATUS.NORMAL
     }
 
     const user = await this.model

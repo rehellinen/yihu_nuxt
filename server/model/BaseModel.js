@@ -101,7 +101,7 @@ export class BaseModel {
 
   _processCondition (model, condition) {
     if (!condition.hasOwnProperty('status')){
-      condition['status'] = config.status.NORMAL
+      condition['status'] = config.STATUS.NORMAL
     }
     for (let key in condition) {
       model = model.where(key, 'in', condition[key])

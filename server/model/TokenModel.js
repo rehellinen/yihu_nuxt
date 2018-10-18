@@ -7,7 +7,7 @@ import {BaseModel} from './BaseModel'
 import config from '../../utils/config'
 import {DatabaseException} from "../libs/exception/DatabaseException"
 
-let {tokenType} = config
+let {TOKEN_TYPE} = config
 
 export class TokenModel extends BaseModel{
   constructor () {
@@ -18,7 +18,7 @@ export class TokenModel extends BaseModel{
    * 获取数据库中最新的access_token
    * @param type access_token / ticket
    */
-  async getToken (type = tokenType.ACCESS_TOKEN) {
+  async getToken (type = TOKEN_TYPE.ACCESS_TOKEN) {
     let data =  await this.model
       .where({type})
       .orderBy('id', 'DESC')
@@ -36,7 +36,7 @@ export class TokenModel extends BaseModel{
    * @param type access_token / ticket
    * @return {Promise<boolean>}
    */
-  async saveToken (data, type = tokenType.ACCESS_TOKEN) {
+  async saveToken (data, type = TOKEN_TYPE.ACCESS_TOKEN) {
     let savedData = {
       token: data.access_token || data.ticket,
       expires_in: data.expires_in,

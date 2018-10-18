@@ -9,7 +9,7 @@ import {TokenModel} from '../model/TokenModel'
 import {AccessTokenService} from './AccessTokenService'
 import {WechatException} from "../libs/exception/WechatException"
 
-const {apiUrl, tokenType} = config
+const {apiUrl, TOKEN_TYPE} = config
 const token = new TokenModel()
 
 export class TicketService {
@@ -22,7 +22,7 @@ export class TicketService {
     this.accessToken = await new AccessTokenService().get()
 
     // 从数据库获取token
-    const data = await token.getToken(tokenType.TICKET)
+    const data = await token.getToken(TOKEN_TYPE.TICKET)
 
     // 判断token是否有效
     let isValid = TicketService.isValid(data)
@@ -30,7 +30,7 @@ export class TicketService {
       return data.token
     } else {
       const data = await this.update()
-      token.saveToken(data, tokenType.TICKET)
+      token.saveToken(data, TOKEN_TYPE.TICKET)
       return data.ticket
     }
   }
