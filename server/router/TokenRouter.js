@@ -11,6 +11,11 @@ export class TokenRouter {
     await Token.getToken(ctx)
   }
 
+  @get('mp')
+  async getMpToken (ctx) {
+    await Token.getToken(ctx)
+  }
+
   @get('check')
   async checkToken (ctx) {
     await Token.checkToken(ctx)

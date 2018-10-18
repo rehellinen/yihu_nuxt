@@ -3,7 +3,7 @@
  *  Create By rehellinen
  *  Create On 2018/9/26 10:12
  */
-import config from '../../utils/config'
+import config from '../../../utils/config'
 let {MSG_TYPE, EVENT_TYPE} = config
 const tip = '爱你哟~'
 

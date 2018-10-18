@@ -4,7 +4,7 @@
  *  Create On 2018/10/15 19:33
  */
 import {ShopModel} from "../../../model/ShopModel"
-import {TokenService} from "../../../service/TokenService"
+import {Token} from "../../token/Token"
 
 export const getShop = async () => {
   return await (new ShopModel()).getNormalShop()
@@ -15,7 +15,7 @@ export const getShopById = async (args) => {
 }
 
 export const handleHide = (parent, args, context) => {
-  TokenService.checkToken(context)
+  Token.checkToken(context)
   return {
     number: parent.number,
     dormitory: parent.dormitory

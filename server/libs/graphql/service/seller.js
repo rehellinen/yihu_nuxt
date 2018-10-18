@@ -1,5 +1,5 @@
 import {SellerModel} from "../../../model/SellerModel"
-import {TokenService} from "../../../service/TokenService"
+import {Token} from "../../token/Token"
 
 /**
  *  user.js
@@ -16,7 +16,7 @@ export const getSellerById = async (args) => {
 }
 
 export const handleHide = (parent, args, context) => {
-  TokenService.checkToken(context)
+  Token.checkToken(context)
   return {
     number: parent.number,
     dormitory: parent.dormitory

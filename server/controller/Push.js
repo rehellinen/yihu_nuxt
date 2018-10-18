@@ -1,6 +1,6 @@
 import config from '../../utils/config'
 import {AccountModel} from '../model/AccountModel'
-import {TokenService} from '../service/TokenService'
+import {Token} from '../libs/token/Token'
 import getRawBody from 'raw-body'
 import {ShopModel} from "../model/ShopModel"
 import {SellerModel} from "../model/SellerModel"
@@ -8,7 +8,7 @@ import {SuccessMessage} from "../libs/exception/SuccessMessage"
 
 export class Push {
   static async openPush (ctx) {
-    const userId = TokenService.getSpecifiedValue(ctx)
+    const userId = Token.getSpecifiedValue(ctx)
 
     // req 相关
     const reqDataRaw = await getRawBody(ctx.req, {

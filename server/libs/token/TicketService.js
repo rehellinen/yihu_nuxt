@@ -4,10 +4,10 @@
  *  Create On 2018/9/25 19:23
  */
 import axios from 'axios'
-import config from '../../utils/config'
-import {TokenModel} from '../model/TokenModel'
+import config from '../../../utils/config'
+import {TokenModel} from '../../model/TokenModel'
 import {AccessTokenService} from './AccessTokenService'
-import {WechatException} from "../libs/exception/WechatException"
+import {WechatException} from "../exception/WechatException"
 
 const {apiUrl, TOKEN_TYPE} = config
 const token = new TokenModel()

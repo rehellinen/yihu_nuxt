@@ -3,10 +3,10 @@
  *  Create By rehellinen
  *  Create On 2018/9/27 15:44
  */
-import {TicketService} from './TicketService'
-import {getRandChars} from '../../utils/utils'
+import {TicketService} from '../token/TicketService'
+import {getRandChars} from '../../../utils/utils'
 import sha1 from 'sha1'
-import config from '../../utils/config'
+import config from '../../../utils/config'
 
 let ticketIns = new TicketService()
 
