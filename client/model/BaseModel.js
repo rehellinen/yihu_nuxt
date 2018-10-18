@@ -9,7 +9,7 @@ import {Token} from '../utils/Token'
 
 export class BaseModel {
   constructor() {
-    this.baseUrl = config.restUrl
+    this.baseUrl = config.REST_URL
   }
 
   /**

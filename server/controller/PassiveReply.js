@@ -18,7 +18,7 @@ const readAsync = promisify(fs.readFile)
 
 export class PassiveReply {
   static async validation (ctx) {
-    const token = config.wechat.token
+    const token = config.WECHAT.TOKEN
     const {signature, timestamp, nonce, echostr} = ctx.query
     const str = [token, timestamp, nonce].sort().join('')
     const shaRes = sha1(str)
@@ -27,7 +27,7 @@ export class PassiveReply {
   }
 
   static async passiveReply (ctx) {
-    const token = config.wechat.token
+    const token = config.WECHAT.TOKEN
     const {signature, timestamp, nonce, echostr} = ctx.query
     const str = [token, timestamp, nonce].sort().join('')
     const shaRes = sha1(str)

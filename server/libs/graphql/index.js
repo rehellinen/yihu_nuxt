@@ -37,8 +37,7 @@ const query = {
     goods: async () => ({}),
     banner: async () => getBanner(),
     theme: async () => getTheme(),
-    category: async (parent, args) => getCategory(parent, args),
-
+    category: async (parent, args) => getCategory(parent, args)
   }
 }
 

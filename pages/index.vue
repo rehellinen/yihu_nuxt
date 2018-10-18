@@ -23,8 +23,8 @@
           .section
             p 类型：
             div
-              p(@click="selectType(sellerType.SHOP)" :class="{active: type === sellerType.SHOP}") 自营商家
-              p(@click="selectType(sellerType.SELLER)" :class="{active: type === sellerType.SELLER}") 二手卖家
+              p(@click="selectType(goodsType.NEW)" :class="{active: type === goodsType.NEW}") 自营商家
+              p(@click="selectType(goodsType.OLD)" :class="{active: type === goodsType.OLD}") 二手卖家
           .button(@click='submit')
             p 确定
 </template>
@@ -57,8 +57,8 @@ export default {
     return {
       number: '',
       telephone: '',
-      type: config.sellerType.SHOP,
-      sellerType: config.sellerType
+      type: config.goodsType.NEW,
+      goodsType: config.goodsType
     }
   },
   computed: {

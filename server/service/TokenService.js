@@ -14,8 +14,8 @@ import {TokenException} from "../libs/exception/TokenException"
 export class TokenService {
   constructor (code) {
     this.url = config.apiUrl.userAccessToken
-    this.appId = config.wechat.appId
-    this.appSecret = config.wechat.appSecret
+    this.appId = config.WECHAT.APP_ID
+    this.appSecret = config.WECHAT.APP_SECRET
     this.code = code
   }
 
@@ -48,9 +48,9 @@ export class TokenService {
     const cachedKey = getRandChars(32)
     const cachedValue = {
       userId,
-      scope: config.scope.ACCOUNT
+      scope: config.SCOPE.ACCOUNT
     }
-    cache.put(cachedKey, JSON.stringify(cachedValue), config.tokenExpiresIn, () => {
+    cache.put(cachedKey, JSON.stringify(cachedValue), config.TOKEN_EXPIRES_IN, () => {
       cache.del(cachedKey)
     })
     return cachedKey

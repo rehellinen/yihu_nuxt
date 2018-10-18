@@ -51,7 +51,7 @@ export class GoodsModel extends BaseModel{
     let newGoods = await this.model
       .forge()
       .where('status', config.status.NORMAL)
-      .where('type', config.sellerType.SHOP)
+      .where('type', config.goodsType.NEW)
       .where('foreign_id', 'IN', shopsId)
       .fetchPage({
         pageSize: 6,
@@ -61,7 +61,7 @@ export class GoodsModel extends BaseModel{
     let oldGoods = await this.model
       .forge()
       .where('status', config.status.NORMAL)
-      .where('type', config.sellerType.SELLER)
+      .where('type', config.goodsType.OLD)
       .where('foreign_id', 'IN', sellersId)
       .fetchPage({
         pageSize: 6,
@@ -104,9 +104,9 @@ export class GoodsModel extends BaseModel{
 
   _getRelation (type) {
     let relation = ['image', 'category']
-    if (type === config.sellerType.SELLER) {
+    if (type === config.goodsType.OLD) {
       relation.push('seller')
-    } else if (type === config.sellerType.SHOP) {
+    } else if (type === config.goodsType.NEW) {
       relation.push('shop')
     }
     return relation

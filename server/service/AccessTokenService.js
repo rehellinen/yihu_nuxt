@@ -8,13 +8,13 @@ import config from '../../utils/config'
 import {TokenModel} from '../model/TokenModel'
 import {WechatException} from "../libs/exception/WechatException"
 
-const {apiUrl, wechat} = config
+const {apiUrl, WECHAT} = config
 const token = new TokenModel()
 
 export class AccessTokenService {
   constructor () {
-    this.appId = wechat.appId
-    this.appSecret = wechat.appSecret
+    this.appId = WECHAT.APP_ID
+    this.appSecret = WECHAT.APP_SECRET
   }
 
   /**

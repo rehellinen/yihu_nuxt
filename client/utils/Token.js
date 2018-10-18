@@ -4,8 +4,8 @@ import store from 'store'
 
 class Token {
   constructor () {
-    this.tokenUrl = config.restUrl + '/token'
-    this.verifyUrl = config.restUrl + '/token/check'
+    this.tokenUrl = config.REST_URL + '/token'
+    this.verifyUrl = config.REST_URL + '/token/check'
     this.key = 'token'
   }
 
@@ -38,8 +38,8 @@ class Token {
   }
 
   redirect () {
-    let url = encodeURIComponent(`${config.restUrl}/`)
-    window.location.href = `${config.apiUrl.code}?appid=${config.wechat.appId}&redirect_uri=${url}&response_type=code&scope=snsapi_userinfo#wechat_redirect`
+    let url = encodeURIComponent(`${config.REST_URL}/`)
+    window.location.href = `${config.apiUrl.code}?appid=${config.WECHAT.APP_ID}&redirect_uri=${url}&response_type=code&scope=snsapi_userinfo#wechat_redirect`
   }
 
   async _verifyFromServer (token) {

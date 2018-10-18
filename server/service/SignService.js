@@ -28,7 +28,7 @@ export class SignService {
     let rawStr = this.getRawStr(obj)
 
     return {
-      appId: config.wechat.appId,
+      appId: config.WECHAT.APP_ID,
       timestamp: obj.timestamp,
       nonceStr: obj.noncestr,
       signature: sha1(rawStr)

@@ -22,7 +22,7 @@ export class Push {
     const telephone = reqData.telephone
     const type = reqData.type
 
-    if (type === config.sellerType.SHOP) {
+    if (type === config.goodsType.NEW) {
       await (new ShopModel()).getShopByInfo(reqData)
     } else {
       await (new SellerModel()).getSellerByInfo(reqData)
