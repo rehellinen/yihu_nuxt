@@ -13,6 +13,11 @@ import {WechatException} from "../exception/WechatException"
 import {TokenException} from "../exception/TokenException"
 
 export class Token {
+  constructor (conf = {}) {
+    this.appId = conf.appId
+    this.appSecret = conf.appSecret
+    this.url = conf.url
+  }
   /**
    * 获取指定的数据
    * @param ctx
@@ -47,7 +52,7 @@ export class Token {
     const time = new Date().getTime()
     const prefix = config.TOKEN_PREFIX
 
-    return md5(prefix)
+    return md5(`${str}-${time}-${prefix}`)
   }
 
   /**
@@ -76,7 +81,7 @@ export class Token {
     }, extParams)
 
     const {data} = await axios.get(this.url, { params })
-
+    console.log(data)
     if (!data.openid) {
       throw new WechatException({
         message: data.errmsg

@@ -6,24 +6,27 @@
 import {Token} from "./Token"
 import {AccountModel} from "../../model/AccountModel"
 import config from '../../../utils/config'
+import {BuyerModel} from "../../model/BuyerModel"
 
 export class BuyerToken extends Token{
   constructor() {
-    super()
-    this.appId = config.WECHAT.BUYER_MP.APP_ID
-    this.appSecret = config.WECHAT.BUYER_MP.APP_SECRET
-    this.url = config.WECHAT_API.MP_CODE
+    const conf = {
+      appId: config.WECHAT.BUYER_MP.APP_ID,
+      appSecret: config.WECHAT.BUYER_MP.APP_SECRET,
+      url: config.WECHAT_API.MP_CODE
+    }
+    super(conf)
   }
 
 
-  async get () {
+  async get (code) {
     // 从微信服务器拿到openId
-    // ?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code
     const data = await this.getFromWechat({
-
+      grant_type: 'authorization_code',
+      js_code: code
     })
     // 存入数据库并返回用户ID
-    const userId = await (new AccountModel()).saveOpenId(data)
+    const userId = await (new BuyerModel()).saveOpenId(data.openid)
     // 生成需要缓存的数据
     const cachedData = {
       id: userId,

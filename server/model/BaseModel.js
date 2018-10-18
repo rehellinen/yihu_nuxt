@@ -99,6 +99,40 @@ export class BaseModel {
     return data.serialize()
   }
 
+  /**
+   * 将openId保存到数据库
+   * @param openid
+   * @return {Promise<*>}
+   */
+  async saveOpenId (openid) {
+    let userId
+    const savedData = {
+      open_id: openid,
+      status: config.STATUS.NORMAL
+    }
+
+    const user = await this.model
+      .where(savedData)
+      .fetch()
+
+    if (!user) {
+      let res = await this.model
+        .forge(savedData)
+        .save(null, {method: 'insert'})
+      if (!res) {
+        throw new DatabaseException({
+          message: '写入数据失败',
+          status: 40001
+        })
+      }
+      userId = res.id
+    } else {
+      userId = user.attributes.id
+    }
+
+    return userId
+  }
+
   _processCondition (model, condition) {
     if (!condition.hasOwnProperty('status')){
       condition['status'] = config.STATUS.NORMAL

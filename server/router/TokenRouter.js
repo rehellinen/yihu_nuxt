@@ -11,9 +11,9 @@ export class TokenRouter {
     await Token.getToken(ctx)
   }
 
-  @get('mp')
-  async getMpToken (ctx) {
-    await Token.getToken(ctx)
+  @get('buyer')
+  async getBuyerToken (ctx) {
+    await Token.getBuyerToken(ctx)
   }
 
   @get('check')
