@@ -18,6 +18,19 @@ export class Token {
     this.appSecret = conf.appSecret
     this.url = conf.url
   }
+
+  /**
+   * 验证权限是否合法
+   * @param ctx
+   * @param scope
+   */
+  static checkScope (ctx, scope) {
+    const cachedScope = Token.getSpecifiedValue(ctx, 'scope')
+    if (scope !== cachedScope) {
+      throw new TokenException()
+    }
+  }
+
   /**
    * 获取指定的数据
    * @param ctx
@@ -25,12 +38,14 @@ export class Token {
    * @return {*}
    */
   static getSpecifiedValue (ctx, key = 'id') {
-    const token = cache.get(ctx.header.token)
-    if (!token) {
+    const info = cache.get(ctx.header.token)
+    const infoObj =  JSON.parse(info)
+
+    if (!info || !infoObj[key]) {
       throw new TokenException()
     }
-    const info =  JSON.parse(token)
-    return info[key]
+
+    return infoObj[key]
   }
 
   /**
@@ -63,6 +78,7 @@ export class Token {
     const cachedKey = Token.generateToken()
 
     cache.put(cachedKey, JSON.stringify(cachedValue), config.TOKEN_EXPIRES_IN, () => {
+      console.log('de')
       cache.del(cachedKey)
     })
 
@@ -81,7 +97,7 @@ export class Token {
     }, extParams)
 
     const {data} = await axios.get(this.url, { params })
-    console.log(data)
+
     if (!data.openid) {
       throw new WechatException({
         message: data.errmsg

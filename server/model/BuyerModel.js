@@ -13,4 +13,8 @@ export class BuyerModel extends BaseModel {
       tableName: 'buyer'
     })
   }
+
+  async getBuyerById (id) {
+    return await this.getOneById(id)
+  }
 }

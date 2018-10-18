@@ -10,10 +10,12 @@ import {goodsScheme, IndexGoodsScheme, OneGoodsScheme} from "./scheme/goods"
 import {shopScheme, oneShopScheme, shopHideScheme} from "./scheme/shop"
 import {categoryScheme} from "./scheme/category"
 import {themeScheme} from "./scheme/theme"
+import {buyerScheme} from './scheme/buyer'
 
 import {getBanner} from "./service/banner"
 import {getTheme} from "./service/theme"
 import {getCategory} from "./service/category"
+import {getBuyer} from "./service/buyer"
 
 import {goodsResolver} from "./resolver/goods"
 import {shopResolver, oneShopResolver} from "./resolver/shop"
@@ -21,12 +23,13 @@ import {sellerResolver, oneSellerResolver} from "./resolver/seller"
 
 const indexScheme = `
   type Query {
-    banner: [Banner],
-    theme: [Theme],
-    goods: Goods,  
-    category(id: Int): [Category],
-    seller: Seller,
-    shop: Shop    
+    banner: [Banner]
+    theme: [Theme]
+    buyer: Buyer
+    seller: Seller
+    shop: Shop  
+    goods: Goods
+    category(id: Int): [Category]      
   }
 `
 // 四个参数：parent, args, context, info
@@ -36,6 +39,7 @@ const query = {
     shop: async () => ({}),
     goods: async () => ({}),
     banner: async () => getBanner(),
+    buyer: async (parent, args, context) => getBuyer(parent, args, context),
     theme: async () => getTheme(),
     category: async (parent, args) => getCategory(parent, args)
   }
@@ -51,18 +55,19 @@ export const resolvers = Object.assign(
 )
 
 export const schema = `
-  ${indexScheme},
-  ${sellerScheme},
-  ${oneSellerScheme},
-  ${sellerHideScheme},
-  ${bannerScheme},
-  ${imageScheme},
-  ${goodsScheme},
-  ${OneGoodsScheme},
-  ${IndexGoodsScheme},
-  ${shopScheme},
-  ${oneShopScheme},
-  ${shopHideScheme},
-  ${categoryScheme},
+  ${indexScheme}
+  ${sellerScheme}
+  ${oneSellerScheme}
+  ${sellerHideScheme}
+  ${bannerScheme}
+  ${imageScheme}
+  ${goodsScheme}
+  ${OneGoodsScheme}
+  ${IndexGoodsScheme}
+  ${shopScheme}
+  ${oneShopScheme}
+  ${shopHideScheme}
+  ${categoryScheme}
   ${themeScheme}
+  ${buyerScheme}
 `

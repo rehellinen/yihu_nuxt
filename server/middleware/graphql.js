@@ -14,7 +14,7 @@ export const graphql = (app) => {
     typeDefs,
     resolvers,
     context,
-    debug: false
+    debug: true
   })
   server.applyMiddleware({ app })
 }
