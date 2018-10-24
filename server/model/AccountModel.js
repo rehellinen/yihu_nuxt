@@ -9,7 +9,10 @@ import {DatabaseException} from "../libs/exception/DatabaseException"
 
 export class AccountModel extends BaseModel {
   constructor() {
-    super('account')
+    super()
+    this.model = this.db.Model.extend({
+      tableName: 'account'
+    })
   }
 
   async saveInfo (userId, data) {

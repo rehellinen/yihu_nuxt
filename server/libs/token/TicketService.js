@@ -6,7 +6,7 @@
 import axios from 'axios'
 import config from '../../../utils/config'
 import {TokenModel} from '../../model/TokenModel'
-import {AccessTokenService} from './AccessTokenService'
+import {AccessToken} from '../wechat/AccessToken'
 import {WechatException} from "../exception/WechatException"
 
 const {apiUrl, TOKEN_TYPE} = config
@@ -19,7 +19,7 @@ export class TicketService {
    */
   async get () {
     // 获取access_token
-    this.accessToken = await new AccessTokenService().get()
+    this.accessToken = await new AccessToken().get()
 
     // 从数据库获取token
     const data = await token.getToken(TOKEN_TYPE.TICKET)

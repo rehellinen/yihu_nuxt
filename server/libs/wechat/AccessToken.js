@@ -11,7 +11,7 @@ import {WechatException} from "../exception/WechatException"
 const {apiUrl, WECHAT} = config
 const token = new TokenModel()
 
-export class AccessTokenService {
+export class AccessToken {
   constructor () {
     this.appId = WECHAT.APP_ID
     this.appSecret = WECHAT.APP_SECRET
@@ -25,7 +25,7 @@ export class AccessTokenService {
     // 从数据库获取token
     const data = await token.getToken()
     // 判断token是否有效
-    let isValid = AccessTokenService.isValid(data)
+    let isValid = AccessToken.isValid(data)
     if (isValid) {
       return data.token
     } else {

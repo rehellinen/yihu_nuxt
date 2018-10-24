@@ -4,7 +4,6 @@
  *  Create On 2018/10/18 14:53
  */
 import {Token} from "./Token"
-import {AccountModel} from "../../model/AccountModel"
 import config from '../../../utils/config'
 import {BuyerModel} from "../../model/BuyerModel"
 

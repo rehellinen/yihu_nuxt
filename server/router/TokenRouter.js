@@ -15,4 +15,9 @@ export class TokenRouter {
   async checkToken (ctx) {
     await Token.checkToken(ctx)
   }
+
+  @get('account')
+  async getAccountToken (ctx) {
+    await Token.getAccountToken(ctx)
+  }
 }

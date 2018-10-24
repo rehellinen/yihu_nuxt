@@ -6,6 +6,7 @@
 import {Token as BaseToken} from '../libs/token/Token'
 import {SuccessMessage} from "../libs/exception/SuccessMessage"
 import {BuyerToken} from "../libs/token/BuyerToken"
+import {AccountToken} from "../libs/token/AccountToken"
 
 export class Token {
   static async getBuyerToken(ctx) {
@@ -20,8 +21,8 @@ export class Token {
     throw new SuccessMessage()
   }
 
-  static async getToken(ctx) {
-    let token = await new BaseToken(ctx.query.code).get()
+  static async getAccountToken(ctx) {
+    let token = await new AccountToken(ctx.query.code).get()
     throw new SuccessMessage({
       data: token
     })
