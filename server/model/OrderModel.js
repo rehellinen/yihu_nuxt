@@ -27,11 +27,11 @@ export class OrderModel extends BaseModel {
     })
   }
 
-  async getOrderByStatus (status) {
+  async getOrder (cond) {
     let pageConf = {
       pageSize: 8,
       page: 1
     }
-    return await this.pagination(pageConf, {status})
+    return await this.pagination(pageConf, cond)
   }
 }

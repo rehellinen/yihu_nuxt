@@ -8,9 +8,21 @@ import {Token} from "../../token/Token"
 import config from '../../../../utils/config'
 
 export const getOrder = async (status, ctx) => {
-  Token.checkToken(ctx)
+  let cond = {status}
+  const tokenScope = Token.getSpecifiedValue(ctx, 'scope')
+  const uid = Token.getSpecifiedValue(ctx, 'id')
 
-  return await (new OrderModel()).getOrderByStatus(status)
+  if (tokenScope === config.SCOPE.BUYER) {
+    cond.buyer_id = uid
+  } else if (tokenScope === config.SCOPE.SHOP) {
+    cond.foreign_id = uid
+    cond.type = config.GOODS_TYPE.NEW
+  } else if (tokenScope === config.SCOPE.SELLER) {
+    cond.foreign_id = uid
+    cond.type = config.GOODS_TYPE.OLD
+  }
+
+  return await (new OrderModel()).getOrder(cond)
 }
 
 export const getOrderSuper = async () => {
