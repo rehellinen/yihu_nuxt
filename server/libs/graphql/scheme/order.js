@@ -9,6 +9,7 @@ export const orderScheme = `
     unpaid: [OneOrder],
     paid: [OneOrder],
     delivered: [OneOrder],
+    completed: [OneOrder],
     paidButNoGoods: [OneOrder],
     withdrawing: [OneOrder],
     withdrawn: [OneOrder]
@@ -27,9 +28,9 @@ export const oneOrderScheme = `
     total_count: Int,
     type: Int,
     listorder: Int,
+    goods: [OneGoods],
     seller: OneSeller,
     buyer: Buyer,
-    shop: OneShop,
-    image: Image
+    shop: OneShop
   }
 `

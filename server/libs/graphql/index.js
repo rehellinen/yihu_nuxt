@@ -21,6 +21,7 @@ import {getBuyer} from "./service/buyer"
 import {goodsResolver} from "./resolver/goods"
 import {shopResolver, oneShopResolver} from "./resolver/shop"
 import {sellerResolver, oneSellerResolver} from "./resolver/seller"
+import {orderResolver} from "./resolver/order"
 
 const indexScheme = `
   type Query {
@@ -54,7 +55,8 @@ export const resolvers = Object.assign(
   shopResolver,
   oneShopResolver,
   sellerResolver,
-  oneSellerResolver
+  oneSellerResolver,
+  orderResolver
 )
 
 export const schema = `

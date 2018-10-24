@@ -8,25 +8,30 @@ import {BaseModel} from "./BaseModel"
 export class OrderModel extends BaseModel {
   constructor() {
     super({
-      relation: ['image', 'seller', 'shop', 'theme_category']
+      relation: ['seller', 'shop', 'goods']
     })
 
     let that = this
 
     this.model = this.db.Model.extend({
-      tableName: 'goods',
-      image: function () {
-        return this.hasOne(that.image, 'id', 'image_id')
-      },
+      tableName: 'order',
       seller: function () {
         return this.hasOne(that.seller, 'id', 'foreign_id')
       },
       shop: function () {
         return this.hasOne(that.shop, 'id', 'foreign_id')
       },
-      category: function () {
-        return this.hasOne(that.theme_category, 'id', 'category_id')
+      goods: function () {
+        return this.hasMany(that.goods, 'id', 'order_id')
       }
     })
+  }
+
+  async getOrderByStatus (status) {
+    let pageConf = {
+      pageSize: 8,
+      page: 1
+    }
+    return await this.pagination(pageConf, {status})
   }
 }
