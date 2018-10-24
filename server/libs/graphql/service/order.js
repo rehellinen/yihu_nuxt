@@ -25,8 +25,10 @@ export const getOrder = async (status, ctx) => {
   return await (new OrderModel()).getOrder(cond)
 }
 
-export const getOrderSuper = async () => {
+export const getDeleted = async (ctx) => {
+  Token.checkScope(ctx, config.SCOPE.SUPER)
 
+  return await (new OrderModel()).getOrder({status: config.ORDER_TYPE.DELETED})
 }
 
 export const getOrderSeller = async () => {
