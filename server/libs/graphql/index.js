@@ -11,6 +11,7 @@ import {shopScheme, oneShopScheme, shopHideScheme} from "./scheme/shop"
 import {categoryScheme} from "./scheme/category"
 import {themeScheme} from "./scheme/theme"
 import {buyerScheme} from './scheme/buyer'
+import {orderScheme, oneOrderScheme} from "./scheme/order"
 
 import {getBanner} from "./service/banner"
 import {getTheme} from "./service/theme"
@@ -28,7 +29,8 @@ const indexScheme = `
     buyer: Buyer
     seller: Seller
     shop: Shop  
-    goods: Goods
+    goods: Goods,
+    order: Order,
     category(id: Int): [Category]      
   }
 `
@@ -38,6 +40,7 @@ const query = {
     seller: async () => ({}),
     shop: async () => ({}),
     goods: async () => ({}),
+    order: async () => ({}),
     banner: async () => getBanner(),
     buyer: async (parent, args, context) => getBuyer(parent, args, context),
     theme: async () => getTheme(),
@@ -69,5 +72,7 @@ export const schema = `
   ${shopHideScheme}
   ${categoryScheme}
   ${themeScheme}
-  ${buyerScheme}
+  ${buyerScheme},
+  ${orderScheme},
+  ${oneOrderScheme}
 `
