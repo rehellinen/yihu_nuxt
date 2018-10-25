@@ -6,7 +6,7 @@
 import axios from 'axios'
 import config from '../../../utils/config'
 import {TokenModel} from '../../model/TokenModel'
-import {AccessToken} from '../wechat/AccessToken'
+import {AccessToken} from './AccessToken'
 import {WechatException} from "../exception/WechatException"
 
 const {apiUrl, TOKEN_TYPE} = config
